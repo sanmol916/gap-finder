@@ -1,0 +1,21 @@
+# Render Blueprint - deploy with one click from the repo.
+# Render -> New -> Blueprint -> pick this repo. It reads this file automatically.
+services:
+  - type: web
+    name: gap-finder
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # 1 worker keeps us inside the free 512MB; 120s timeout allows slow review fetches
+    startCommand: gunicorn app:app --workers 1 --timeout 120 --bind 0.0.0.0:$PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      # Set these in the Render dashboard (Environment tab). Optional but recommended.
+      - key: REDDIT_CLIENT_ID
+        sync: false
+      - key: REDDIT_CLIENT_SECRET
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false

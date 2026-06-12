@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>gap-finder &mdash; mine niches for unmet needs</title>
+  <style>
+    :root { --bg:#0f1115; --card:#181b22; --line:#272b35; --text:#e6e8ec;
+            --muted:#9aa3b2; --accent:#5b8cff; --accent2:#1f6feb; --warn:#ffb84d; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text);
+           font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 18px 80px; }
+    h1 { font-size: 26px; margin: 0 0 4px; }
+    h1 .dot { color: var(--accent); }
+    .sub { color: var(--muted); margin: 0 0 22px; }
+    form { background:var(--card); border:1px solid var(--line); border-radius:14px;
+           padding:18px; margin-bottom:24px; }
+    .row { display:flex; gap:10px; flex-wrap:wrap; }
+    .q { flex:1 1 320px; }
+    input[type=text], input[type=number], select {
+      width:100%; background:#0d0f14; border:1px solid var(--line); color:var(--text);
+      border-radius:9px; padding:11px 12px; font-size:15px; }
+    label { display:block; font-size:12px; color:var(--muted); margin:0 0 5px; text-transform:uppercase; letter-spacing:.04em; }
+    .field { margin-top:12px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; }
+    .checks { display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; color:var(--muted); }
+    .checks label { display:flex; align-items:center; gap:7px; text-transform:none; letter-spacing:0; font-size:14px; color:var(--text); }
+    button { margin-top:16px; background:var(--accent2); color:#fff; border:0; border-radius:9px;
+             padding:12px 20px; font-size:15px; font-weight:600; cursor:pointer; }
+    button:hover { background:var(--accent); }
+    details.adv { margin-top:14px; }
+    details.adv summary { cursor:pointer; color:var(--muted); }
+    .stats { display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 18px; }
+    .pill { background:var(--card); border:1px solid var(--line); border-radius:999px; padding:6px 13px; font-size:13px; color:var(--muted); }
+    .pill b { color:var(--text); }
+    .err { background:#2a1d12; border:1px solid #5a3c1a; color:var(--warn);
+           border-radius:10px; padding:10px 14px; margin-bottom:14px; font-size:14px; }
+    .finding { background:var(--card); border:1px solid var(--line); border-radius:12px;
+               padding:13px 15px; margin-bottom:10px; }
+    .finding .score { display:inline-block; min-width:42px; text-align:center; background:#13233f;
+               color:#8fb4ff; border-radius:7px; padding:2px 8px; font-weight:700; font-size:13px; margin-right:8px; }
+    .finding q { font-size:15px; }
+    .finding .meta { color:var(--muted); font-size:12.5px; margin-top:7px; }
+    .finding .meta code { background:#0d0f14; padding:1px 6px; border-radius:5px; }
+    .finding a { color:var(--accent); text-decoration:none; }
+    .stars { color:#ffcf5c; }
+    h2 { font-size:18px; margin:30px 0 12px; border-bottom:1px solid var(--line); padding-bottom:7px; }
+    .llm { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; white-space:pre-wrap; }
+    table { width:100%; border-collapse:collapse; }
+    td, th { text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); font-size:14px; }
+    .kw { color:var(--muted); font-size:14px; line-height:2; }
+    .kw code { background:var(--card); border:1px solid var(--line); padding:2px 8px; border-radius:6px; color:var(--text); }
+    .topbar { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .dl { font-size:14px; color:var(--accent); text-decoration:none; border:1px solid var(--line); padding:7px 12px; border-radius:8px; }
+    .empty { color:var(--muted); }
+    footer { margin-top:40px; color:var(--muted); font-size:13px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>gap<span class="dot">.</span>finder</h1>
+  <p class="sub">Mine Reddit &amp; App Store reviews for unmet needs in any niche.</p>
+
+  <form method="get" action="/">
+    <div class="row">
+      <div class="q">
+        <label for="q">Niche / topic</label>
+        <input type="text" id="q" name="q" placeholder="e.g. youth sports scorekeeping"
+               value="{{ params.query|e }}" autofocus required>
+      </div>
+    </div>
+
+    <div class="checks">
+      <label><input type="checkbox" name="reddit" {{ 'checked' if params.use_reddit else '' }}> Reddit</label>
+      <label><input type="checkbox" name="appstore" {{ 'checked' if params.use_appstore else '' }}> App Store</label>
+      <label><input type="checkbox" name="llm" {{ 'checked' if params.use_llm else '' }}> AI cluster (needs key)</label>
+    </div>
+
+    <details class="adv" {{ 'open' if params.subreddits or params.query else '' }}>
+      <summary>Advanced options</summary>
+      <div class="field">
+        <label for="subreddits">Subreddits (space or comma separated, optional)</label>
+        <input type="text" id="subreddits" name="subreddits"
+               placeholder="e.g. coaching baseball youthsports"
+               value="{{ params.subreddits|join(' ')|e }}">
+      </div>
+      <div class="grid field">
+        <div>
+          <label for="country">App Store country</label>
+          <input type="text" id="country" name="country" value="{{ params.country }}">
+        </div>
+        <div>
+          <label for="appstore_apps">Apps to scan</label>
+          <input type="number" id="appstore_apps" name="appstore_apps" min="1" max="8" value="{{ params.appstore_apps }}">
+        </div>
+        <div>
+          <label for="review_pages">Review pages/app</label>
+          <input type="number" id="review_pages" name="review_pages" min="1" max="6" value="{{ params.review_pages }}">
+        </div>
+        <div>
+          <label for="reddit_limit">Reddit posts</label>
+          <input type="number" id="reddit_limit" name="reddit_limit" min="10" max="80" value="{{ params.reddit_limit }}">
+        </div>
+        <div>
+          <label for="time">Reddit window</label>
+          <select id="time" name="time">
+            {% for t in ['week','month','year','all'] %}
+            <option value="{{ t }}" {{ 'selected' if params.time_filter==t else '' }}>{{ t }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label for="min_score">Min score</label>
+          <input type="number" step="0.1" id="min_score" name="min_score" value="{{ params.min_score }}">
+        </div>
+      </div>
+    </details>
+
+    <button type="submit">Find gaps</button>
+  </form>
+
+  {% if result %}
+    <div class="topbar">
+      <div class="stats">
+        <span class="pill">Items scanned <b>{{ result.stats.items }}</b></span>
+        <span class="pill">Reddit <b>{{ result.stats.reddit }}</b></span>
+        <span class="pill">App Store <b>{{ result.stats.appstore }}</b></span>
+        <span class="pill">Pain findings <b>{{ result.findings|length }}</b></span>
+      </div>
+      <a class="dl" href="/report.md?{{ request.query_string.decode() }}">&darr; Download .md</a>
+    </div>
+
+    {% for e in result.errors %}
+      <div class="err">{{ e }}</div>
+    {% endfor %}
+
+    {% if result.llm_summary %}
+      <h2>Pain themes &amp; product ideas (AI-clustered)</h2>
+      <div class="llm">{{ result.llm_summary }}</div>
+    {% endif %}
+
+    <h2>Top pain quotes <span class="empty">&mdash; ranked by signal &times; popularity</span></h2>
+    {% if not result.findings %}
+      <p class="empty">No strong complaint signals found. Try broader keywords, add subreddits, or lower the min score.</p>
+    {% endif %}
+    {% for f in result.findings[:top] %}
+      <div class="finding">
+        <span class="score">{{ f.score }}</span>
+        <q>{{ f.quote }}</q>
+        <div class="meta">
+          signal: <code>{{ f.signal }}</code> &middot;
+          {% if f.url %}<a href="{{ f.url }}" target="_blank" rel="noopener">{{ f.source }}/{{ f.kind }}</a>{% else %}{{ f.source }}/{{ f.kind }}{% endif %}
+          {% if f.meta.subreddit %} &middot; r/{{ f.meta.subreddit }}{% endif %}
+          {% if f.meta.upvotes is not none %} &middot; {{ f.meta.upvotes }}&uarr;{% endif %}
+          {% if f.meta.app %} &middot; {{ f.meta.app }}{% endif %}
+          {% if f.meta.stars %} &middot; <span class="stars">{{ '★' * f.meta.stars }}</span>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+
+    {% if result.signal_freq %}
+      <h2>Signal phrase frequency</h2>
+      <table>
+        <tr><th>Signal phrase</th><th>Count</th></tr>
+        {% for phrase, count in result.signal_freq[:15] %}
+          <tr><td><code>{{ phrase }}</code></td><td>{{ count }}</td></tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+
+    {% if result.keyword_freq %}
+      <h2>Recurring keywords</h2>
+      <p class="kw">{% for w, c in result.keyword_freq %}<code>{{ w }}</code> {{ c }} &nbsp; {% endfor %}</p>
+    {% endif %}
+  {% endif %}
+
+  <footer>
+    Method: complaint-signal mining. Treat findings as leads &mdash; validate a promising
+    theme with 10+ real users before building.
+  </footer>
+</div>
+</body>
+</html>

@@ -91,8 +91,9 @@ Click **Deploy**, wait ~1 minute. You'll get a URL like `https://gmb-leads-xxxx.
 1. Open the URL.
 2. Paste your Google API key (skip this if you set it as a permanent env var in step 5).
 3. **Pick a State** from the dropdown (it scans that state's major cities) **and/or multi-select
-   specific Cities** from the grouped dropdown (Ctrl/Cmd-click for several). Then choose
-   **Categories** the same way.
+   specific Cities** from the grouped dropdown (Ctrl/Cmd-click for several). Then **type your search
+   keywords / business types** in the keyword box — anything you want, comma separated (preset
+   suggestions appear as you type).
 4. Choose "Top 20 (cheapest)" for the first run → **Find no-website leads**.
 5. Review the table → click **Download CSV** → import into Google Sheets if you like.
 

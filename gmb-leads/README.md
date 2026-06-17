@@ -91,8 +91,9 @@ a website; here's a 1-page site I can set up for you." High-intent, low-competit
 
 ## Coverage
 `presets.json` now spans **all of India** — 36 states & union territories and ~185 major cities.
-The web app turns this into a **State dropdown** + a **City multi-select** (grouped by state), and
-a **Category multi-select**. Edit `presets.json` to add more cities/categories any time.
+The web app turns this into a **State dropdown** + a **City multi-select** (grouped by state), plus a
+**free-text keyword box** (with preset suggestions as you type) — so you can search **any** business
+type or keyword, not just the presets. Edit `presets.json` to add more cities/suggestions any time.
 
 ## FAQ
 
@@ -101,7 +102,7 @@ Yes — it's the recommended approach. The Places API (New) **Text Search** is k
 design (e.g. `"beauty salon in Jaipur, Rajasthan, India"`). Keywords are flexible and match how
 people label businesses, so they surface more results than rigid category-only filters. Tips:
 - Use the business *type* people would search (e.g. `dental clinic`, `boutique`, `car garage`).
-- Run several related keywords (the multi-select lets you queue many at once) to widen coverage.
+- Run several related keywords (comma-separate them in the keyword box) to widen coverage.
 - Each keyword+city search returns up to **60 results** (Google's hard cap), so coverage comes
   from running **many keyword × city combinations**, not from one big query.
 

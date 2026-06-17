@@ -113,10 +113,13 @@ PAGE = """<!doctype html>
   </div>
 
   <div class="field">
-    <label for="categories">Business categories (hold Ctrl / Cmd to pick several)</label>
-    <select id="categories" name="categories" multiple size="8">
-      {% for cat in categories_all %}<option value="{{ cat }}" {{ 'selected' if cat in sel_cats else '' }}>{{ cat }}</option>{% endfor %}
-    </select>
+    <label for="categories">Search keywords / business types (type ANYTHING, comma separated)</label>
+    <input type="text" id="categories" name="categories" value="{{ cats_text|e }}"
+           list="catlist" placeholder="e.g. beauty salon, web design agency, scrap dealer, gym">
+    <datalist id="catlist">
+      {% for cat in categories_all %}<option value="{{ cat }}">{% endfor %}
+    </datalist>
+    <div class="note">Pick from the suggestions as you type, or enter your own keywords - search whatever you want.</div>
   </div>
 
   <button type="submit" name="run" value="1">Find no-website leads</button>
@@ -185,7 +188,7 @@ def index():
         "states": states, "categories_all": categories_all, "server_key": server_key,
         "state": request.args.get("state", ""),
         "sel_cities": request.args.getlist("cities"),
-        "sel_cats": request.args.getlist("categories"),
+        "cats_text": request.args.get("categories", ", ".join(DEFAULT_CATEGORIES)),
         "pages": pages, "cap": cap,
         "ran": False, "error": None, "trimmed": False,
         "leads": [], "total": 0, "nqueries": 0, "csv_data": "",
@@ -207,7 +210,7 @@ def index():
         ctx["error"] = "Choose a state (to scan its cities) and/or pick cities from the dropdown."
         return render_template_string(PAGE, **ctx)
 
-    cats = list(ctx["sel_cats"]) or DEFAULT_CATEGORIES
+    cats = [c.strip() for c in ctx["cats_text"].replace("\n", ",").split(",") if c.strip()] or DEFAULT_CATEGORIES
     cs_map = _city_state_map(states)
 
     queries = []

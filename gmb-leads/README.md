@@ -1,5 +1,8 @@
 # gmb-leads — find local businesses with no website
 
+> **New here? Read [SETUP_GUIDE.md](SETUP_GUIDE.md) — a full beginner, step-by-step walkthrough
+> (install Python, get a Google key, run it, open the sheet, troubleshooting).**
+
 Build a clean lead list of local businesses that **don't have a website** — ideal prospects
 for selling website / digital services. Presets target **North East India** (all 8 states),
 but you can point it anywhere.

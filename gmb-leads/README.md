@@ -1,7 +1,15 @@
 # gmb-leads — find local businesses with no website
 
-> **New here? Read [SETUP_GUIDE.md](SETUP_GUIDE.md) — a full beginner, step-by-step walkthrough
-> (install Python, get a Google key, run it, open the sheet, troubleshooting).**
+> **Run locally?** Read [SETUP_GUIDE.md](SETUP_GUIDE.md) — full beginner walkthrough
+> (install Python, get a Google key, run it, open the sheet, troubleshooting).
+>
+> **Deploy as a website on Vercel?** Read [DEPLOY_VERCEL.md](DEPLOY_VERCEL.md) — deploys just
+> this scraper as a web form, and fixes the "Places API not in the Restrict-key list" issue.
+
+This folder works two ways:
+- **CLI** (`find_leads.py`) — best for big bulk runs; outputs CSV + Excel.
+- **Web app** (`api/index.py`) — a small browser form for quick, targeted lookups; deployable
+  free on Vercel. Capped per run to fit serverless time limits.
 
 Build a clean lead list of local businesses that **don't have a website** — ideal prospects
 for selling website / digital services. Presets target **North East India** (all 8 states),

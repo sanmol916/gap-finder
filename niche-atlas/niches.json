@@ -1,0 +1,1905 @@
+{
+  "meta": {
+    "name": "Niche Atlas",
+    "version": "0.1.0-seed",
+    "description": "A comprehensive, scalable taxonomy of niches in the world, from large domains down to micro-niches. Online and offline, physical and digital, consumer and industrial. Designed to power a funnel-style discovery website and to be expanded toward 10,000+ leaf niches.",
+    "levels": ["domain", "category", "subcategory", "niche", "micro"],
+    "license": "internal-draft"
+  },
+  "domains": [
+    {
+      "id": "agriculture-forestry",
+      "name": "Agriculture, Farming & Forestry",
+      "categories": [
+        {
+          "name": "Crop Farming",
+          "subcategories": [
+            { "name": "Grains & Cereals", "niches": [
+              { "name": "Wheat farming", "micro": ["heirloom/ancient grains", "organic wheat", "durum/pasta wheat"] },
+              { "name": "Rice farming", "micro": ["paddy rice", "upland rice", "aromatic/basmati"] },
+              { "name": "Corn/maize farming", "micro": ["sweet corn", "feed corn", "popcorn varieties"] },
+              { "name": "Millet & sorghum", "micro": [] }
+            ]},
+            { "name": "Fruits & Orchards", "niches": [
+              { "name": "Tropical fruit growing", "micro": ["mango", "dragon fruit", "passionfruit"] },
+              { "name": "Berry farming", "micro": ["blueberry", "strawberry", "goji"] },
+              { "name": "Citrus groves", "micro": ["heirloom citrus", "specialty limes"] },
+              { "name": "Vineyards (table & wine grapes)", "micro": [] }
+            ]},
+            { "name": "Vegetables & Roots", "niches": [
+              { "name": "Heirloom vegetable farming", "micro": [] },
+              { "name": "Greenhouse vegetables", "micro": ["tomatoes", "peppers", "cucumbers"] },
+              { "name": "Mushroom cultivation", "micro": ["gourmet (oyster/shiitake)", "medicinal (lion's mane)", "substrate kits"] }
+            ]},
+            { "name": "Specialty & Cash Crops", "niches": [
+              { "name": "Coffee growing", "micro": ["single-origin", "shade-grown", "specialty micro-lots"] },
+              { "name": "Tea cultivation", "micro": [] },
+              { "name": "Cacao farming", "micro": ["bean-to-bar sourcing"] },
+              { "name": "Hemp/CBD cultivation", "micro": [] },
+              { "name": "Cut-flower farming", "micro": ["wedding florals", "dried flowers"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Livestock & Animal Husbandry",
+          "subcategories": [
+            { "name": "Cattle", "niches": [
+              { "name": "Dairy farming", "micro": ["raw milk", "A2 milk", "artisan cheese herds"] },
+              { "name": "Beef cattle", "micro": ["grass-fed", "wagyu/heritage breeds"] }
+            ]},
+            { "name": "Poultry", "niches": [
+              { "name": "Egg layers", "micro": ["pasture-raised", "heritage breeds"] },
+              { "name": "Broilers", "micro": [] },
+              { "name": "Specialty fowl", "micro": ["quail", "ducks", "geese"] }
+            ]},
+            { "name": "Small & Alternative Livestock", "niches": [
+              { "name": "Goat farming", "micro": ["dairy goats", "meat goats", "fiber goats"] },
+              { "name": "Beekeeping/apiculture", "micro": ["raw honey", "queen rearing", "pollination services"] },
+              { "name": "Insect farming", "micro": ["crickets (protein)", "black soldier fly", "mealworms"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Alternative & Controlled Environment Ag",
+          "subcategories": [
+            { "name": "Indoor Farming", "niches": [
+              { "name": "Vertical farming", "micro": ["leafy greens", "microgreens", "container farms"] },
+              { "name": "Hydroponics", "micro": ["home systems", "commercial NFT"] },
+              { "name": "Aquaponics", "micro": [] }
+            ]},
+            { "name": "Regenerative & Organic", "niches": [
+              { "name": "Regenerative agriculture", "micro": ["cover cropping", "no-till", "carbon farming"] },
+              { "name": "Permaculture design", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Forestry & Land",
+          "subcategories": [
+            { "name": "Timber & Wood", "niches": [
+              { "name": "Sustainable logging", "micro": [] },
+              { "name": "Agroforestry", "micro": ["silvopasture", "alley cropping"] },
+              { "name": "Christmas tree farming", "micro": [] }
+            ]},
+            { "name": "Non-Timber Forest Products", "niches": [
+              { "name": "Maple syrup/sugaring", "micro": [] },
+              { "name": "Wild foraging (commercial)", "micro": ["truffles", "wild mushrooms", "medicinal plants"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fishing-aquaculture",
+      "name": "Fishing & Aquaculture",
+      "categories": [
+        {
+          "name": "Wild Capture Fisheries",
+          "subcategories": [
+            { "name": "Commercial Fishing", "niches": [
+              { "name": "Deep-sea/offshore fishing", "micro": [] },
+              { "name": "Coastal/artisanal fishing", "micro": [] },
+              { "name": "Shellfish harvesting", "micro": ["lobster", "crab", "oyster dredging"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Aquaculture",
+          "subcategories": [
+            { "name": "Finfish Farming", "niches": [
+              { "name": "Salmon farming", "micro": [] },
+              { "name": "Tilapia farming", "micro": [] },
+              { "name": "Ornamental fish breeding", "micro": ["koi", "bettas", "reef fish"] }
+            ]},
+            { "name": "Shellfish & Algae", "niches": [
+              { "name": "Oyster/mussel farming", "micro": [] },
+              { "name": "Shrimp farming", "micro": [] },
+              { "name": "Seaweed/kelp farming", "micro": ["food", "biofuel", "fertilizer"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mining-metals-minerals",
+      "name": "Mining, Metals & Minerals",
+      "categories": [
+        {
+          "name": "Extraction",
+          "subcategories": [
+            { "name": "Metal Ores", "niches": [
+              { "name": "Iron ore mining", "micro": [] },
+              { "name": "Copper mining", "micro": [] },
+              { "name": "Precious metals (gold/silver)", "micro": ["artisanal", "industrial"] },
+              { "name": "Battery metals (lithium/cobalt/nickel)", "micro": ["lithium brine", "hard-rock lithium"] }
+            ]},
+            { "name": "Non-Metallic & Energy Minerals", "niches": [
+              { "name": "Coal mining", "micro": [] },
+              { "name": "Rare earth elements", "micro": [] },
+              { "name": "Industrial minerals (sand/gravel/limestone)", "micro": [] }
+            ]},
+            { "name": "Gemstones", "niches": [
+              { "name": "Diamond mining", "micro": [] },
+              { "name": "Colored gemstones", "micro": ["sapphire", "emerald", "opal"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Processing & Services",
+          "subcategories": [
+            { "name": "Metallurgy", "niches": [
+              { "name": "Smelting & refining", "micro": [] },
+              { "name": "Metal recycling", "micro": ["scrap metal", "e-waste recovery", "catalytic converter recovery"] }
+            ]},
+            { "name": "Mining Tech", "niches": [
+              { "name": "Mine safety & monitoring", "micro": [] },
+              { "name": "Autonomous mining equipment", "micro": [] },
+              { "name": "Mineral exploration data/AI", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy-power",
+      "name": "Energy & Power",
+      "categories": [
+        {
+          "name": "Fossil Fuels",
+          "subcategories": [
+            { "name": "Oil & Gas", "niches": [
+              { "name": "Upstream exploration & drilling", "micro": ["offshore", "shale/fracking"] },
+              { "name": "Midstream (pipelines/storage)", "micro": [] },
+              { "name": "Downstream (refining)", "micro": [] }
+            ]},
+            { "name": "Coal & LNG", "niches": [
+              { "name": "LNG export/import terminals", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Renewables",
+          "subcategories": [
+            { "name": "Solar", "niches": [
+              { "name": "Residential solar install", "micro": ["rooftop", "solar + battery"] },
+              { "name": "Utility-scale solar farms", "micro": [] },
+              { "name": "Solar for off-grid/developing markets", "micro": ["solar lanterns", "solar irrigation"] }
+            ]},
+            { "name": "Wind", "niches": [
+              { "name": "Onshore wind", "micro": [] },
+              { "name": "Offshore wind", "micro": [] },
+              { "name": "Small/residential wind", "micro": [] }
+            ]},
+            { "name": "Other Renewables", "niches": [
+              { "name": "Hydropower", "micro": ["micro-hydro"] },
+              { "name": "Geothermal", "micro": ["residential heat pumps"] },
+              { "name": "Bioenergy/biogas", "micro": ["farm digesters"] },
+              { "name": "Tidal & wave energy", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Storage, Grid & Nuclear",
+          "subcategories": [
+            { "name": "Energy Storage", "niches": [
+              { "name": "Battery storage systems", "micro": ["home batteries", "grid-scale"] },
+              { "name": "Virtual power plants", "micro": [] }
+            ]},
+            { "name": "Grid & Distribution", "niches": [
+              { "name": "Smart grid tech", "micro": [] },
+              { "name": "EV charging networks", "micro": ["home", "fleet/depot", "highway fast-charge"] },
+              { "name": "Microgrids", "micro": [] }
+            ]},
+            { "name": "Nuclear", "niches": [
+              { "name": "Small modular reactors (SMRs)", "micro": [] },
+              { "name": "Fusion research", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "water-utilities-waste",
+      "name": "Water, Utilities & Waste",
+      "categories": [
+        {
+          "name": "Water",
+          "subcategories": [
+            { "name": "Water Supply & Treatment", "niches": [
+              { "name": "Water purification tech", "micro": ["home filtration", "industrial RO"] },
+              { "name": "Desalination", "micro": [] },
+              { "name": "Leak detection & smart metering", "micro": [] }
+            ]},
+            { "name": "Wastewater", "niches": [
+              { "name": "Sewage treatment", "micro": [] },
+              { "name": "Greywater recycling", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Waste Management",
+          "subcategories": [
+            { "name": "Collection & Disposal", "niches": [
+              { "name": "Municipal waste collection", "micro": [] },
+              { "name": "Junk removal/hauling", "micro": [] },
+              { "name": "Hazardous waste handling", "micro": ["medical waste", "chemical"] }
+            ]},
+            { "name": "Recycling & Circular Economy", "niches": [
+              { "name": "Plastics recycling", "micro": [] },
+              { "name": "E-waste recycling", "micro": [] },
+              { "name": "Composting services", "micro": ["residential pickup", "commercial"] },
+              { "name": "Textile recycling", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "environment-climate",
+      "name": "Environment, Climate & Sustainability",
+      "categories": [
+        {
+          "name": "Climate Tech",
+          "subcategories": [
+            { "name": "Carbon", "niches": [
+              { "name": "Carbon capture & storage", "micro": ["direct air capture"] },
+              { "name": "Carbon accounting/offsets", "micro": ["Scope 3 supply-chain", "carbon credit marketplaces"] }
+            ]},
+            { "name": "Climate Adaptation", "niches": [
+              { "name": "Flood/fire/heat risk modeling", "micro": [] },
+              { "name": "Climate-resilient infrastructure", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Conservation & Ecology",
+          "subcategories": [
+            { "name": "Wildlife & Habitat", "niches": [
+              { "name": "Wildlife conservation tech", "micro": ["anti-poaching", "species monitoring"] },
+              { "name": "Reforestation/rewilding", "micro": [] },
+              { "name": "Marine/ocean conservation", "micro": ["coral restoration"] }
+            ]},
+            { "name": "Sustainability Services", "niches": [
+              { "name": "ESG reporting & compliance", "micro": [] },
+              { "name": "Sustainable product certification", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "manufacturing-industrial",
+      "name": "Manufacturing & Industrial",
+      "categories": [
+        {
+          "name": "Production Processes",
+          "subcategories": [
+            { "name": "Discrete Manufacturing", "niches": [
+              { "name": "CNC machining/job shops", "micro": [] },
+              { "name": "Injection molding", "micro": [] },
+              { "name": "3D printing/additive manufacturing", "micro": ["metal AM", "on-demand parts"] },
+              { "name": "Sheet metal fabrication", "micro": [] }
+            ]},
+            { "name": "Process Manufacturing", "niches": [
+              { "name": "Food & beverage processing", "micro": [] },
+              { "name": "Chemical processing", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Industrial Tech (Industry 4.0)",
+          "subcategories": [
+            { "name": "Smart Factory", "niches": [
+              { "name": "Predictive maintenance", "micro": [] },
+              { "name": "Machine vision QA/inspection", "micro": [] },
+              { "name": "Industrial IoT/sensors", "micro": [] },
+              { "name": "Digital twins", "micro": [] }
+            ]},
+            { "name": "Equipment & Tooling", "niches": [
+              { "name": "Industrial equipment resale/parts", "micro": [] },
+              { "name": "Tooling & dies", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "materials-chemicals",
+      "name": "Materials, Chemicals & Plastics",
+      "categories": [
+        {
+          "name": "Advanced Materials",
+          "subcategories": [
+            { "name": "Specialty Materials", "niches": [
+              { "name": "Composites/carbon fiber", "micro": [] },
+              { "name": "Nanomaterials", "micro": [] },
+              { "name": "Biomaterials/bioplastics", "micro": ["mushroom leather", "algae plastics"] },
+              { "name": "Advanced ceramics", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Chemicals",
+          "subcategories": [
+            { "name": "Industrial Chemicals", "niches": [
+              { "name": "Coatings, paints & adhesives", "micro": [] },
+              { "name": "Agrochemicals (fertilizers/pesticides)", "micro": ["bio-pesticides"] }
+            ]},
+            { "name": "Specialty Chemicals", "niches": [
+              { "name": "Cosmetic/fragrance ingredients", "micro": [] },
+              { "name": "Green/sustainable chemistry", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "construction-infrastructure",
+      "name": "Construction & Infrastructure",
+      "categories": [
+        {
+          "name": "Building Construction",
+          "subcategories": [
+            { "name": "Residential", "niches": [
+              { "name": "Custom home building", "micro": ["tiny homes", "passive/net-zero homes"] },
+              { "name": "Modular/prefab construction", "micro": ["3D-printed homes", "container homes"] },
+              { "name": "Home remodeling/renovation", "micro": ["kitchen", "bath", "ADUs"] }
+            ]},
+            { "name": "Commercial & Civil", "niches": [
+              { "name": "Commercial buildings", "micro": [] },
+              { "name": "Roads, bridges & heavy civil", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Trades & ConTech",
+          "subcategories": [
+            { "name": "Skilled Trades", "niches": [
+              { "name": "Electrical contracting", "micro": [] },
+              { "name": "Plumbing", "micro": [] },
+              { "name": "HVAC install & service", "micro": ["heat pump retrofits"] },
+              { "name": "Roofing", "micro": [] },
+              { "name": "Concrete & masonry", "micro": [] }
+            ]},
+            { "name": "Construction Technology", "niches": [
+              { "name": "Bid/estimating software", "micro": [] },
+              { "name": "Jobsite safety & monitoring", "micro": [] },
+              { "name": "Permit/compliance tracking", "micro": [] },
+              { "name": "BIM & project management", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "architecture-engineering",
+      "name": "Architecture, Engineering & Urban Planning",
+      "categories": [
+        {
+          "name": "Design Disciplines",
+          "subcategories": [
+            { "name": "Architecture", "niches": [
+              { "name": "Sustainable/green architecture", "micro": [] },
+              { "name": "Landscape architecture", "micro": [] },
+              { "name": "Interior architecture", "micro": [] }
+            ]},
+            { "name": "Engineering", "niches": [
+              { "name": "Structural engineering", "micro": [] },
+              { "name": "Civil engineering", "micro": [] },
+              { "name": "MEP engineering", "micro": [] },
+              { "name": "Geotechnical engineering", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Urban Systems",
+          "subcategories": [
+            { "name": "Planning", "niches": [
+              { "name": "Urban planning/smart cities", "micro": [] },
+              { "name": "Transit-oriented development", "micro": [] },
+              { "name": "Zoning & feasibility analysis", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "robotics-automation",
+      "name": "Robotics & Automation",
+      "categories": [
+        {
+          "name": "Robot Types",
+          "subcategories": [
+            { "name": "Industrial & Service Robots", "niches": [
+              { "name": "Warehouse/logistics robots", "micro": ["AMRs", "picking arms"] },
+              { "name": "Agricultural robots", "micro": ["weeding", "harvesting"] },
+              { "name": "Cleaning robots", "micro": ["commercial floor care"] },
+              { "name": "Humanoid robots", "micro": [] }
+            ]},
+            { "name": "Drones & UAVs", "niches": [
+              { "name": "Commercial drone services", "micro": ["roof inspection", "agriculture mapping", "surveying"] },
+              { "name": "Delivery drones", "micro": [] },
+              { "name": "FPV/racing drones", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Enabling Tech",
+          "subcategories": [
+            { "name": "Components & Software", "niches": [
+              { "name": "Actuators/motors", "micro": [] },
+              { "name": "Robot operating systems & sim", "micro": [] },
+              { "name": "Computer vision for robotics", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "automotive-road",
+      "name": "Automotive & Road Vehicles",
+      "categories": [
+        {
+          "name": "Vehicle Types",
+          "subcategories": [
+            { "name": "Passenger Vehicles", "niches": [
+              { "name": "Electric vehicles (EVs)", "micro": ["used-EV vetting", "battery health"] },
+              { "name": "Classic/collector cars", "micro": ["restoration", "JDM"] },
+              { "name": "Off-road/overlanding rigs", "micro": [] }
+            ]},
+            { "name": "Two & Three Wheelers", "niches": [
+              { "name": "Motorcycles", "micro": ["adventure", "cafe racers"] },
+              { "name": "E-bikes & e-scooters", "micro": [] }
+            ]},
+            { "name": "Commercial Vehicles", "niches": [
+              { "name": "Trucks & fleets", "micro": [] },
+              { "name": "RVs & campervans", "micro": ["van life conversions"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Tech & Aftermarket",
+          "subcategories": [
+            { "name": "Vehicle Tech", "niches": [
+              { "name": "Autonomous driving", "micro": [] },
+              { "name": "Connected car/telematics", "micro": [] },
+              { "name": "Aftermarket performance/tuning", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aviation-aerospace",
+      "name": "Aviation & Aerospace",
+      "categories": [
+        {
+          "name": "Aviation",
+          "subcategories": [
+            { "name": "Aircraft & Operations", "niches": [
+              { "name": "Commercial airlines", "micro": [] },
+              { "name": "Private/business aviation", "micro": ["fractional jets", "charter"] },
+              { "name": "General aviation (small aircraft)", "micro": ["flight training"] },
+              { "name": "Cargo/air freight", "micro": [] }
+            ]},
+            { "name": "Advanced Air Mobility", "niches": [
+              { "name": "eVTOL/air taxis", "micro": [] },
+              { "name": "Drone airspace management (UTM)", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Aerospace Manufacturing & Services",
+          "subcategories": [
+            { "name": "Manufacturing & MRO", "niches": [
+              { "name": "Aircraft components/parts", "micro": [] },
+              { "name": "Maintenance, repair & overhaul (MRO)", "micro": [] },
+              { "name": "Avionics", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "space-satellites",
+      "name": "Space & Satellites",
+      "categories": [
+        {
+          "name": "Launch & Infrastructure",
+          "subcategories": [
+            { "name": "Access to Space", "niches": [
+              { "name": "Launch services/rockets", "micro": ["small-sat launch"] },
+              { "name": "Spaceports", "micro": [] },
+              { "name": "In-space manufacturing", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Satellites & Applications",
+          "subcategories": [
+            { "name": "Satellite Systems", "niches": [
+              { "name": "Earth observation/imagery", "micro": ["agriculture analytics", "defense intel"] },
+              { "name": "Satellite internet/comms", "micro": [] },
+              { "name": "GPS/navigation services", "micro": [] }
+            ]},
+            { "name": "Space Operations", "niches": [
+              { "name": "Space situational awareness/debris", "micro": [] },
+              { "name": "Amateur astronomy/astrophotography", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "maritime-shipping",
+      "name": "Maritime, Shipping & Ports",
+      "categories": [
+        {
+          "name": "Shipping & Vessels",
+          "subcategories": [
+            { "name": "Commercial Shipping", "niches": [
+              { "name": "Container shipping/freight", "micro": [] },
+              { "name": "Bulk & tanker shipping", "micro": [] },
+              { "name": "Ship management & crewing", "micro": [] }
+            ]},
+            { "name": "Boats & Yachts", "niches": [
+              { "name": "Yacht/boat building", "micro": [] },
+              { "name": "Boat maintenance & marinas", "micro": [] },
+              { "name": "Boat charter/rental", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Ports & Maritime Tech",
+          "subcategories": [
+            { "name": "Port Operations", "niches": [
+              { "name": "Port logistics & automation", "micro": [] },
+              { "name": "Customs/freight forwarding", "micro": [] }
+            ]},
+            { "name": "Maritime Tech", "niches": [
+              { "name": "Autonomous vessels", "micro": [] },
+              { "name": "Vessel tracking/maritime data", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rail-transit",
+      "name": "Rail & Public Transit",
+      "categories": [
+        {
+          "name": "Rail",
+          "subcategories": [
+            { "name": "Rail Systems", "niches": [
+              { "name": "Freight rail", "micro": [] },
+              { "name": "High-speed rail", "micro": [] },
+              { "name": "Rail signaling & safety tech", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Urban Mobility",
+          "subcategories": [
+            { "name": "Public & Shared Transit", "niches": [
+              { "name": "Bus/transit operations", "micro": [] },
+              { "name": "Micromobility (bike/scooter share)", "micro": [] },
+              { "name": "Transit ticketing/MaaS apps", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logistics-supply-chain",
+      "name": "Logistics, Supply Chain & Warehousing",
+      "categories": [
+        {
+          "name": "Movement of Goods",
+          "subcategories": [
+            { "name": "Freight & Delivery", "niches": [
+              { "name": "Last-mile delivery", "micro": [] },
+              { "name": "Freight brokerage/matching", "micro": [] },
+              { "name": "Cold chain logistics", "micro": ["pharma", "food"] },
+              { "name": "Cross-border/customs", "micro": [] }
+            ]},
+            { "name": "Warehousing", "niches": [
+              { "name": "Fulfillment/3PL", "micro": [] },
+              { "name": "Warehouse automation/WMS", "micro": [] },
+              { "name": "Inventory optimization", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Supply Chain Tech",
+          "subcategories": [
+            { "name": "Visibility & Planning", "niches": [
+              { "name": "Supply chain visibility/tracking", "micro": [] },
+              { "name": "Demand forecasting", "micro": [] },
+              { "name": "Supplier sourcing/procurement", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "software-it",
+      "name": "Software & IT",
+      "categories": [
+        {
+          "name": "Software Products",
+          "subcategories": [
+            { "name": "B2B SaaS", "niches": [
+              { "name": "Vertical SaaS (industry-specific)", "micro": ["dental", "legal", "construction", "gyms", "salons"] },
+              { "name": "Horizontal SaaS (CRM/PM/HR)", "micro": [] },
+              { "name": "DevTools & developer platforms", "micro": ["observability", "CI/CD", "API tools"] },
+              { "name": "No-code/low-code platforms", "micro": [] }
+            ]},
+            { "name": "Consumer & Mobile Apps", "niches": [
+              { "name": "Productivity apps", "micro": [] },
+              { "name": "Health/fitness apps", "micro": [] },
+              { "name": "Niche utility apps", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "IT Services & Infrastructure",
+          "subcategories": [
+            { "name": "Services", "niches": [
+              { "name": "Managed IT/MSP", "micro": ["SMB IT support"] },
+              { "name": "Cloud migration & DevOps", "micro": [] },
+              { "name": "IT staffing/outsourcing", "micro": [] }
+            ]},
+            { "name": "Infrastructure", "niches": [
+              { "name": "Data centers", "micro": ["edge", "AI/GPU hosting"] },
+              { "name": "Cloud platforms", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-data",
+      "name": "Artificial Intelligence & Data",
+      "categories": [
+        {
+          "name": "AI Applications",
+          "subcategories": [
+            { "name": "Generative AI", "niches": [
+              { "name": "AI content generation", "micro": ["text", "image", "video", "voice", "music"] },
+              { "name": "Vertical AI agents", "micro": ["legal intake", "sales follow-up", "AI receptionist"] },
+              { "name": "AI coding assistants", "micro": [] }
+            ]},
+            { "name": "Applied ML", "niches": [
+              { "name": "Computer vision", "micro": ["inspection", "medical imaging", "retail analytics"] },
+              { "name": "NLP/speech", "micro": ["transcription", "translation"] },
+              { "name": "Recommendation/personalization", "micro": [] },
+              { "name": "Forecasting/anomaly detection", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "AI Infrastructure & Governance",
+          "subcategories": [
+            { "name": "Tooling", "niches": [
+              { "name": "MLOps/AgentOps", "micro": ["evals", "monitoring", "guardrails"] },
+              { "name": "Vector DBs/RAG infra", "micro": [] },
+              { "name": "Data labeling/synthetic data", "micro": [] }
+            ]},
+            { "name": "Trust & Safety", "niches": [
+              { "name": "AI content authenticity/provenance", "micro": ["deepfake detection", "watermarking"] },
+              { "name": "AI compliance/risk", "micro": [] }
+            ]},
+            { "name": "Data Services", "niches": [
+              { "name": "Data analytics/BI", "micro": ["plain-English BI"] },
+              { "name": "Data engineering/pipelines", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hardware-electronics",
+      "name": "Hardware, Electronics & Semiconductors",
+      "categories": [
+        {
+          "name": "Devices",
+          "subcategories": [
+            { "name": "Consumer Electronics", "niches": [
+              { "name": "Wearables", "micro": ["health rings", "smart glasses"] },
+              { "name": "Smart home devices", "micro": ["energy", "security", "leak detection"] },
+              { "name": "Audio hardware", "micro": ["hi-fi", "hearables"] }
+            ]},
+            { "name": "Embedded & IoT", "niches": [
+              { "name": "IoT sensors/modules", "micro": [] },
+              { "name": "Single-board computers/maker hardware", "micro": ["Arduino/RPi accessories"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Semiconductors",
+          "subcategories": [
+            { "name": "Chips & Fab", "niches": [
+              { "name": "Chip design (fabless)", "micro": ["AI accelerators", "RISC-V"] },
+              { "name": "Semiconductor fabrication", "micro": [] },
+              { "name": "Test & packaging equipment", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "telecom-networking",
+      "name": "Telecommunications & Networking",
+      "categories": [
+        {
+          "name": "Networks",
+          "subcategories": [
+            { "name": "Connectivity", "niches": [
+              { "name": "5G/6G infrastructure", "micro": [] },
+              { "name": "Fiber/broadband deployment", "micro": ["rural broadband"] },
+              { "name": "Satellite/rural connectivity", "micro": [] }
+            ]},
+            { "name": "Enterprise Networking", "niches": [
+              { "name": "SD-WAN/networking gear", "micro": [] },
+              { "name": "Private 5G networks", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Communication Services",
+          "subcategories": [
+            { "name": "Comms Platforms", "niches": [
+              { "name": "VoIP/cloud telephony", "micro": [] },
+              { "name": "CPaaS (SMS/voice APIs)", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "Cybersecurity",
+      "categories": [
+        {
+          "name": "Security Domains",
+          "subcategories": [
+            { "name": "Enterprise Security", "niches": [
+              { "name": "Endpoint/network security", "micro": [] },
+              { "name": "Cloud security", "micro": [] },
+              { "name": "Identity & access management", "micro": [] },
+              { "name": "SMB 'security in a box'", "micro": [] }
+            ]},
+            { "name": "Consumer & Privacy", "niches": [
+              { "name": "Personal privacy tools", "micro": ["data-broker removal", "VPNs"] },
+              { "name": "Scam/fraud protection", "micro": ["deepfake voice fraud defense", "elder scam protection"] }
+            ]},
+            { "name": "Offensive/Defensive Services", "niches": [
+              { "name": "Penetration testing", "micro": [] },
+              { "name": "Incident response/forensics", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internet-digital-media",
+      "name": "Internet, Web & Digital Media",
+      "categories": [
+        {
+          "name": "Online Platforms",
+          "subcategories": [
+            { "name": "Marketplaces & Communities", "niches": [
+              { "name": "Niche marketplaces", "micro": ["hyper-local", "B2B verticals"] },
+              { "name": "Online communities/forums", "micro": [] },
+              { "name": "Directory/listing sites", "micro": ["local services", "events"] }
+            ]},
+            { "name": "Content Platforms", "niches": [
+              { "name": "Newsletters/blogs", "micro": ["B2B niche newsletters"] },
+              { "name": "Podcasting", "micro": ["true crime", "niche industry shows"] },
+              { "name": "Video/streaming channels", "micro": ["faceless channels", "high-CPM finance/B2B"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Creator Economy & Digital Marketing",
+          "subcategories": [
+            { "name": "Creators", "niches": [
+              { "name": "Influencer/UGC creation", "micro": [] },
+              { "name": "Online courses/info products", "micro": [] },
+              { "name": "Membership/community businesses", "micro": [] }
+            ]},
+            { "name": "Growth & SEO", "niches": [
+              { "name": "SEO/programmatic content", "micro": ["rank-and-rent local sites"] },
+              { "name": "Affiliate marketing", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blockchain-crypto-web3",
+      "name": "Blockchain, Crypto & Web3",
+      "categories": [
+        {
+          "name": "Finance & Assets",
+          "subcategories": [
+            { "name": "DeFi & Trading", "niches": [
+              { "name": "DeFi protocols", "micro": ["yield", "lending"] },
+              { "name": "Crypto tax/accounting", "micro": ["on-chain reconciliation"] },
+              { "name": "Stablecoins/payments", "micro": ["cross-border remittances"] }
+            ]},
+            { "name": "Digital Assets", "niches": [
+              { "name": "NFTs (utility/IP)", "micro": [] },
+              { "name": "Tokenization of real-world assets", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Infrastructure",
+          "subcategories": [
+            { "name": "Web3 Infra", "niches": [
+              { "name": "Wallets & custody", "micro": [] },
+              { "name": "On-chain security/auditing", "micro": ["rug-pull detection"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gaming-esports",
+      "name": "Gaming & Esports",
+      "categories": [
+        {
+          "name": "Games",
+          "subcategories": [
+            { "name": "Game Genres", "niches": [
+              { "name": "Indie game development", "micro": ["roguelikes", "cozy games", "soulslikes"] },
+              { "name": "Mobile games", "micro": ["hypercasual", "puzzle"] },
+              { "name": "Tabletop & TTRPG", "micro": ["AI DM tools", "campaign management"] }
+            ]},
+            { "name": "Game Services", "niches": [
+              { "name": "Game asset/tool creation", "micro": [] },
+              { "name": "Localization & playtesting", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Esports & Community",
+          "subcategories": [
+            { "name": "Competitive", "niches": [
+              { "name": "Esports teams/coaching", "micro": ["VOD review", "scrim scheduling"] },
+              { "name": "Tournament platforms", "micro": [] }
+            ]},
+            { "name": "Content & Modding", "niches": [
+              { "name": "Streaming/clip tools", "micro": [] },
+              { "name": "Mod creation/distribution", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "healthcare-medicine",
+      "name": "Healthcare & Medicine",
+      "categories": [
+        {
+          "name": "Care Delivery",
+          "subcategories": [
+            { "name": "Clinical Care", "niches": [
+              { "name": "Telehealth/virtual care", "micro": ["specialty telehealth"] },
+              { "name": "Primary & specialty clinics", "micro": ["med spas/aesthetics", "TRT/hormone clinics", "GLP-1/weight-loss"] },
+              { "name": "Dental care & dentech", "micro": [] },
+              { "name": "Vision & optometry", "micro": [] }
+            ]},
+            { "name": "Conditions & Specialties", "niches": [
+              { "name": "Chronic disease management", "micro": ["diabetes", "autoimmune", "cardiac"] },
+              { "name": "Women's health", "micro": ["fertility", "menopause", "endometriosis", "postpartum"] },
+              { "name": "Rare disease support", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Health Tech & Operations",
+          "subcategories": [
+            { "name": "Digital Health", "niches": [
+              { "name": "Remote patient monitoring", "micro": [] },
+              { "name": "Medical imaging AI", "micro": [] },
+              { "name": "Clinical documentation/scribe AI", "micro": [] }
+            ]},
+            { "name": "Healthcare Admin", "niches": [
+              { "name": "Medical billing/RCM", "micro": ["claim-denial appeals", "bill error checking"] },
+              { "name": "Patient scheduling/intake", "micro": [] },
+              { "name": "Medical devices", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mental-health-wellness",
+      "name": "Mental Health & Wellness",
+      "categories": [
+        {
+          "name": "Mental Health",
+          "subcategories": [
+            { "name": "Therapy & Support", "niches": [
+              { "name": "Teletherapy/counseling", "micro": ["men's mental health", "couples"] },
+              { "name": "Between-session support tools", "micro": ["CBT journaling", "panic-attack coaching"] },
+              { "name": "Workplace mental health", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Wellness",
+          "subcategories": [
+            { "name": "Mind & Body", "niches": [
+              { "name": "Meditation/mindfulness", "micro": ["breathwork", "sleep"] },
+              { "name": "Longevity/healthspan", "micro": ["biomarker tracking", "supplements"] },
+              { "name": "Sleep optimization", "micro": ["CPAP support", "sleep coaching"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pharma-biotech",
+      "name": "Pharmaceuticals & Biotech",
+      "categories": [
+        {
+          "name": "Drug Development",
+          "subcategories": [
+            { "name": "Discovery & Trials", "niches": [
+              { "name": "AI drug discovery", "micro": [] },
+              { "name": "Clinical trial software/matching", "micro": [] },
+              { "name": "Contract research (CRO)", "micro": [] }
+            ]},
+            { "name": "Manufacturing & Supply", "niches": [
+              { "name": "Pharma manufacturing/compounding", "micro": [] },
+              { "name": "Cold-chain pharma logistics", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Life Sciences",
+          "subcategories": [
+            { "name": "Frontier Bio", "niches": [
+              { "name": "Synthetic biology", "micro": ["lab automation", "design tools"] },
+              { "name": "Genomics/personalized medicine", "micro": [] },
+              { "name": "Cell & gene therapy", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fitness-sports-recreation",
+      "name": "Fitness, Sports & Recreation",
+      "categories": [
+        {
+          "name": "Fitness",
+          "subcategories": [
+            { "name": "Training", "niches": [
+              { "name": "Strength training programs", "micro": ["powerlifting", "calisthenics", "kettlebell"] },
+              { "name": "Endurance coaching", "micro": ["marathon", "triathlon", "Hyrox"] },
+              { "name": "AI form/movement analysis", "micro": [] }
+            ]},
+            { "name": "Facilities & Recovery", "niches": [
+              { "name": "Gyms/boutique studios", "micro": ["pickleball facilities"] },
+              { "name": "Physio/rehab", "micro": ["ACL", "runner's knee"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Sports & Outdoor",
+          "subcategories": [
+            { "name": "Participation Sports", "niches": [
+              { "name": "Racket sports", "micro": ["pickleball", "tennis", "padel"] },
+              { "name": "Amateur/rec leagues", "micro": ["scheduling", "officiating"] },
+              { "name": "Youth sports", "micro": ["scorekeeping", "team management"] }
+            ]},
+            { "name": "Outdoor & Adventure", "niches": [
+              { "name": "Climbing/bouldering", "micro": [] },
+              { "name": "Water sports", "micro": ["freediving", "surfing"] },
+              { "name": "Hiking/bikepacking", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beauty-personal-care",
+      "name": "Beauty, Cosmetics & Personal Care",
+      "categories": [
+        {
+          "name": "Products",
+          "subcategories": [
+            { "name": "Skincare & Cosmetics", "niches": [
+              { "name": "Skincare by concern", "micro": ["hyperpigmentation for deep skin tones", "sensitive skin", "acne"] },
+              { "name": "Clean/indie beauty brands", "micro": [] },
+              { "name": "Men's grooming", "micro": [] }
+            ]},
+            { "name": "Hair & Body", "niches": [
+              { "name": "Textured hair care", "micro": ["4c/coily", "locs", "scalp health"] },
+              { "name": "Fragrance/perfume", "micro": ["niche/artisan"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Services & Beauty Tech",
+          "subcategories": [
+            { "name": "Salons & Services", "niches": [
+              { "name": "Hair salons/barbershops", "micro": [] },
+              { "name": "Nail/lash/brow studios", "micro": [] },
+              { "name": "Mobile beauty services", "micro": [] }
+            ]},
+            { "name": "Beauty Tech", "niches": [
+              { "name": "Virtual try-on/shade matching", "micro": [] },
+              { "name": "Personalized routine builders", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finance-banking-investing",
+      "name": "Finance, Banking & Investing",
+      "categories": [
+        {
+          "name": "Personal Finance",
+          "subcategories": [
+            { "name": "Money Management", "niches": [
+              { "name": "Budgeting/expense tools", "micro": ["subscription cancellation", "bill negotiation"] },
+              { "name": "Debt payoff", "micro": ["student loans", "medical debt"] },
+              { "name": "Credit building/repair", "micro": ["dispute automation"] }
+            ]},
+            { "name": "Investing", "niches": [
+              { "name": "Stock/ETF strategies", "micro": ["dividend growth", "options"] },
+              { "name": "Alternative investments", "micro": ["collectibles", "art", "wine"] },
+              { "name": "Retirement/estate planning", "micro": ["annuities"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Banking & Fintech",
+          "subcategories": [
+            { "name": "Banking", "niches": [
+              { "name": "Neobanks/embedded banking", "micro": [] },
+              { "name": "Banking for the underserved", "micro": ["unbanked", "migrant workers"] }
+            ]},
+            { "name": "Payments & Lending", "niches": [
+              { "name": "Payments/POS", "micro": [] },
+              { "name": "Lending/BNPL", "micro": ["cash-flow-based lending"] },
+              { "name": "Cross-border remittances", "micro": [] }
+            ]},
+            { "name": "Accounting & Tax", "niches": [
+              { "name": "Bookkeeping/fractional CFO", "micro": ["bookkeeping for trades"] },
+              { "name": "Tax automation", "micro": ["freelancer/1099", "crypto tax"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance",
+      "categories": [
+        {
+          "name": "Lines of Insurance",
+          "subcategories": [
+            { "name": "Personal Lines", "niches": [
+              { "name": "Health/life insurance", "micro": [] },
+              { "name": "Auto/home insurance", "micro": [] },
+              { "name": "Pet insurance", "micro": [] }
+            ]},
+            { "name": "Commercial & Specialty", "niches": [
+              { "name": "Commercial/SMB insurance", "micro": [] },
+              { "name": "Parametric/climate insurance", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Insurtech & Services",
+          "subcategories": [
+            { "name": "Operations", "niches": [
+              { "name": "Claims automation", "micro": ["claim-denial appeal generation"] },
+              { "name": "Underwriting/risk modeling", "micro": [] },
+              { "name": "Insurance comparison/brokerage", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "real-estate-property",
+      "name": "Real Estate & Property",
+      "categories": [
+        {
+          "name": "Transactions",
+          "subcategories": [
+            { "name": "Residential", "niches": [
+              { "name": "Buying/selling tools", "micro": ["first-time buyer", "offer strategy"] },
+              { "name": "Renting", "micro": ["student/PG housing", "campus sublets", "roommate matching"] }
+            ]},
+            { "name": "Investing", "niches": [
+              { "name": "Rental property investing", "micro": ["house hacking", "BRRRR", "short-term rentals"] },
+              { "name": "Land flipping", "micro": [] },
+              { "name": "Commercial/CRE", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Property Operations & PropTech",
+          "subcategories": [
+            { "name": "Management", "niches": [
+              { "name": "Property management tools", "micro": ["small landlord toolkit", "maintenance triage"] },
+              { "name": "Short-term rental management", "micro": ["co-hosting", "dynamic pricing"] }
+            ]},
+            { "name": "PropTech", "niches": [
+              { "name": "Property tax appeal", "micro": [] },
+              { "name": "Home services marketplaces", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "professional-business-services",
+      "name": "Professional & Business Services",
+      "categories": [
+        {
+          "name": "Advisory",
+          "subcategories": [
+            { "name": "Consulting", "niches": [
+              { "name": "Management/strategy consulting", "micro": [] },
+              { "name": "Niche/industry consulting", "micro": [] },
+              { "name": "Sustainability/ESG consulting", "micro": [] }
+            ]},
+            { "name": "Outsourced Functions", "niches": [
+              { "name": "Virtual assistants/BPO", "micro": [] },
+              { "name": "Outsourced sales/SDR", "micro": [] },
+              { "name": "AI automation agencies", "micro": ["workflow automation for SMBs"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Freelance & Solopreneur",
+          "subcategories": [
+            { "name": "Independent Work", "niches": [
+              { "name": "Freelance ops tools", "micro": ["proposals", "contracts", "invoicing"] },
+              { "name": "White-label agency services", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marketing-advertising-pr",
+      "name": "Marketing, Advertising & PR",
+      "categories": [
+        {
+          "name": "Channels",
+          "subcategories": [
+            { "name": "Digital Marketing", "niches": [
+              { "name": "Paid ads/performance marketing", "micro": [] },
+              { "name": "Content/SEO marketing", "micro": [] },
+              { "name": "Social media/influencer marketing", "micro": [] },
+              { "name": "Email/lifecycle marketing", "micro": [] }
+            ]},
+            { "name": "Brand & PR", "niches": [
+              { "name": "Branding/design studios", "micro": [] },
+              { "name": "Public relations", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "MarTech",
+          "subcategories": [
+            { "name": "Tools", "niches": [
+              { "name": "Analytics/attribution", "micro": [] },
+              { "name": "AI ad creative generation", "micro": [] },
+              { "name": "Reputation/review management", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hr-workforce",
+      "name": "Human Resources & Workforce",
+      "categories": [
+        {
+          "name": "Talent",
+          "subcategories": [
+            { "name": "Recruiting", "niches": [
+              { "name": "Niche/vertical recruiting", "micro": ["healthcare", "blue-collar", "tech"] },
+              { "name": "ATS/recruiting software", "micro": [] },
+              { "name": "Resume/interview prep tools", "micro": ["ATS optimization"] }
+            ]},
+            { "name": "People Ops", "niches": [
+              { "name": "Payroll/benefits", "micro": [] },
+              { "name": "Learning & development", "micro": ["reskilling"] },
+              { "name": "Remote/global employment (EOR)", "micro": [] }
+            ]},
+            { "name": "Workforce", "niches": [
+              { "name": "Gig/shift staffing", "micro": [] },
+              { "name": "Scheduling/time tracking", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "retail-ecommerce",
+      "name": "Retail, E-commerce & Consumer Goods",
+      "categories": [
+        {
+          "name": "Retail Models",
+          "subcategories": [
+            { "name": "E-commerce", "niches": [
+              { "name": "DTC niche brands", "micro": [] },
+              { "name": "Print-on-demand/dropshipping", "micro": [] },
+              { "name": "Subscription boxes", "micro": [] },
+              { "name": "Live shopping/social commerce", "micro": [] }
+            ]},
+            { "name": "Resale & Physical Retail", "niches": [
+              { "name": "Recommerce/resale", "micro": ["sneakers", "thrift flipping", "luxury authentication"] },
+              { "name": "Brick-and-mortar specialty shops", "micro": [] },
+              { "name": "Vending/automated retail", "micro": ["smart vending"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Consumer Goods Categories",
+          "subcategories": [
+            { "name": "Product Niches", "niches": [
+              { "name": "Baby/kids products", "micro": [] },
+              { "name": "Outdoor/camping gear", "micro": [] },
+              { "name": "Eco/sustainable goods", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "food-beverage-nutrition",
+      "name": "Food, Beverage & Nutrition",
+      "categories": [
+        {
+          "name": "Food Products",
+          "subcategories": [
+            { "name": "Packaged Foods (CPG)", "niches": [
+              { "name": "Healthy/functional snacks", "micro": [] },
+              { "name": "Diet-specific foods", "micro": ["gluten-free", "vegan", "keto", "allergy-safe"] },
+              { "name": "Ethnic/regional specialty foods", "micro": [] },
+              { "name": "Alternative proteins", "micro": ["plant-based", "cultivated", "fermentation"] }
+            ]},
+            { "name": "Beverages", "niches": [
+              { "name": "Specialty coffee/tea", "micro": [] },
+              { "name": "Functional drinks", "micro": ["adaptogens", "non-alcoholic"] },
+              { "name": "Craft alcohol", "micro": ["microbrew", "natural wine", "craft spirits"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Nutrition & Diet",
+          "subcategories": [
+            { "name": "Nutrition Services", "niches": [
+              { "name": "Meal planning", "micro": ["condition-specific", "photo-to-macros"] },
+              { "name": "Personalized nutrition", "micro": ["microbiome", "CGM-driven"] },
+              { "name": "Supplements", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "restaurants-food-service",
+      "name": "Restaurants & Food Service",
+      "categories": [
+        {
+          "name": "Establishments",
+          "subcategories": [
+            { "name": "Dining", "niches": [
+              { "name": "Full-service restaurants", "micro": [] },
+              { "name": "Fast casual/QSR", "micro": [] },
+              { "name": "Ghost/cloud kitchens", "micro": ["virtual brands"] },
+              { "name": "Food trucks/carts", "micro": [] }
+            ]},
+            { "name": "Catering & Specialty", "niches": [
+              { "name": "Catering/private chefs", "micro": [] },
+              { "name": "Bakeries/dessert shops", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Restaurant Tech & Ops",
+          "subcategories": [
+            { "name": "Operations", "niches": [
+              { "name": "Reservations/waitlist", "micro": ["no-show prediction"] },
+              { "name": "Kitchen/inventory/costing", "micro": ["waste reduction"] },
+              { "name": "Staff tip-out/scheduling", "micro": [] },
+              { "name": "Delivery/multi-platform management", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fashion-apparel-textiles",
+      "name": "Fashion, Apparel & Textiles",
+      "categories": [
+        {
+          "name": "Apparel",
+          "subcategories": [
+            { "name": "Clothing Niches", "niches": [
+              { "name": "Modest fashion", "micro": [] },
+              { "name": "Adaptive clothing (disability)", "micro": [] },
+              { "name": "Plus-size/petite", "micro": [] },
+              { "name": "Activewear/athleisure", "micro": [] }
+            ]},
+            { "name": "Sustainable & Custom", "niches": [
+              { "name": "Sustainable/circular fashion", "micro": [] },
+              { "name": "Custom/made-to-measure", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Accessories & Production",
+          "subcategories": [
+            { "name": "Accessories", "niches": [
+              { "name": "Jewelry", "micro": ["permanent jewelry", "heirloom redesign"] },
+              { "name": "Footwear", "micro": [] },
+              { "name": "Bags/leather goods", "micro": [] }
+            ]},
+            { "name": "Textiles", "niches": [
+              { "name": "Technical/smart textiles", "micro": [] },
+              { "name": "Fabric sourcing/manufacturing", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hospitality-travel-tourism",
+      "name": "Hospitality, Travel & Tourism",
+      "categories": [
+        {
+          "name": "Travel",
+          "subcategories": [
+            { "name": "Planning & Booking", "niches": [
+              { "name": "Trip planning/itineraries", "micro": ["solo female", "accessible", "family"] },
+              { "name": "Points/miles optimization", "micro": [] },
+              { "name": "Visa/entry-requirement tools", "micro": [] }
+            ]},
+            { "name": "Niche Travel", "niches": [
+              { "name": "Experiential travel", "micro": ["dark tourism", "astro-tourism", "culinary", "pilgrimage"] },
+              { "name": "Van life/RV travel", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Hospitality",
+          "subcategories": [
+            { "name": "Accommodation & Tours", "niches": [
+              { "name": "Hotels/boutique lodging", "micro": [] },
+              { "name": "Short-term rentals/hosting", "micro": [] },
+              { "name": "Local tours/guides", "micro": ["hyper-local micro-guides"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "events-weddings-experiences",
+      "name": "Events, Weddings & Experiences",
+      "categories": [
+        {
+          "name": "Events",
+          "subcategories": [
+            { "name": "Event Types", "niches": [
+              { "name": "Weddings", "micro": ["planning", "vendor marketplaces"] },
+              { "name": "Corporate events/conferences", "micro": [] },
+              { "name": "Festivals/live events", "micro": [] }
+            ]},
+            { "name": "Event Services & Tech", "niches": [
+              { "name": "Ticketing/registration", "micro": [] },
+              { "name": "Event planning/vendor tools", "micro": [] },
+              { "name": "Experiences/classes marketplaces", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "home-garden-diy",
+      "name": "Home, Garden & DIY",
+      "categories": [
+        {
+          "name": "Home Interior",
+          "subcategories": [
+            { "name": "Design & Decor", "niches": [
+              { "name": "Interior design (style niches)", "micro": ["Japandi", "cottagecore", "small-space", "rental-friendly"] },
+              { "name": "Furniture & home goods", "micro": ["handmade", "flat-pack", "restoration"] },
+              { "name": "Home organization/decluttering", "micro": ["move-out", "ADHD-friendly"] }
+            ]},
+            { "name": "Improvement & Maintenance", "niches": [
+              { "name": "DIY/renovation guidance", "micro": ["cost estimation"] },
+              { "name": "Appliance repair/diagnostics", "micro": [] },
+              { "name": "Cleaning services", "micro": ["residential", "commercial contracts"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Outdoor & Garden",
+          "subcategories": [
+            { "name": "Gardening", "niches": [
+              { "name": "Specialty gardening", "micro": ["native plants", "balcony gardens", "bonsai"] },
+              { "name": "Plant care tech", "micro": ["plant ID", "disease detection"] }
+            ]},
+            { "name": "Landscaping & Outdoor Services", "niches": [
+              { "name": "Lawn care/landscaping", "micro": [] },
+              { "name": "Seasonal services", "micro": ["Christmas light install", "snow removal"] },
+              { "name": "Pressure washing", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pets-animal-care",
+      "name": "Pets & Animal Care",
+      "categories": [
+        {
+          "name": "Pet Care",
+          "subcategories": [
+            { "name": "By Species", "niches": [
+              { "name": "Dogs", "micro": ["breed-specific care", "reactive-dog training", "senior dogs"] },
+              { "name": "Cats", "micro": [] },
+              { "name": "Exotics/reptiles/birds", "micro": [] },
+              { "name": "Aquariums", "micro": ["reef tanks", "aquascaping"] }
+            ]},
+            { "name": "Pet Products", "niches": [
+              { "name": "Premium/functional pet food", "micro": [] },
+              { "name": "Pet tech/accessories", "micro": ["GPS trackers", "smart feeders"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Pet Services",
+          "subcategories": [
+            { "name": "Services", "niches": [
+              { "name": "Grooming (incl. mobile)", "micro": [] },
+              { "name": "Boarding/daycare/sitting/walking", "micro": [] },
+              { "name": "Pet waste removal", "micro": [] },
+              { "name": "Veterinary/telehealth", "micro": ["triage"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personal-local-services",
+      "name": "Personal & Local Services",
+      "categories": [
+        {
+          "name": "Home & Errand Services",
+          "subcategories": [
+            { "name": "On-Demand Help", "niches": [
+              { "name": "Handyman/odd jobs", "micro": [] },
+              { "name": "Moving/hauling", "micro": [] },
+              { "name": "Errand/concierge services", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Specialized Local Services",
+          "subcategories": [
+            { "name": "Professional Local", "niches": [
+              { "name": "Notary/loan signing", "micro": ["mobile notary"] },
+              { "name": "Permit expediting", "micro": [] },
+              { "name": "Tutoring/lessons (local)", "micro": [] },
+              { "name": "ATM/vending route operations", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "education-edtech",
+      "name": "Education & EdTech",
+      "categories": [
+        {
+          "name": "Learning Segments",
+          "subcategories": [
+            { "name": "Academic", "niches": [
+              { "name": "K-12 tutoring", "micro": ["dyslexia/reading", "math anxiety"] },
+              { "name": "Homeschool/microschools", "micro": ["learning pods"] },
+              { "name": "Test prep", "micro": ["SAT", "MCAT", "coding interviews"] },
+              { "name": "Special education", "micro": ["IEP tools", "ADHD/autism"] }
+            ]},
+            { "name": "Skills & Languages", "niches": [
+              { "name": "Professional upskilling/certs", "micro": ["AWS", "PMP", "AI-resilient skills"] },
+              { "name": "Language learning", "micro": ["accent reduction", "sign language"] },
+              { "name": "Vocational/trades training", "micro": ["AR-guided apprenticeship"] }
+            ]}
+          ]
+        },
+        {
+          "name": "EdTech Tools",
+          "subcategories": [
+            { "name": "Platforms", "niches": [
+              { "name": "LMS/course platforms", "micro": [] },
+              { "name": "AI tutoring/grading", "micro": [] },
+              { "name": "Credentialing/proof-of-skill", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "media-publishing-journalism",
+      "name": "Media, Publishing & Journalism",
+      "categories": [
+        {
+          "name": "Publishing",
+          "subcategories": [
+            { "name": "Books & Writing", "niches": [
+              { "name": "Self-publishing/KDP", "micro": ["low-content books", "niche fiction genres"] },
+              { "name": "Audiobooks", "micro": [] },
+              { "name": "Editorial/ghostwriting services", "micro": [] }
+            ]},
+            { "name": "News & Journalism", "niches": [
+              { "name": "Local/independent news", "micro": [] },
+              { "name": "Niche trade publications", "micro": [] },
+              { "name": "Fact-checking/verification tools", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "entertainment-film-music",
+      "name": "Entertainment, Film & Music",
+      "categories": [
+        {
+          "name": "Film & Video",
+          "subcategories": [
+            { "name": "Production & Distribution", "niches": [
+              { "name": "Independent film", "micro": ["festival submission tools"] },
+              { "name": "Trailers/promo editing", "micro": ["fan-made/concept trailers", "copyright-safe cuts"] },
+              { "name": "Streaming/VOD discovery", "micro": ["mood-based pickers"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Music & Audio",
+          "subcategories": [
+            { "name": "Music Creation & Business", "niches": [
+              { "name": "Music production", "micro": ["type beats", "mastering", "stem separation"] },
+              { "name": "Independent artist tools", "micro": ["royalty splitting", "tour routing"] },
+              { "name": "Playlist/discovery", "micro": ["niche-mood playlists"] }
+            ]},
+            { "name": "Performing Arts", "niches": [
+              { "name": "Comedy/theater", "micro": [] },
+              { "name": "Dance", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arts-crafts-design",
+      "name": "Arts, Crafts & Design",
+      "categories": [
+        {
+          "name": "Visual & Applied Arts",
+          "subcategories": [
+            { "name": "Fine & Digital Art", "niches": [
+              { "name": "Digital art/illustration", "micro": ["AI art workflows", "commissions"] },
+              { "name": "Fine art sales/licensing", "micro": [] }
+            ]},
+            { "name": "Crafts & Maker", "niches": [
+              { "name": "Handmade crafts", "micro": ["crochet", "resin art", "candles", "pottery", "woodworking"] },
+              { "name": "Etsy/handmade selling", "micro": ["SEO", "print-on-demand design"] }
+            ]}
+          ]
+        },
+        {
+          "name": "Design Services",
+          "subcategories": [
+            { "name": "Commercial Design", "niches": [
+              { "name": "Graphic/brand design", "micro": [] },
+              { "name": "UX/UI & product design", "micro": [] },
+              { "name": "Industrial/product design", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "photography-videography",
+      "name": "Photography & Videography",
+      "categories": [
+        {
+          "name": "Genres & Services",
+          "subcategories": [
+            { "name": "Photography Niches", "niches": [
+              { "name": "Event/portrait photography", "micro": ["weddings", "newborn"] },
+              { "name": "Commercial photography", "micro": ["real estate", "product"] },
+              { "name": "Specialty photography", "micro": ["astro", "wildlife", "film"] }
+            ]},
+            { "name": "Video & Tools", "niches": [
+              { "name": "Videography/content production", "micro": [] },
+              { "name": "Stock media/licensing", "micro": [] },
+              { "name": "Editing tools/presets", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "government-civic",
+      "name": "Government, Public Sector & Civic",
+      "categories": [
+        {
+          "name": "GovTech & Public Services",
+          "subcategories": [
+            { "name": "Citizen Services", "niches": [
+              { "name": "Benefits navigation", "micro": ["Section 8 housing finder", "unclaimed property"] },
+              { "name": "Permits/licensing portals", "micro": [] },
+              { "name": "Civic engagement/voting tools", "micro": [] }
+            ]},
+            { "name": "Public Administration", "niches": [
+              { "name": "Procurement/grant management", "micro": [] },
+              { "name": "Public records/FOIA tools", "micro": [] },
+              { "name": "Smart city/infrastructure", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legal-law",
+      "name": "Legal & Law",
+      "categories": [
+        {
+          "name": "Legal Services",
+          "subcategories": [
+            { "name": "Personal Legal", "niches": [
+              { "name": "Consumer legal help", "micro": ["tenant rights", "traffic tickets", "small claims", "wills"] },
+              { "name": "Immigration", "micro": ["visa/green-card paperwork", "translation"] },
+              { "name": "Expungement/justice access", "micro": [] }
+            ]},
+            { "name": "Business & LegalTech", "niches": [
+              { "name": "Contract review/drafting", "micro": [] },
+              { "name": "IP/trademark filing", "micro": [] },
+              { "name": "Compliance/regtech", "micro": [] },
+              { "name": "Case/practice management", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "defense-security",
+      "name": "Defense, Military & Security",
+      "categories": [
+        {
+          "name": "Defense",
+          "subcategories": [
+            { "name": "Defense Systems", "niches": [
+              { "name": "Defense tech/dual-use", "micro": ["drones/counter-drone", "ISR"] },
+              { "name": "Military logistics/support", "micro": [] },
+              { "name": "Cyber defense", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Physical Security & Safety",
+          "subcategories": [
+            { "name": "Security Services", "niches": [
+              { "name": "Private security/guarding", "micro": [] },
+              { "name": "Surveillance/access control", "micro": [] },
+              { "name": "Emergency/disaster response tech", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nonprofit-social-impact",
+      "name": "Nonprofit, Charity & Social Impact",
+      "categories": [
+        {
+          "name": "Mission-Driven Orgs",
+          "subcategories": [
+            { "name": "Operations & Fundraising", "niches": [
+              { "name": "Fundraising/donor tools", "micro": [] },
+              { "name": "Volunteer management", "micro": [] },
+              { "name": "Grant writing/management", "micro": [] }
+            ]},
+            { "name": "Causes", "niches": [
+              { "name": "Humanitarian/development aid", "micro": [] },
+              { "name": "Social enterprises", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "religion-spirituality",
+      "name": "Religion, Spirituality & Faith",
+      "categories": [
+        {
+          "name": "Faith & Practice",
+          "subcategories": [
+            { "name": "Religious Practice", "niches": [
+              { "name": "Faith study/practice tools", "micro": ["scripture study", "prayer reminders", "halal/kosher finders"] },
+              { "name": "Congregation/church management", "micro": [] }
+            ]},
+            { "name": "Spirituality & Meaning", "niches": [
+              { "name": "Esoteric/new age", "micro": ["astrology", "tarot", "manifestation journaling"] },
+              { "name": "Philosophy/purpose", "micro": ["stoicism practice", "grief support"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "relationships-family-social",
+      "name": "Relationships, Family & Social",
+      "categories": [
+        {
+          "name": "Connection",
+          "subcategories": [
+            { "name": "Dating & Romance", "niches": [
+              { "name": "Dating apps/help", "micro": ["profile optimization", "message coaching"] },
+              { "name": "Niche dating communities", "micro": ["faith-based", "LGBTQ+", "over-50"] },
+              { "name": "Couples/marriage tools", "micro": [] }
+            ]},
+            { "name": "Friendship & Social", "niches": [
+              { "name": "Adult friendship/community", "micro": ["expat communities", "loneliness"] },
+              { "name": "Breakup/divorce support", "micro": ["co-parenting apps"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parenting-childcare",
+      "name": "Parenting & Childcare",
+      "categories": [
+        {
+          "name": "Parenting Stages",
+          "subcategories": [
+            { "name": "Early Parenting", "niches": [
+              { "name": "Pregnancy/newborn", "micro": ["high-risk", "NICU", "postpartum"] },
+              { "name": "Baby/toddler", "micro": ["sleep training", "baby-led weaning"] }
+            ]},
+            { "name": "Family Support", "niches": [
+              { "name": "Childcare/daycare tools", "micro": [] },
+              { "name": "Special-needs parenting", "micro": [] },
+              { "name": "Family logistics", "micro": ["shared calendars", "chores"] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "elder-care-aging",
+      "name": "Elder Care & Aging",
+      "categories": [
+        {
+          "name": "Aging Support",
+          "subcategories": [
+            { "name": "Care", "niches": [
+              { "name": "Home/remote care", "micro": ["fall detection", "medication reminders"] },
+              { "name": "Senior living/communities", "micro": [] },
+              { "name": "Caregiver support tools", "micro": ["coordination", "respite"] }
+            ]},
+            { "name": "Silver Economy", "niches": [
+              { "name": "Elder-friendly tech", "micro": ["voice-first", "loneliness/companionship"] },
+              { "name": "Aging-in-place home mods", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "death-funeral-memorial",
+      "name": "Death, Funeral & Memorial",
+      "categories": [
+        {
+          "name": "End of Life",
+          "subcategories": [
+            { "name": "Services", "niches": [
+              { "name": "Funeral/cremation services", "micro": ["green burial"] },
+              { "name": "Estate/probate/inheritance", "micro": [] },
+              { "name": "Grief support", "micro": [] }
+            ]},
+            { "name": "Death Tech", "niches": [
+              { "name": "Digital estate/legacy", "micro": ["account legacy", "memorialization"] },
+              { "name": "End-of-life planning tools", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "science-research",
+      "name": "Science & Research",
+      "categories": [
+        {
+          "name": "Research Enablement",
+          "subcategories": [
+            { "name": "Research Tools", "niches": [
+              { "name": "Lab automation/equipment", "micro": [] },
+              { "name": "Scientific software/data analysis", "micro": [] },
+              { "name": "Research publishing/collaboration", "micro": [] }
+            ]},
+            { "name": "Citizen & Applied Science", "niches": [
+              { "name": "Citizen science platforms", "micro": ["species ID", "water quality"] },
+              { "name": "R&D services/contract labs", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hobbies-collectibles-leisure",
+      "name": "Hobbies, Collectibles & Leisure",
+      "categories": [
+        {
+          "name": "Collecting",
+          "subcategories": [
+            { "name": "Collectibles", "niches": [
+              { "name": "Trading cards", "micro": ["sports cards", "TCGs", "grading/authentication"] },
+              { "name": "Vinyl/records", "micro": [] },
+              { "name": "Coins/stamps/currency", "micro": [] },
+              { "name": "Vintage tech/toys", "micro": ["LEGO", "retro gaming"] }
+            ]},
+            { "name": "Antiques & Vintage", "niches": [
+              { "name": "Antique dealing/appraisal", "micro": [] },
+              { "name": "Estate sales/auctions", "micro": [] }
+            ]}
+          ]
+        },
+        {
+          "name": "Hobby Pursuits",
+          "subcategories": [
+            { "name": "Making & Building", "niches": [
+              { "name": "Models & tabletop", "micro": ["Warhammer painting", "Gunpla", "model trains"] },
+              { "name": "Maker/electronics hobby", "micro": ["3D printing", "drones"] }
+            ]},
+            { "name": "Leisure Activities", "niches": [
+              { "name": "Board games/puzzles", "micro": [] },
+              { "name": "Musical instruments (amateur)", "micro": [] },
+              { "name": "Astronomy/birdwatching/nature hobbies", "micro": [] }
+            ]}
+          ]
+        }
+      ]
+    }
+  ]
+}

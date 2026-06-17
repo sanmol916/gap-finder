@@ -1,0 +1,9 @@
+business_name,category,city,state,phone,address,maps_url,rating,reviews,business_status,place_id
+[SAMPLE] Hill View Beauty Salon,beauty salon,Guwahati,Assam,098640 00001,"GS Road, Guwahati, Assam",https://maps.google.com/?cid=SAMPLE1,4.3,52,OPERATIONAL,SAMPLE_p1
+[SAMPLE] Shillong Dental Care,dental clinic,Shillong,Meghalaya,0364 220 0002,"Police Bazar, Shillong, Meghalaya",https://maps.google.com/?cid=SAMPLE2,4.7,118,OPERATIONAL,SAMPLE_p2
+[SAMPLE] Imphal Trendz Boutique,clothing boutique,Imphal,Manipur,0385 245 0003,"Thangal Bazar, Imphal, Manipur",https://maps.google.com/?cid=SAMPLE3,4.1,31,OPERATIONAL,SAMPLE_p3
+[SAMPLE] Aizawl Fitness Hub,gym / fitness center,Aizawl,Mizoram,0389 230 0004,"Dawrpui, Aizawl, Mizoram",https://maps.google.com/?cid=SAMPLE4,4.5,76,OPERATIONAL,SAMPLE_p4
+[SAMPLE] Agartala Royal Caterers,event planner,Agartala,Tripura,0381 232 0005,"Krishnanagar, Agartala, Tripura",https://maps.google.com/?cid=SAMPLE5,4.2,44,OPERATIONAL,SAMPLE_p5
+[SAMPLE] Gangtok Hillside Homestay,hotel / guest house,Gangtok,Sikkim,03592 20 0006,"MG Marg, Gangtok, Sikkim",https://maps.google.com/?cid=SAMPLE6,4.6,89,OPERATIONAL,SAMPLE_p6
+[SAMPLE] Dimapur Auto Garage,car repair / garage,Dimapur,Nagaland,03862 22 0007,"Circular Road, Dimapur, Nagaland",https://maps.google.com/?cid=SAMPLE7,4.0,27,OPERATIONAL,SAMPLE_p7
+[SAMPLE] Itanagar Green Florist,florist,Itanagar,Arunachal Pradesh,0360 221 0008,"Bank Tinali, Itanagar, Arunachal Pradesh",https://maps.google.com/?cid=SAMPLE8,4.4,19,OPERATIONAL,SAMPLE_p8

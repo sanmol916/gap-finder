@@ -18,3 +18,8 @@ reports/
 # OS / editor
 .DS_Store
 *.swp
+
+
+# gmb-leads generated output (may contain real lead data)
+gmb-leads/output/
+gmb-leads/__pycache__/

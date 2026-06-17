@@ -7,13 +7,14 @@ This is different from `niche-atlas` (which maps abstract topics/markets). This 
 would actually walk up to**: a "flag & banner manufacturer", a "women's clothing boutique", a
 "regional-cuisine restaurant", an "auto body shop", a "mobile dog groomer".
 
-## Current coverage (v0.1.0 seed)
+## Current coverage (v0.2.0)
 | Level | Count |
 |---|---|
-| Sectors | 23 |
-| Groups | 64 |
-| Business/profession types | 493 |
-| Example specializations | 189 |
+| Sectors | 25 |
+| Groups | 72 |
+| Business/profession types | 636 |
+| Example specializations | 597 |
+| **Total sellable targets** | **1,233** |
 
 > Breadth-first seed. Next phase deepens each sector toward thousands of entries
 > (mirrors are NAICS/ISIC industry codes, O*NET occupations, and Google/Yelp business categories).
@@ -46,7 +47,7 @@ would actually walk up to**: a "flag & banner manufacturer", a "women's clothing
 - **`examples`** = common specializations within that type.
 - **`id`** (sector) = URL-safe slug for routing on the future funnel website.
 
-## The 23 sectors
+## The 25 sectors
 Retail Shops & Markets · Food, Drink & Hospitality · Manufacturing & Production ·
 Construction & Skilled Trades · Automotive & Vehicles · Personal Care, Beauty & Wellness ·
 Professional & Business Services · Health & Medical · Education & Training ·
@@ -54,7 +55,22 @@ Repair & Maintenance Services · Agriculture, Farming & Fishing · Logistics, Tr
 Wholesale & Distribution · Real Estate & Property · Creative, Media & Entertainment ·
 Events & Occasions · Recreation, Leisure & Travel · Pets & Animal Services ·
 Industrial & Trade Services · Financial & Money Services · Public, Civic & Community ·
-Security & Protective Services · End-of-Life & Memorial Services.
+Security & Protective Services · End-of-Life & Memorial Services ·
+Technology, Software & Digital Businesses · Energy, Utilities & Environmental Services.
+
+## Word document (.docx)
+A formatted Word version is generated directly from the JSON, so it never drifts from the data.
+
+- Pre-built file: **`Work-Business-Atlas.docx`** (in this folder).
+- It has a title page with live counts, navigable Heading 1 (sectors) / Heading 2 (groups),
+  and bullet lists of every business type with its specializations.
+
+Regenerate it any time after editing `businesses.json`:
+```bash
+pip install python-docx
+python work-atlas/make_docx.py                 # -> work-atlas/Work-Business-Atlas.docx
+python work-atlas/make_docx.py --dataset niche # -> niche-atlas/Niche-Atlas.docx (bonus)
+```
 
 ## Intended workflow (why this exists)
 1. Browse a sector → pick a concrete business **type** (e.g. "auto body shop").

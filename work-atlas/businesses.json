@@ -1,10 +1,10 @@
 {
   "meta": {
     "name": "Work & Business Atlas",
-    "version": "0.1.0-seed",
-    "description": "A concrete directory of business types, trades, and professions that exist in the world - the kinds of operators you could research, find a problem for, and sell a solution to. Organized sector -> group -> type, with example specializations. Companion to niche-atlas; designed to scale toward thousands of entries and to power a funnel-style discovery website.",
+    "version": "0.2.0",
+    "description": "A deep, concrete directory of business types, trades, and professions that exist in the world - the operators you can research, find a problem for, and sell a solution to. Organized sector -> group -> type, with example specializations. Companion to niche-atlas; built to power a funnel-style discovery website.",
     "levels": ["sector", "group", "type", "examples"],
-    "note": "A 'type' is a concrete business/profession (e.g. 'women's clothing boutique', 'flag & banner manufacturer'). 'examples' lists common specializations within that type.",
+    "note": "A 'type' is a concrete business/profession (e.g. 'women's clothing boutique', 'flag & banner manufacturer'). 'examples' lists common specializations within that type. Both types and examples are sellable targets.",
     "license": "internal-draft"
   },
   "sectors": [
@@ -13,107 +13,132 @@
       "name": "Retail Shops & Markets",
       "groups": [
         {
-          "name": "Apparel, Footwear & Accessories",
+          "name": "Women's & Men's Apparel",
           "types": [
-            { "name": "Women's clothing boutique", "examples": ["fast fashion", "ethnic/traditional wear", "plus-size", "modest wear", "bridal"] },
-            { "name": "Men's clothing store", "examples": ["formalwear", "streetwear", "tailoring"] },
+            { "name": "Women's clothing boutique", "examples": ["fast fashion", "ethnic/traditional wear", "plus-size", "petite", "modest wear", "maternity"] },
+            { "name": "Men's clothing store", "examples": ["formalwear", "streetwear", "big & tall", "workwear"] },
+            { "name": "Unisex / contemporary fashion store", "examples": [] },
+            { "name": "Bridal & formalwear shop", "examples": ["wedding gowns", "prom/evening", "tuxedo rental"] },
+            { "name": "Lingerie & underwear shop", "examples": ["bridal lingerie", "shapewear"] },
+            { "name": "Activewear / athleisure store", "examples": ["yoga wear", "running"] },
+            { "name": "Vintage / thrift / consignment store", "examples": ["designer resale", "Y2K/retro"] },
+            { "name": "Tailor / alterations shop", "examples": ["bespoke suiting"] },
+            { "name": "Uniform & workwear retailer", "examples": ["medical scrubs", "hospitality", "school uniforms"] },
+            { "name": "Costume & fancy-dress shop", "examples": ["theatrical", "seasonal/Halloween"] }
+          ]
+        },
+        {
+          "name": "Children's, Baby & Maternity",
+          "types": [
             { "name": "Children's & baby clothing store", "examples": [] },
-            { "name": "Shoe store", "examples": ["sneakers", "formal", "orthopedic"] },
-            { "name": "Lingerie & underwear shop", "examples": [] },
-            { "name": "Bridal & formalwear shop", "examples": ["wedding gowns", "tuxedo rental"] },
-            { "name": "Tailor / alterations shop", "examples": [] },
-            { "name": "Vintage / thrift / consignment store", "examples": [] },
-            { "name": "Sportswear & activewear store", "examples": [] },
-            { "name": "Jewelry store", "examples": ["fine jewelry", "fashion jewelry", "custom/bespoke"] },
-            { "name": "Watch shop", "examples": ["luxury", "repair-and-sell"] },
-            { "name": "Eyewear / optical shop", "examples": ["prescription", "sunglasses"] },
+            { "name": "Baby gear & nursery store", "examples": ["prams/strollers", "car seats"] },
+            { "name": "Maternity store", "examples": [] },
+            { "name": "Educational toy store", "examples": ["STEM toys", "Montessori"] }
+          ]
+        },
+        {
+          "name": "Footwear & Accessories",
+          "types": [
+            { "name": "Shoe store", "examples": ["sneakers", "formal", "orthopedic", "kids"] },
             { "name": "Handbag & leather goods store", "examples": [] },
+            { "name": "Jewelry store", "examples": ["fine jewelry", "fashion jewelry", "custom/bespoke", "ethnic/gold"] },
+            { "name": "Watch shop", "examples": ["luxury", "repair-and-sell"] },
+            { "name": "Eyewear / optical shop", "examples": ["prescription", "sunglasses", "designer frames"] },
             { "name": "Hat / millinery shop", "examples": [] },
-            { "name": "Costume & fancy dress shop", "examples": [] }
+            { "name": "Belt, wallet & small-goods store", "examples": [] }
           ]
         },
         {
           "name": "Food & Grocery Retail",
           "types": [
-            { "name": "Grocery store / supermarket", "examples": ["independent grocer", "ethnic grocery", "organic/health"] },
-            { "name": "Convenience store", "examples": [] },
-            { "name": "Butcher shop", "examples": ["halal", "kosher", "specialty meats"] },
+            { "name": "Grocery store / supermarket", "examples": ["independent grocer", "ethnic grocery", "organic/health", "discount"] },
+            { "name": "Convenience store", "examples": ["forecourt/gas station", "corner shop"] },
+            { "name": "Butcher shop", "examples": ["halal", "kosher", "specialty/game meats"] },
             { "name": "Fishmonger / seafood shop", "examples": [] },
-            { "name": "Bakery (retail)", "examples": ["artisan bread", "patisserie", "cake shop"] },
-            { "name": "Delicatessen", "examples": [] },
+            { "name": "Bakery (retail)", "examples": ["artisan bread", "patisserie", "cake shop", "gluten-free"] },
+            { "name": "Delicatessen", "examples": ["Italian", "Jewish", "charcuterie"] },
             { "name": "Cheese shop", "examples": [] },
             { "name": "Greengrocer / produce shop", "examples": [] },
-            { "name": "Spice shop", "examples": [] },
-            { "name": "Confectionery / candy store", "examples": ["chocolatier"] },
-            { "name": "Liquor / wine store", "examples": ["wine specialist", "craft beer"] },
-            { "name": "Tea & coffee shop (retail beans)", "examples": ["roaster-retailer"] },
-            { "name": "Health food / supplement store", "examples": [] }
+            { "name": "Spice & dry-goods shop", "examples": [] },
+            { "name": "Confectionery / candy store", "examples": ["chocolatier", "fudge", "nostalgic sweets"] },
+            { "name": "Liquor / wine store", "examples": ["wine specialist", "craft beer", "spirits"] },
+            { "name": "Coffee & tea retailer", "examples": ["roaster-retailer", "loose-leaf tea"] },
+            { "name": "Health food / supplement store", "examples": ["vitamins", "sports nutrition"] },
+            { "name": "International / ethnic food market", "examples": ["Asian", "Middle Eastern", "Latin", "African"] }
           ]
         },
         {
           "name": "Home, Furniture & Hardware",
           "types": [
-            { "name": "Furniture store", "examples": ["custom", "flat-pack", "outdoor"] },
+            { "name": "Furniture store", "examples": ["custom", "flat-pack", "outdoor/patio", "office"] },
             { "name": "Mattress / bedding store", "examples": [] },
             { "name": "Home decor & homeware store", "examples": [] },
-            { "name": "Kitchenware shop", "examples": [] },
+            { "name": "Kitchenware & cookware shop", "examples": [] },
             { "name": "Lighting store", "examples": [] },
-            { "name": "Curtain & blinds shop", "examples": [] },
-            { "name": "Carpet & rug shop", "examples": [] },
-            { "name": "Flooring & tile store", "examples": [] },
-            { "name": "Hardware store", "examples": [] },
-            { "name": "Paint store", "examples": [] },
+            { "name": "Curtains, blinds & drapery shop", "examples": [] },
+            { "name": "Carpet & rug shop", "examples": ["oriental/handmade"] },
+            { "name": "Flooring & tile store", "examples": ["hardwood", "laminate", "stone"] },
+            { "name": "Hardware store", "examples": ["DIY", "trade-focused"] },
+            { "name": "Paint & decorating store", "examples": [] },
             { "name": "Appliance store", "examples": ["white goods", "small appliances"] },
-            { "name": "Antiques shop", "examples": [] }
+            { "name": "Antiques & collectibles shop", "examples": [] },
+            { "name": "Kitchen & bath showroom", "examples": [] },
+            { "name": "Bathroom & plumbing fixtures showroom", "examples": [] }
           ]
         },
         {
           "name": "Electronics & Communications Retail",
           "types": [
-            { "name": "Electronics store", "examples": [] },
-            { "name": "Mobile phone shop", "examples": ["sell + repair", "accessories"] },
-            { "name": "Computer store", "examples": ["custom PC builds"] },
+            { "name": "Electronics store", "examples": ["consumer electronics", "audio/hi-fi"] },
+            { "name": "Mobile phone shop", "examples": ["sell + repair", "accessories", "carrier store"] },
+            { "name": "Computer store", "examples": ["custom PC builds", "Apple specialist"] },
             { "name": "Camera & photography shop", "examples": [] },
-            { "name": "Video game store", "examples": ["new", "retro/used"] }
+            { "name": "Video game store", "examples": ["new", "retro/used", "trade-in"] },
+            { "name": "Drone & RC hobby shop", "examples": [] },
+            { "name": "Smart home / security retailer", "examples": [] }
           ]
         },
         {
           "name": "Specialty & Hobby Retail",
           "types": [
-            { "name": "Bookstore", "examples": ["used", "specialty/academic"] },
+            { "name": "Bookstore", "examples": ["used", "specialty/academic", "religious", "comic shop"] },
             { "name": "Stationery & office supplies shop", "examples": [] },
-            { "name": "Toy store", "examples": [] },
+            { "name": "Toy & game store", "examples": ["board games", "hobby/model"] },
             { "name": "Craft & hobby store", "examples": [] },
-            { "name": "Fabric & sewing shop", "examples": ["yarn/wool"] },
+            { "name": "Fabric, sewing & yarn shop", "examples": ["quilting", "wool/knitting"] },
             { "name": "Art supply store", "examples": [] },
-            { "name": "Musical instrument store", "examples": [] },
+            { "name": "Musical instrument store", "examples": ["guitars", "pianos", "band/orchestral"] },
             { "name": "Record / vinyl shop", "examples": [] },
-            { "name": "Pet store", "examples": ["aquarium/fish", "reptiles"] },
-            { "name": "Garden center / plant nursery", "examples": [] },
-            { "name": "Florist", "examples": ["events/wedding"] },
+            { "name": "Pet store", "examples": ["aquarium/fish", "reptiles", "birds"] },
+            { "name": "Garden center / plant nursery", "examples": ["houseplants", "outdoor"] },
+            { "name": "Florist", "examples": ["events/wedding", "everyday", "dried flowers"] },
             { "name": "Gift & souvenir shop", "examples": [] },
-            { "name": "Party supply shop", "examples": ["balloons"] },
-            { "name": "Tobacco / vape / smoke shop", "examples": [] },
-            { "name": "Sporting goods store", "examples": [] },
-            { "name": "Bicycle shop", "examples": ["sell + repair"] },
-            { "name": "Outdoor & camping gear store", "examples": ["ski", "dive", "fishing/tackle", "hunting", "surf", "skate"] },
-            { "name": "Comic book / trading card shop", "examples": [] },
-            { "name": "Coin & stamp shop", "examples": [] },
+            { "name": "Party supply & balloon shop", "examples": [] },
+            { "name": "Tobacco / vape / smoke shop", "examples": ["cigar lounge", "CBD"] },
+            { "name": "Sporting goods store", "examples": ["team sports", "running"] },
+            { "name": "Bicycle shop", "examples": ["sell + repair", "e-bikes"] },
+            { "name": "Outdoor & camping gear store", "examples": ["ski", "dive", "fishing/tackle", "hunting", "surf", "skate", "climbing"] },
+            { "name": "Trading card & comic shop", "examples": ["sports cards", "TCG"] },
+            { "name": "Coin, stamp & bullion shop", "examples": [] },
             { "name": "Pawn shop", "examples": [] },
-            { "name": "Beauty supply / cosmetics store", "examples": ["perfume shop"] },
-            { "name": "Pharmacy / chemist", "examples": [] },
-            { "name": "Medical supply store", "examples": [] },
-            { "name": "Discount / dollar store", "examples": [] }
+            { "name": "Beauty supply / cosmetics store", "examples": ["perfume shop", "textured-hair products"] },
+            { "name": "Pharmacy / chemist", "examples": ["compounding", "independent"] },
+            { "name": "Medical & mobility supply store", "examples": ["wheelchairs", "CPAP"] },
+            { "name": "Discount / dollar / variety store", "examples": [] },
+            { "name": "Religious goods shop", "examples": [] },
+            { "name": "Luggage & travel goods store", "examples": [] }
           ]
         },
         {
           "name": "Markets & Mobile Vendors",
           "types": [
-            { "name": "Market stall vendor", "examples": ["clothing", "produce", "household goods"] },
+            { "name": "Market stall vendor", "examples": ["clothing", "produce", "household goods", "phone accessories"] },
             { "name": "Street food vendor", "examples": [] },
             { "name": "Farmers market vendor", "examples": [] },
-            { "name": "Flea market / car boot vendor", "examples": [] },
-            { "name": "Kiosk operator", "examples": ["mall kiosk", "transit kiosk"] }
+            { "name": "Flea market / car-boot vendor", "examples": [] },
+            { "name": "Mall / transit kiosk operator", "examples": [] },
+            { "name": "Pop-up / seasonal shop", "examples": ["Christmas", "fireworks", "Halloween"] },
+            { "name": "Vending machine operator", "examples": ["snacks", "smart vending"] }
           ]
         }
       ]
@@ -125,70 +150,87 @@
         {
           "name": "Restaurants & Eateries",
           "types": [
-            { "name": "Full-service restaurant", "examples": ["regional cuisine specialist", "fine dining", "family/casual dining"] },
-            { "name": "Quick-service / fast food", "examples": [] },
-            { "name": "Fast-casual restaurant", "examples": [] },
-            { "name": "Buffet restaurant", "examples": [] },
-            { "name": "Diner", "examples": [] },
+            { "name": "Full-service restaurant", "examples": ["regional cuisine specialist", "fine dining", "family/casual dining", "farm-to-table"] },
+            { "name": "Quick-service / fast food", "examples": ["burger", "fried chicken", "fish & chips"] },
+            { "name": "Fast-casual restaurant", "examples": ["bowls", "build-your-own"] },
+            { "name": "Buffet / all-you-can-eat", "examples": [] },
+            { "name": "Diner / greasy spoon", "examples": [] },
             { "name": "Food truck", "examples": [] },
             { "name": "Food cart / stall", "examples": [] },
-            { "name": "Ghost / cloud kitchen", "examples": [] },
-            { "name": "Pop-up restaurant", "examples": [] }
+            { "name": "Ghost / cloud kitchen", "examples": ["virtual brands"] },
+            { "name": "Pop-up / supper club", "examples": [] },
+            { "name": "Cafeteria / canteen operator", "examples": ["corporate", "school", "hospital"] }
           ]
         },
         {
           "name": "Cuisine Specialists",
           "types": [
-            { "name": "Pizzeria", "examples": [] },
-            { "name": "Sushi / Japanese restaurant", "examples": ["ramen shop"] },
-            { "name": "Taqueria / Mexican restaurant", "examples": [] },
+            { "name": "Pizzeria", "examples": ["Neapolitan", "NY slice", "deep dish"] },
+            { "name": "Japanese restaurant", "examples": ["sushi bar", "ramen shop", "izakaya"] },
+            { "name": "Chinese restaurant", "examples": ["dim sum", "Sichuan", "Cantonese"] },
+            { "name": "Mexican / Tex-Mex restaurant", "examples": ["taqueria"] },
+            { "name": "Indian restaurant", "examples": ["North Indian", "South Indian", "curry house"] },
+            { "name": "Thai / Vietnamese restaurant", "examples": ["pho shop"] },
+            { "name": "Italian restaurant", "examples": ["trattoria", "pasta bar"] },
+            { "name": "Middle Eastern restaurant", "examples": ["kebab/shawarma", "falafel", "Lebanese"] },
             { "name": "BBQ / grill house", "examples": [] },
             { "name": "Steakhouse", "examples": [] },
-            { "name": "Seafood restaurant", "examples": [] },
-            { "name": "Indian / curry house", "examples": [] },
-            { "name": "Kebab / shawarma shop", "examples": [] },
-            { "name": "Noodle / dumpling house", "examples": [] },
+            { "name": "Seafood restaurant", "examples": ["oyster bar"] },
+            { "name": "Korean restaurant", "examples": ["KBBQ", "fried chicken"] },
             { "name": "Vegan / vegetarian restaurant", "examples": [] },
-            { "name": "Halal / kosher restaurant", "examples": [] }
+            { "name": "Halal / kosher restaurant", "examples": [] },
+            { "name": "African / Caribbean restaurant", "examples": ["Ethiopian", "Jamaican", "Nigerian"] }
           ]
         },
         {
           "name": "Cafes, Bakeries & Desserts",
           "types": [
-            { "name": "Coffee shop / cafe", "examples": [] },
-            { "name": "Tea house", "examples": ["bubble tea shop"] },
-            { "name": "Juice / smoothie bar", "examples": [] },
-            { "name": "Ice cream / gelato parlor", "examples": ["frozen yogurt"] },
-            { "name": "Dessert cafe", "examples": [] },
+            { "name": "Coffee shop / cafe", "examples": ["specialty/third-wave", "drive-thru"] },
+            { "name": "Tea house / bubble tea shop", "examples": [] },
+            { "name": "Juice & smoothie bar", "examples": ["acai bowls"] },
+            { "name": "Ice cream / gelato parlor", "examples": ["frozen yogurt", "rolled ice cream"] },
+            { "name": "Dessert cafe / bakery cafe", "examples": [] },
             { "name": "Donut / bagel shop", "examples": [] },
-            { "name": "Sandwich / sub shop", "examples": [] }
+            { "name": "Cake & cupcake shop", "examples": ["custom cakes"] },
+            { "name": "Sandwich / sub / deli shop", "examples": [] },
+            { "name": "Crepe / waffle bar", "examples": [] },
+            { "name": "Chocolate / candy cafe", "examples": [] }
           ]
         },
         {
           "name": "Bars & Nightlife",
           "types": [
-            { "name": "Bar / pub", "examples": [] },
-            { "name": "Cocktail lounge", "examples": [] },
+            { "name": "Bar / pub", "examples": ["gastropub", "dive bar", "Irish pub"] },
+            { "name": "Cocktail lounge / speakeasy", "examples": [] },
             { "name": "Sports bar", "examples": [] },
             { "name": "Wine bar", "examples": [] },
             { "name": "Brewpub / taproom", "examples": [] },
             { "name": "Nightclub", "examples": [] },
-            { "name": "Hookah / shisha lounge", "examples": [] }
+            { "name": "Hookah / shisha lounge", "examples": [] },
+            { "name": "Karaoke bar", "examples": [] }
           ]
         },
         {
-          "name": "Catering & Accommodation",
+          "name": "Catering & Food Services",
           "types": [
-            { "name": "Catering company", "examples": ["corporate", "weddings"] },
+            { "name": "Catering company", "examples": ["corporate", "weddings", "drop-off"] },
             { "name": "Private / personal chef", "examples": [] },
-            { "name": "Meal-prep service", "examples": [] },
+            { "name": "Meal-prep / meal-kit service", "examples": ["diet-specific"] },
             { "name": "Banquet / function hall", "examples": [] },
-            { "name": "Hotel", "examples": ["boutique", "business", "resort"] },
+            { "name": "Concession stand operator", "examples": ["stadium", "festival"] },
+            { "name": "Corporate dining / contract food service", "examples": [] }
+          ]
+        },
+        {
+          "name": "Accommodation",
+          "types": [
+            { "name": "Hotel", "examples": ["boutique", "business", "resort", "budget"] },
             { "name": "Motel / inn", "examples": [] },
             { "name": "Bed & breakfast / guesthouse", "examples": [] },
             { "name": "Hostel", "examples": [] },
-            { "name": "Vacation rental host", "examples": [] },
-            { "name": "Campground / RV park", "examples": [] }
+            { "name": "Vacation rental host", "examples": ["short-term rental", "cabins"] },
+            { "name": "Campground / RV park / glamping", "examples": [] },
+            { "name": "Serviced apartments / extended stay", "examples": [] }
           ]
         }
       ]
@@ -200,77 +242,91 @@
         {
           "name": "Promotional, Signage & Print",
           "types": [
-            { "name": "Promotional products manufacturer", "examples": ["branded merch", "giveaways"] },
-            { "name": "Flag & banner manufacturer", "examples": ["promotional flags", "feather/teardrop flags"] },
-            { "name": "Umbrella, gazebo & tent manufacturer", "examples": ["market umbrellas", "pop-up gazebos", "event tents"] },
-            { "name": "Signage manufacturer", "examples": ["illuminated signs", "shopfront signs"] },
-            { "name": "Trophy & award maker", "examples": ["engraving"] },
-            { "name": "Badge, pin & lanyard maker", "examples": [] },
-            { "name": "Commercial print shop", "examples": ["large-format", "packaging", "labels"] },
-            { "name": "Screen printing & embroidery shop", "examples": ["custom apparel"] }
+            { "name": "Promotional products manufacturer", "examples": ["branded merch", "giveaways", "corporate gifts"] },
+            { "name": "Flag & banner manufacturer", "examples": ["promotional flags", "feather/teardrop flags", "national flags"] },
+            { "name": "Umbrella, gazebo & tent manufacturer", "examples": ["market umbrellas", "pop-up gazebos", "event/marquee tents"] },
+            { "name": "Signage manufacturer", "examples": ["illuminated signs", "shopfront signs", "vehicle graphics"] },
+            { "name": "Trophy, award & engraving maker", "examples": [] },
+            { "name": "Badge, pin, lanyard & wristband maker", "examples": [] },
+            { "name": "Commercial print shop", "examples": ["large-format", "packaging", "labels", "books"] },
+            { "name": "Screen printing & embroidery shop", "examples": ["custom apparel", "team kit"] },
+            { "name": "Sticker & decal maker", "examples": [] },
+            { "name": "Display & exhibition stand builder", "examples": ["trade show booths"] }
           ]
         },
         {
           "name": "Textiles, Apparel & Leather",
           "types": [
-            { "name": "Garment / clothing manufacturer", "examples": ["cut-and-sew", "knitwear"] },
+            { "name": "Garment / clothing manufacturer", "examples": ["cut-and-sew", "knitwear", "private label"] },
             { "name": "Uniform & workwear manufacturer", "examples": [] },
-            { "name": "Textile mill", "examples": ["weaving", "dyeing & printing"] },
+            { "name": "Textile mill", "examples": ["weaving", "spinning", "dyeing & printing"] },
             { "name": "Footwear manufacturer", "examples": [] },
             { "name": "Bag & luggage manufacturer", "examples": [] },
-            { "name": "Leather goods manufacturer", "examples": [] }
+            { "name": "Leather goods manufacturer", "examples": [] },
+            { "name": "Hosiery & sock manufacturer", "examples": [] },
+            { "name": "Technical / industrial textiles maker", "examples": ["geotextiles", "filtration"] }
           ]
         },
         {
           "name": "Food & Beverage Production",
           "types": [
-            { "name": "Food processing plant", "examples": [] },
-            { "name": "Wholesale bakery", "examples": [] },
-            { "name": "Beverage bottling / canning plant", "examples": [] },
-            { "name": "Dairy processor", "examples": ["cheese maker"] },
+            { "name": "Food processing plant", "examples": ["frozen", "canned", "ready meals"] },
+            { "name": "Wholesale / commercial bakery", "examples": [] },
+            { "name": "Beverage bottling / canning plant", "examples": ["soft drinks", "water"] },
+            { "name": "Dairy processor", "examples": ["cheese maker", "yogurt"] },
             { "name": "Meat / poultry processor", "examples": [] },
             { "name": "Snack / confectionery manufacturer", "examples": [] },
-            { "name": "Spice & condiment maker", "examples": ["sauces", "pickles"] },
-            { "name": "Brewery / distillery / winery", "examples": [] }
+            { "name": "Spice, sauce & condiment maker", "examples": ["hot sauce", "pickles", "jam"] },
+            { "name": "Brewery", "examples": ["craft", "microbrewery"] },
+            { "name": "Distillery", "examples": ["whiskey", "gin", "vodka"] },
+            { "name": "Winery / cidery", "examples": [] },
+            { "name": "Coffee roaster (wholesale)", "examples": [] },
+            { "name": "Plant-based / alt-protein producer", "examples": [] }
           ]
         },
         {
           "name": "Furniture, Wood & Metal",
           "types": [
-            { "name": "Furniture manufacturer", "examples": [] },
-            { "name": "Cabinetmaker / joinery", "examples": [] },
-            { "name": "Woodworking / sawmill", "examples": [] },
+            { "name": "Furniture manufacturer", "examples": ["office", "domestic", "outdoor"] },
+            { "name": "Cabinetmaker / joinery", "examples": ["kitchens", "staircases"] },
+            { "name": "Sawmill / lumber processor", "examples": [] },
             { "name": "Upholstery manufacturer", "examples": [] },
-            { "name": "Metal fabrication shop", "examples": ["structural", "ornamental"] },
-            { "name": "Machine shop (CNC / machining)", "examples": [] },
-            { "name": "Foundry / casting", "examples": [] },
+            { "name": "Metal fabrication shop", "examples": ["structural", "ornamental", "architectural"] },
+            { "name": "Machine shop (CNC / machining)", "examples": ["precision parts"] },
+            { "name": "Foundry / metal casting", "examples": [] },
             { "name": "Tool & die maker", "examples": [] },
-            { "name": "Sheet metal works", "examples": ["ducting"] }
+            { "name": "Sheet metal works", "examples": ["ducting", "enclosures"] },
+            { "name": "Wrought iron / blacksmith shop", "examples": ["gates", "railings"] }
           ]
         },
         {
-          "name": "Plastics, Packaging & Materials",
+          "name": "Plastics, Packaging & Building Materials",
           "types": [
             { "name": "Injection molding / plastics manufacturer", "examples": [] },
-            { "name": "Packaging manufacturer", "examples": ["boxes/cartons", "flexible packaging"] },
+            { "name": "Packaging manufacturer", "examples": ["boxes/cartons", "flexible packaging", "bottles"] },
             { "name": "Label & sticker printer", "examples": [] },
-            { "name": "Glass manufacturer", "examples": ["glassware", "flat glass"] },
-            { "name": "Ceramics / pottery studio", "examples": ["tiles"] },
-            { "name": "Stone cutting / countertop fabricator", "examples": [] },
-            { "name": "Brick / block / cement products maker", "examples": [] }
+            { "name": "Glass manufacturer", "examples": ["glassware", "flat/architectural glass"] },
+            { "name": "Ceramics / pottery / tile maker", "examples": [] },
+            { "name": "Stone cutting / countertop fabricator", "examples": ["granite", "quartz"] },
+            { "name": "Brick, block & cement products maker", "examples": ["pavers", "precast"] },
+            { "name": "Insulation & roofing materials maker", "examples": [] },
+            { "name": "Door & window manufacturer", "examples": ["uPVC", "aluminum"] }
           ]
         },
         {
           "name": "Chemicals, Cosmetics & Electrical",
           "types": [
-            { "name": "Soap & candle maker", "examples": [] },
-            { "name": "Cosmetics / personal care manufacturer", "examples": [] },
-            { "name": "Cleaning products manufacturer", "examples": [] },
+            { "name": "Soap & candle maker", "examples": ["artisan", "private label"] },
+            { "name": "Cosmetics / personal care manufacturer", "examples": ["skincare", "haircare"] },
+            { "name": "Cleaning & janitorial products maker", "examples": [] },
             { "name": "Paint & coatings manufacturer", "examples": [] },
+            { "name": "Adhesives & sealants maker", "examples": [] },
+            { "name": "Fertilizer / agrochemical producer", "examples": [] },
             { "name": "Electronics assembly / PCB shop", "examples": [] },
             { "name": "Lighting / electrical fixtures manufacturer", "examples": [] },
             { "name": "Cable & wire manufacturer", "examples": [] },
-            { "name": "3D printing service bureau", "examples": [] }
+            { "name": "Battery / power products maker", "examples": [] },
+            { "name": "3D printing / additive service bureau", "examples": ["metal AM", "prototyping"] }
           ]
         }
       ]
@@ -282,47 +338,51 @@
         {
           "name": "Builders & Contractors",
           "types": [
-            { "name": "General contractor", "examples": [] },
-            { "name": "Home builder", "examples": ["custom homes", "spec builder"] },
-            { "name": "Renovation / remodeling contractor", "examples": ["kitchen", "bathroom", "ADU"] },
+            { "name": "General contractor", "examples": ["residential", "commercial"] },
+            { "name": "Home builder", "examples": ["custom homes", "spec builder", "modular/prefab"] },
+            { "name": "Renovation / remodeling contractor", "examples": ["kitchen", "bathroom", "basement", "ADU"] },
             { "name": "Demolition contractor", "examples": [] },
-            { "name": "Civil / groundworks contractor", "examples": ["excavation", "paving/asphalt"] }
+            { "name": "Civil / groundworks contractor", "examples": ["excavation", "earthworks", "drainage"] },
+            { "name": "Paving & asphalt contractor", "examples": ["driveways", "parking lots"] },
+            { "name": "Restoration / disaster recovery contractor", "examples": ["fire", "water/flood", "mold"] }
           ]
         },
         {
           "name": "Building Trades",
           "types": [
             { "name": "Electrician", "examples": ["residential", "commercial", "industrial"] },
-            { "name": "Plumber", "examples": [] },
-            { "name": "HVAC contractor", "examples": ["heat pump retrofits"] },
-            { "name": "Carpenter / joiner", "examples": ["deck builder"] },
-            { "name": "Roofer", "examples": [] },
-            { "name": "Painter & decorator", "examples": [] },
+            { "name": "Plumber", "examples": ["service/repair", "new build"] },
+            { "name": "HVAC contractor", "examples": ["install", "service", "heat pump retrofits"] },
+            { "name": "Carpenter / joiner", "examples": ["framing", "finish carpentry", "deck builder"] },
+            { "name": "Roofer", "examples": ["flat roofing", "tile/slate", "metal"] },
+            { "name": "Painter & decorator", "examples": ["interior", "exterior", "commercial"] },
             { "name": "Plasterer / drywall installer", "examples": [] },
             { "name": "Tiler", "examples": [] },
-            { "name": "Flooring installer", "examples": ["carpet", "hardwood", "vinyl"] },
-            { "name": "Mason / bricklayer", "examples": [] },
-            { "name": "Concrete contractor", "examples": [] },
+            { "name": "Flooring installer", "examples": ["carpet", "hardwood", "vinyl/LVT"] },
+            { "name": "Mason / bricklayer", "examples": ["stonemason"] },
+            { "name": "Concrete contractor", "examples": ["decorative/stamped", "foundations"] },
             { "name": "Glazier", "examples": [] },
-            { "name": "Insulation installer", "examples": [] },
+            { "name": "Insulation installer", "examples": ["spray foam", "loft"] },
             { "name": "Scaffolding contractor", "examples": [] },
-            { "name": "Welder / steel fabricator (on-site)", "examples": [] }
+            { "name": "Steel erector / structural welder", "examples": [] }
           ]
         },
         {
-          "name": "Specialty Installers",
+          "name": "Specialty Installers & Services",
           "types": [
-            { "name": "Solar panel installer", "examples": [] },
+            { "name": "Solar panel installer", "examples": ["residential", "battery storage"] },
             { "name": "Window & door installer", "examples": [] },
             { "name": "Garage door installer", "examples": [] },
             { "name": "Kitchen & bathroom fitter", "examples": [] },
             { "name": "Fencing & gate installer", "examples": [] },
             { "name": "Pool builder / installer", "examples": [] },
-            { "name": "Gutter installer", "examples": [] },
-            { "name": "Waterproofing contractor", "examples": [] },
-            { "name": "Locksmith", "examples": [] },
-            { "name": "Awning & shade installer", "examples": [] },
-            { "name": "Septic / well contractor", "examples": [] }
+            { "name": "Gutter installation & repair", "examples": [] },
+            { "name": "Waterproofing / damp-proofing contractor", "examples": [] },
+            { "name": "Awning, canopy & shade installer", "examples": [] },
+            { "name": "Septic system / well contractor", "examples": [] },
+            { "name": "Foundation repair specialist", "examples": [] },
+            { "name": "Sign installation contractor", "examples": [] },
+            { "name": "Home automation / AV installer", "examples": [] }
           ]
         }
       ]
@@ -334,40 +394,47 @@
         {
           "name": "Sales & Dealers",
           "types": [
-            { "name": "Car dealership", "examples": ["new", "used"] },
-            { "name": "Motorcycle dealer", "examples": [] },
+            { "name": "Car dealership", "examples": ["new", "used", "luxury"] },
+            { "name": "Motorcycle / scooter dealer", "examples": [] },
             { "name": "RV / caravan dealer", "examples": [] },
             { "name": "Boat / marine dealer", "examples": [] },
+            { "name": "Commercial truck / van dealer", "examples": [] },
             { "name": "Used parts / auto salvage yard", "examples": [] },
-            { "name": "Tire dealer", "examples": [] }
+            { "name": "Tire dealer", "examples": [] },
+            { "name": "Auto parts retailer", "examples": ["performance", "OEM"] }
           ]
         },
         {
           "name": "Repair & Service",
           "types": [
-            { "name": "Auto repair shop / mechanic", "examples": ["general", "brand specialist"] },
+            { "name": "Auto repair shop / mechanic", "examples": ["general", "brand specialist", "European/import"] },
             { "name": "Body shop / collision repair", "examples": [] },
             { "name": "Tire & wheel shop", "examples": [] },
             { "name": "Quick lube / oil change", "examples": [] },
             { "name": "Transmission specialist", "examples": [] },
-            { "name": "Auto electrician", "examples": [] },
+            { "name": "Auto electrician / diagnostics", "examples": [] },
             { "name": "Muffler / exhaust shop", "examples": [] },
+            { "name": "Brake & suspension shop", "examples": [] },
             { "name": "Auto glass / windshield repair", "examples": [] },
-            { "name": "Tuning / performance shop", "examples": [] },
+            { "name": "Tuning / performance shop", "examples": ["ECU/remap"] },
             { "name": "Motorcycle repair shop", "examples": [] },
-            { "name": "Fleet maintenance service", "examples": [] }
+            { "name": "Diesel / heavy vehicle repair", "examples": [] },
+            { "name": "Fleet maintenance service", "examples": [] },
+            { "name": "Mobile mechanic", "examples": [] }
           ]
         },
         {
           "name": "Detailing & Add-ons",
           "types": [
-            { "name": "Car wash", "examples": ["self-serve", "express tunnel"] },
-            { "name": "Auto detailing (incl. mobile)", "examples": [] },
-            { "name": "Window tinting / wrap shop", "examples": [] },
-            { "name": "Car audio / accessories installer", "examples": [] },
+            { "name": "Car wash", "examples": ["self-serve", "express tunnel", "hand wash"] },
+            { "name": "Auto detailing (incl. mobile)", "examples": ["ceramic coating", "paint correction"] },
+            { "name": "Window tinting / vinyl wrap shop", "examples": [] },
+            { "name": "Car audio & accessories installer", "examples": [] },
+            { "name": "Upholstery & trim shop", "examples": [] },
             { "name": "EV charger installer", "examples": [] },
-            { "name": "Towing / roadside assistance", "examples": [] },
-            { "name": "Vehicle inspection station", "examples": [] }
+            { "name": "Towing / recovery service", "examples": [] },
+            { "name": "Roadside assistance service", "examples": [] },
+            { "name": "Vehicle inspection / emissions station", "examples": [] }
           ]
         }
       ]
@@ -379,46 +446,50 @@
         {
           "name": "Hair & Beauty",
           "types": [
-            { "name": "Hair salon", "examples": ["textured hair specialist"] },
-            { "name": "Barbershop", "examples": [] },
-            { "name": "Nail salon", "examples": [] },
-            { "name": "Lash & brow studio", "examples": [] },
+            { "name": "Hair salon", "examples": ["textured-hair specialist", "color specialist", "blow-dry bar"] },
+            { "name": "Barbershop", "examples": ["traditional", "luxury grooming"] },
+            { "name": "Nail salon", "examples": ["gel/acrylic", "nail art"] },
+            { "name": "Lash & brow studio", "examples": ["extensions", "microblading"] },
             { "name": "Waxing / threading salon", "examples": [] },
-            { "name": "Makeup artist", "examples": ["bridal"] },
-            { "name": "Esthetician / skincare clinic", "examples": [] },
-            { "name": "Med spa / aesthetics clinic", "examples": ["botox/filler", "laser"] },
-            { "name": "Tanning salon", "examples": [] },
+            { "name": "Makeup artist", "examples": ["bridal", "editorial", "SFX"] },
+            { "name": "Esthetician / skincare clinic", "examples": ["facials", "acne treatment"] },
+            { "name": "Med spa / aesthetics clinic", "examples": ["botox/filler", "laser", "body contouring"] },
+            { "name": "Tanning salon / spray tan", "examples": [] },
             { "name": "Tattoo & piercing studio", "examples": [] },
-            { "name": "Mobile beauty service", "examples": [] }
+            { "name": "Hair removal / electrolysis clinic", "examples": [] },
+            { "name": "Mobile beauty / glam service", "examples": [] }
           ]
         },
         {
           "name": "Spa & Bodywork",
           "types": [
             { "name": "Day spa", "examples": [] },
-            { "name": "Massage therapist / clinic", "examples": [] },
-            { "name": "Float / wellness center", "examples": ["sauna", "cryotherapy"] }
+            { "name": "Massage therapist / clinic", "examples": ["sports massage", "prenatal"] },
+            { "name": "Float / wellness center", "examples": ["sauna", "cryotherapy", "IV therapy"] },
+            { "name": "Reflexology / holistic therapy", "examples": [] }
           ]
         },
         {
           "name": "Fitness & Movement",
           "types": [
-            { "name": "Gym / fitness center", "examples": [] },
-            { "name": "Boutique fitness studio", "examples": ["spin", "HIIT", "pilates"] },
+            { "name": "Gym / fitness center", "examples": ["24-hour", "budget"] },
+            { "name": "Boutique fitness studio", "examples": ["spin", "HIIT", "pilates", "barre"] },
             { "name": "Yoga studio", "examples": [] },
-            { "name": "Martial arts dojo", "examples": [] },
+            { "name": "CrossFit / functional fitness box", "examples": [] },
+            { "name": "Martial arts dojo", "examples": ["BJJ", "boxing", "MMA"] },
             { "name": "Dance studio", "examples": [] },
-            { "name": "Personal trainer", "examples": [] },
-            { "name": "Sports / strength coach", "examples": [] }
+            { "name": "Climbing / bouldering gym", "examples": [] },
+            { "name": "Personal trainer", "examples": ["online coaching"] },
+            { "name": "Pilates / rehab studio", "examples": [] }
           ]
         },
         {
           "name": "Garment & Goods Care",
           "types": [
             { "name": "Dry cleaner", "examples": [] },
-            { "name": "Laundromat / laundry service", "examples": [] },
+            { "name": "Laundromat / laundry service", "examples": ["wash-and-fold", "commercial"] },
             { "name": "Shoe repair / cobbler", "examples": [] },
-            { "name": "Key cutting / engraving", "examples": [] }
+            { "name": "Key cutting & engraving", "examples": [] }
           ]
         }
       ]
@@ -430,43 +501,50 @@
         {
           "name": "Finance, Legal & Accounting",
           "types": [
-            { "name": "Accounting firm / accountant", "examples": [] },
+            { "name": "Accounting firm / accountant", "examples": ["small business", "audit"] },
             { "name": "Bookkeeper", "examples": [] },
-            { "name": "Tax preparer", "examples": [] },
+            { "name": "Tax preparer / tax advisor", "examples": ["personal", "small business", "crypto"] },
             { "name": "Payroll service", "examples": [] },
-            { "name": "Law firm / attorney", "examples": ["family", "immigration", "personal injury", "corporate"] },
+            { "name": "Fractional CFO / finance consultant", "examples": [] },
+            { "name": "Law firm / attorney", "examples": ["family", "immigration", "personal injury", "corporate", "IP/trademark", "real estate"] },
             { "name": "Notary public", "examples": ["mobile/loan signing"] },
-            { "name": "Financial advisor / planner", "examples": [] },
-            { "name": "Insurance broker / agency", "examples": [] },
-            { "name": "Mortgage broker", "examples": [] }
+            { "name": "Financial advisor / planner", "examples": ["retirement", "estate"] },
+            { "name": "Insurance broker / agency", "examples": ["commercial", "personal lines"] },
+            { "name": "Mortgage broker", "examples": [] },
+            { "name": "Business broker / M&A advisor", "examples": [] }
           ]
         },
         {
-          "name": "Marketing, Creative & Tech",
+          "name": "Marketing, Creative & Tech Agencies",
           "types": [
-            { "name": "Marketing / advertising agency", "examples": ["digital", "performance ads"] },
+            { "name": "Marketing / advertising agency", "examples": ["digital", "performance ads", "social media"] },
             { "name": "PR / branding agency", "examples": [] },
             { "name": "SEO / content agency", "examples": [] },
             { "name": "Web design / development studio", "examples": [] },
             { "name": "Software development agency", "examples": ["app dev", "AI automation agency"] },
             { "name": "IT support / managed services (MSP)", "examples": [] },
+            { "name": "Cybersecurity consultancy", "examples": [] },
             { "name": "Graphic / brand designer", "examples": [] },
-            { "name": "Interior designer", "examples": [] },
-            { "name": "Architect", "examples": [] },
-            { "name": "Engineering consultancy", "examples": ["civil", "structural", "MEP"] },
-            { "name": "Land surveyor", "examples": [] }
+            { "name": "Interior designer", "examples": ["residential", "commercial"] },
+            { "name": "Architect / architectural firm", "examples": [] },
+            { "name": "Engineering consultancy", "examples": ["civil", "structural", "MEP", "geotechnical"] },
+            { "name": "Land surveyor", "examples": [] },
+            { "name": "Drafting / CAD service", "examples": [] }
           ]
         },
         {
           "name": "Consulting, HR & Admin",
           "types": [
             { "name": "Management / strategy consultant", "examples": [] },
-            { "name": "Staffing / recruiting agency", "examples": ["niche/vertical"] },
-            { "name": "HR consultant", "examples": [] },
+            { "name": "Staffing / recruiting agency", "examples": ["healthcare", "blue-collar", "tech", "executive search"] },
+            { "name": "HR consultant / outsourced HR", "examples": [] },
             { "name": "Virtual assistant service", "examples": [] },
             { "name": "Translation / interpretation service", "examples": [] },
+            { "name": "Transcription service", "examples": ["legal", "medical"] },
             { "name": "Call center / answering service", "examples": [] },
-            { "name": "Market research firm", "examples": [] }
+            { "name": "Market research / data firm", "examples": [] },
+            { "name": "Grant writer / bid writer", "examples": [] },
+            { "name": "Permit expediting service", "examples": [] }
           ]
         }
       ]
@@ -478,36 +556,42 @@
         {
           "name": "Practitioners & Clinics",
           "types": [
-            { "name": "Doctor / GP practice", "examples": [] },
-            { "name": "Dentist / dental practice", "examples": ["orthodontist"] },
+            { "name": "Doctor / GP practice", "examples": ["family medicine", "concierge"] },
+            { "name": "Dental practice", "examples": ["general", "orthodontist", "cosmetic", "pediatric"] },
             { "name": "Optometrist / eye clinic", "examples": [] },
-            { "name": "Dermatology clinic", "examples": [] },
+            { "name": "Dermatology clinic", "examples": ["cosmetic", "medical"] },
             { "name": "Pediatric clinic", "examples": [] },
-            { "name": "Physiotherapy clinic", "examples": [] },
+            { "name": "OB-GYN / women's health clinic", "examples": ["fertility", "menopause"] },
+            { "name": "Physiotherapy clinic", "examples": ["sports", "neuro"] },
             { "name": "Chiropractor", "examples": [] },
             { "name": "Podiatrist", "examples": [] },
-            { "name": "Psychologist / counselor", "examples": [] },
+            { "name": "Psychologist / counselor", "examples": ["CBT", "couples", "child"] },
             { "name": "Psychiatry practice", "examples": [] },
             { "name": "Audiologist / hearing clinic", "examples": [] },
             { "name": "Speech / occupational therapist", "examples": [] },
-            { "name": "Veterinary clinic", "examples": ["mobile vet", "large animal"] },
-            { "name": "Specialty / weight-loss clinic", "examples": ["GLP-1", "TRT/hormone"] }
+            { "name": "Veterinary clinic", "examples": ["small animal", "mobile vet", "large animal", "exotics"] },
+            { "name": "Weight-loss / metabolic clinic", "examples": ["GLP-1"] },
+            { "name": "Hormone / TRT / longevity clinic", "examples": [] },
+            { "name": "Cosmetic / plastic surgery clinic", "examples": [] }
           ]
         },
         {
           "name": "Facilities & Support",
           "types": [
-            { "name": "Hospital", "examples": [] },
+            { "name": "Hospital", "examples": ["general", "specialty"] },
             { "name": "Urgent care / walk-in clinic", "examples": [] },
-            { "name": "Diagnostic / imaging lab", "examples": [] },
+            { "name": "Diagnostic / imaging lab", "examples": ["radiology", "pathology"] },
             { "name": "Dental laboratory", "examples": [] },
             { "name": "Prosthetics / orthotics provider", "examples": [] },
             { "name": "Hearing aid retailer", "examples": [] },
-            { "name": "Home care agency", "examples": [] },
+            { "name": "Home care / home health agency", "examples": [] },
             { "name": "Nursing home / assisted living", "examples": [] },
-            { "name": "Hospice", "examples": [] },
+            { "name": "Hospice / palliative care", "examples": [] },
             { "name": "IVF / fertility clinic", "examples": [] },
-            { "name": "Rehab / addiction center", "examples": [] }
+            { "name": "Rehab / addiction treatment center", "examples": [] },
+            { "name": "Dialysis center", "examples": [] },
+            { "name": "Blood / plasma donation center", "examples": [] },
+            { "name": "Medical billing / RCM service", "examples": [] }
           ]
         },
         {
@@ -516,7 +600,9 @@
             { "name": "Acupuncturist", "examples": [] },
             { "name": "Naturopath / herbalist", "examples": [] },
             { "name": "Nutritionist / dietitian", "examples": [] },
-            { "name": "Ayurveda / TCM practitioner", "examples": [] }
+            { "name": "Ayurveda / TCM practitioner", "examples": [] },
+            { "name": "Osteopath", "examples": [] },
+            { "name": "Wellness / health coach", "examples": [] }
           ]
         }
       ]
@@ -528,34 +614,39 @@
         {
           "name": "Schools & Childcare",
           "types": [
-            { "name": "Daycare / preschool", "examples": [] },
+            { "name": "Daycare / nursery", "examples": [] },
+            { "name": "Preschool / kindergarten", "examples": ["Montessori", "Reggio"] },
             { "name": "Primary / elementary school", "examples": [] },
             { "name": "Secondary / high school", "examples": [] },
-            { "name": "Private / international school", "examples": [] }
+            { "name": "Private / international school", "examples": [] },
+            { "name": "Special education school", "examples": [] },
+            { "name": "Microschool / learning pod", "examples": [] }
           ]
         },
         {
           "name": "Vocational & Higher",
           "types": [
             { "name": "College / university", "examples": [] },
-            { "name": "Vocational / trade school", "examples": [] },
-            { "name": "Driving school", "examples": [] },
+            { "name": "Vocational / trade school", "examples": ["welding", "HVAC", "CDL"] },
+            { "name": "Driving school", "examples": ["car", "truck/CDL", "motorcycle"] },
             { "name": "Flight school", "examples": [] },
             { "name": "Cooking / culinary school", "examples": [] },
             { "name": "Language school", "examples": [] },
-            { "name": "Beauty / cosmetology school", "examples": [] }
+            { "name": "Beauty / cosmetology school", "examples": [] },
+            { "name": "Bootcamp (coding / data)", "examples": [] }
           ]
         },
         {
           "name": "Tutoring, Coaching & Lessons",
           "types": [
-            { "name": "Tutoring center", "examples": ["test prep"] },
-            { "name": "Private tutor", "examples": [] },
-            { "name": "Music teacher / school", "examples": [] },
+            { "name": "Tutoring center", "examples": ["test prep", "STEM"] },
+            { "name": "Private tutor", "examples": ["dyslexia/reading", "math"] },
+            { "name": "Music teacher / school", "examples": ["piano", "guitar", "vocal"] },
             { "name": "Art / dance academy", "examples": [] },
-            { "name": "Sports coaching / academy", "examples": ["swim school", "tennis"] },
+            { "name": "Sports coaching / academy", "examples": ["swim school", "tennis", "soccer"] },
             { "name": "Online course creator", "examples": [] },
-            { "name": "Corporate trainer", "examples": [] }
+            { "name": "Corporate trainer", "examples": ["compliance", "leadership"] },
+            { "name": "Exam / certification prep provider", "examples": [] }
           ]
         }
       ]
@@ -570,36 +661,39 @@
             { "name": "Appliance repair service", "examples": [] },
             { "name": "Electronics repair shop", "examples": [] },
             { "name": "Phone / tablet repair", "examples": [] },
-            { "name": "Computer repair", "examples": [] },
+            { "name": "Computer / laptop repair", "examples": ["data recovery"] },
             { "name": "Watch & clock repair", "examples": [] },
             { "name": "Jewelry repair", "examples": [] },
-            { "name": "Furniture repair / restoration", "examples": [] },
+            { "name": "Furniture repair / restoration", "examples": ["antique restoration"] },
             { "name": "Small engine / lawnmower repair", "examples": [] },
             { "name": "Bicycle repair", "examples": [] },
-            { "name": "Musical instrument repair", "examples": [] },
-            { "name": "Camera repair", "examples": [] },
-            { "name": "Sewing machine repair", "examples": [] }
+            { "name": "Musical instrument repair", "examples": ["piano tuning", "guitar setup"] },
+            { "name": "Camera / optics repair", "examples": [] },
+            { "name": "Sewing machine repair", "examples": [] },
+            { "name": "Power tool repair", "examples": [] },
+            { "name": "Upholstery repair / re-cover", "examples": [] }
           ]
         },
         {
           "name": "Property & Outdoor Maintenance",
           "types": [
             { "name": "Handyman service", "examples": [] },
-            { "name": "Janitorial / commercial cleaning", "examples": [] },
-            { "name": "Residential cleaning service", "examples": [] },
-            { "name": "Window cleaning", "examples": [] },
-            { "name": "Pressure washing", "examples": [] },
+            { "name": "Janitorial / commercial cleaning", "examples": ["office", "medical"] },
+            { "name": "Residential cleaning service", "examples": ["move-out", "deep clean"] },
+            { "name": "Window cleaning", "examples": ["high-rise"] },
+            { "name": "Pressure / soft washing", "examples": [] },
             { "name": "Carpet & upholstery cleaning", "examples": [] },
-            { "name": "Gutter cleaning", "examples": [] },
-            { "name": "Pool maintenance", "examples": [] },
-            { "name": "Pest control", "examples": [] },
-            { "name": "Landscaping / lawn care", "examples": [] },
+            { "name": "Gutter cleaning & repair", "examples": [] },
+            { "name": "Pool maintenance & cleaning", "examples": [] },
+            { "name": "Pest control", "examples": ["termite", "rodent", "wildlife removal"] },
+            { "name": "Landscaping / lawn care", "examples": ["mowing routes", "design/build"] },
             { "name": "Tree service / arborist", "examples": [] },
-            { "name": "Snow removal", "examples": [] },
+            { "name": "Snow removal / gritting", "examples": [] },
             { "name": "Junk removal / hauling", "examples": [] },
             { "name": "Chimney sweep", "examples": [] },
             { "name": "Christmas light installation", "examples": [] },
-            { "name": "Pet waste removal", "examples": [] }
+            { "name": "Pet waste removal", "examples": [] },
+            { "name": "Property maintenance (multi-trade)", "examples": [] }
           ]
         }
       ]
@@ -611,28 +705,32 @@
         {
           "name": "Producers",
           "types": [
-            { "name": "Crop farmer", "examples": ["grains", "vegetables", "fruit/orchard"] },
-            { "name": "Dairy farmer", "examples": [] },
-            { "name": "Livestock rancher", "examples": ["cattle", "sheep", "goat"] },
-            { "name": "Poultry farmer", "examples": ["eggs", "broilers"] },
-            { "name": "Beekeeper / apiary", "examples": [] },
-            { "name": "Vineyard / winery grower", "examples": [] },
-            { "name": "Greenhouse / nursery grower", "examples": [] },
-            { "name": "Mushroom farm", "examples": [] },
-            { "name": "Hydroponic / vertical farm", "examples": [] },
+            { "name": "Crop farmer", "examples": ["grains/cereals", "vegetables", "fruit/orchard"] },
+            { "name": "Dairy farmer", "examples": ["raw milk", "A2"] },
+            { "name": "Livestock rancher", "examples": ["cattle", "sheep", "goat", "pig"] },
+            { "name": "Poultry farmer", "examples": ["eggs", "broilers", "free-range"] },
+            { "name": "Beekeeper / apiary", "examples": ["honey", "pollination services"] },
+            { "name": "Vineyard / winegrower", "examples": [] },
+            { "name": "Greenhouse / nursery grower", "examples": ["ornamentals", "vegetables"] },
+            { "name": "Mushroom farm", "examples": ["gourmet", "medicinal"] },
+            { "name": "Hydroponic / vertical farm", "examples": ["microgreens", "leafy greens"] },
             { "name": "Flower / cut-flower farm", "examples": [] },
-            { "name": "Fish farm / aquaculture", "examples": [] },
-            { "name": "Commercial fishing operation", "examples": [] }
+            { "name": "Tree / Christmas tree farm", "examples": [] },
+            { "name": "Fish farm / aquaculture", "examples": ["shellfish", "finfish"] },
+            { "name": "Commercial fishing operation", "examples": ["coastal", "offshore"] },
+            { "name": "Insect / alternative protein farm", "examples": [] }
           ]
         },
         {
           "name": "Ag Services & Supply",
           "types": [
-            { "name": "Agricultural contractor", "examples": ["harvesting", "crop spraying"] },
-            { "name": "Farm equipment dealer", "examples": [] },
+            { "name": "Agricultural contractor", "examples": ["harvesting", "crop spraying", "baling"] },
+            { "name": "Farm equipment dealer", "examples": ["tractors", "implements"] },
             { "name": "Feed & seed supplier", "examples": [] },
             { "name": "Grain elevator / storage", "examples": [] },
-            { "name": "Cold storage facility", "examples": [] }
+            { "name": "Cold storage facility", "examples": [] },
+            { "name": "Veterinary / livestock services", "examples": [] },
+            { "name": "Irrigation systems provider", "examples": [] }
           ]
         }
       ]
@@ -644,12 +742,13 @@
         {
           "name": "Freight & Delivery",
           "types": [
-            { "name": "Trucking / haulage company", "examples": [] },
-            { "name": "Courier / parcel delivery", "examples": ["last-mile"] },
-            { "name": "Freight forwarder", "examples": [] },
+            { "name": "Trucking / haulage company", "examples": ["long-haul", "regional", "tanker", "flatbed"] },
+            { "name": "Courier / parcel delivery", "examples": ["last-mile", "same-day", "medical"] },
+            { "name": "Freight forwarder", "examples": ["air", "ocean"] },
             { "name": "Customs broker", "examples": [] },
-            { "name": "Moving / removals company", "examples": [] },
-            { "name": "Dispatch service", "examples": [] }
+            { "name": "Moving / removals company", "examples": ["residential", "office", "international"] },
+            { "name": "Dispatch service", "examples": ["truck dispatching"] },
+            { "name": "Drone / autonomous delivery operator", "examples": [] }
           ]
         },
         {
@@ -657,16 +756,18 @@
           "types": [
             { "name": "Taxi / rideshare operator", "examples": [] },
             { "name": "Limo / chauffeur service", "examples": [] },
-            { "name": "Bus / coach operator", "examples": [] },
-            { "name": "Shuttle / airport transfer", "examples": [] }
+            { "name": "Bus / coach operator", "examples": ["charter", "tour"] },
+            { "name": "Shuttle / airport transfer", "examples": [] },
+            { "name": "Non-emergency medical transport", "examples": [] }
           ]
         },
         {
           "name": "Storage & Warehousing",
           "types": [
-            { "name": "Warehouse / fulfillment (3PL)", "examples": [] },
+            { "name": "Warehouse / fulfillment (3PL)", "examples": ["e-commerce"] },
             { "name": "Self-storage facility", "examples": [] },
-            { "name": "Cold / specialized storage", "examples": [] }
+            { "name": "Cold / specialized storage", "examples": ["pharma", "food"] },
+            { "name": "Document storage / records management", "examples": [] }
           ]
         }
       ]
@@ -678,14 +779,16 @@
         {
           "name": "Wholesalers & Distributors",
           "types": [
-            { "name": "Food & beverage wholesaler", "examples": [] },
+            { "name": "Food & beverage wholesaler", "examples": ["produce", "frozen", "specialty"] },
             { "name": "Apparel / textile wholesaler", "examples": [] },
             { "name": "Electronics wholesaler", "examples": [] },
-            { "name": "Building materials supplier", "examples": [] },
+            { "name": "Building materials supplier", "examples": ["lumber yard", "plumbing", "electrical"] },
             { "name": "Auto parts distributor", "examples": [] },
-            { "name": "Pharmaceutical distributor", "examples": [] },
+            { "name": "Pharmaceutical / medical distributor", "examples": [] },
             { "name": "Industrial / janitorial supplies", "examples": [] },
-            { "name": "Restaurant / catering supplier", "examples": [] }
+            { "name": "Restaurant / catering supplier", "examples": [] },
+            { "name": "Beauty / salon products distributor", "examples": [] },
+            { "name": "Agricultural / horticultural supplier", "examples": [] }
           ]
         },
         {
@@ -694,7 +797,8 @@
             { "name": "Import / export trader", "examples": [] },
             { "name": "Sourcing agent / broker", "examples": [] },
             { "name": "Dropship / B2B supplier", "examples": [] },
-            { "name": "Equipment / machinery dealer", "examples": [] }
+            { "name": "Equipment / machinery dealer", "examples": ["new", "used/refurbished"] },
+            { "name": "Liquidation / surplus reseller", "examples": [] }
           ]
         }
       ]
@@ -706,22 +810,24 @@
         {
           "name": "Brokerage & Transactions",
           "types": [
-            { "name": "Real estate agency / agent", "examples": ["residential", "commercial"] },
+            { "name": "Real estate agency / agent", "examples": ["residential", "commercial", "luxury", "land"] },
             { "name": "Letting / rental agent", "examples": [] },
-            { "name": "Real estate developer", "examples": [] },
+            { "name": "Real estate developer", "examples": ["residential", "commercial"] },
             { "name": "Property appraiser / valuer", "examples": [] },
             { "name": "Home inspector", "examples": [] },
             { "name": "Title / escrow company", "examples": [] },
-            { "name": "Mortgage / loan office", "examples": [] }
+            { "name": "Mortgage / loan office", "examples": [] },
+            { "name": "Real estate photography / staging", "examples": [] }
           ]
         },
         {
           "name": "Property Operations",
           "types": [
-            { "name": "Property management company", "examples": ["residential", "HOA/strata"] },
-            { "name": "Vacation rental manager", "examples": ["co-hosting"] },
+            { "name": "Property management company", "examples": ["residential", "HOA/strata", "student"] },
+            { "name": "Vacation rental manager", "examples": ["co-hosting", "cabins"] },
             { "name": "Commercial leasing / facilities mgmt", "examples": [] },
-            { "name": "Landlord (small portfolio)", "examples": [] }
+            { "name": "Landlord (small portfolio)", "examples": [] },
+            { "name": "Storage / parking operator", "examples": [] }
           ]
         }
       ]
@@ -733,22 +839,24 @@
         {
           "name": "Visual & Audio Production",
           "types": [
-            { "name": "Photographer", "examples": ["wedding", "portrait", "product", "real estate"] },
-            { "name": "Videographer / video production", "examples": [] },
+            { "name": "Photographer", "examples": ["wedding", "portrait", "product", "real estate", "newborn", "events"] },
+            { "name": "Videographer / video production", "examples": ["commercial", "wedding", "corporate"] },
             { "name": "Recording / music studio", "examples": [] },
             { "name": "Animation / motion graphics studio", "examples": [] },
             { "name": "Voiceover artist", "examples": [] },
-            { "name": "Podcast producer", "examples": [] }
+            { "name": "Podcast production studio", "examples": [] },
+            { "name": "Drone aerial filming service", "examples": [] }
           ]
         },
         {
           "name": "Performers & Talent",
           "types": [
-            { "name": "DJ", "examples": [] },
+            { "name": "DJ", "examples": ["wedding", "club", "mobile"] },
             { "name": "Band / musician for hire", "examples": [] },
-            { "name": "Event entertainer", "examples": ["magician", "MC/host", "kids entertainer"] },
+            { "name": "Event entertainer", "examples": ["magician", "MC/host", "kids entertainer", "caricaturist"] },
             { "name": "Dance troupe / performer", "examples": [] },
-            { "name": "Content creator / influencer", "examples": [] }
+            { "name": "Content creator / influencer", "examples": [] },
+            { "name": "Model / talent agency", "examples": [] }
           ]
         },
         {
@@ -756,11 +864,12 @@
           "types": [
             { "name": "Art gallery", "examples": [] },
             { "name": "Museum", "examples": [] },
-            { "name": "Publishing house", "examples": [] },
+            { "name": "Publishing house / press", "examples": [] },
             { "name": "Local newspaper / magazine", "examples": [] },
             { "name": "Cinema / movie theater", "examples": [] },
             { "name": "Theater / performing arts venue", "examples": [] },
-            { "name": "Concert / event venue", "examples": [] }
+            { "name": "Concert / live music venue", "examples": [] },
+            { "name": "Bookbinding / framing studio", "examples": [] }
           ]
         }
       ]
@@ -773,19 +882,21 @@
           "name": "Planning & Coordination",
           "types": [
             { "name": "Wedding planner", "examples": [] },
-            { "name": "Event / party planner", "examples": ["corporate events"] },
-            { "name": "Event decorator / stylist", "examples": ["balloon decor"] }
+            { "name": "Event / party planner", "examples": ["corporate events", "milestone parties"] },
+            { "name": "Event decorator / stylist", "examples": ["balloon decor", "floral design"] },
+            { "name": "Conference / exhibition organizer", "examples": [] }
           ]
         },
         {
           "name": "Event Suppliers",
           "types": [
-            { "name": "Event rental company", "examples": ["tables/chairs", "tents", "linens"] },
+            { "name": "Event rental company", "examples": ["tables/chairs", "tents/marquees", "linens"] },
             { "name": "Photo booth rental", "examples": [] },
             { "name": "AV / staging / lighting service", "examples": [] },
             { "name": "Bounce house / inflatable rental", "examples": [] },
-            { "name": "Cake / dessert maker (events)", "examples": [] },
-            { "name": "Ticketing / box office service", "examples": [] }
+            { "name": "Catering & cake (events)", "examples": [] },
+            { "name": "Ticketing / box office service", "examples": [] },
+            { "name": "Mobile bar / beverage service", "examples": [] }
           ]
         }
       ]
@@ -802,30 +913,35 @@
             { "name": "Trampoline / adventure park", "examples": [] },
             { "name": "Escape room", "examples": [] },
             { "name": "Go-kart / paintball / laser tag", "examples": [] },
-            { "name": "Mini golf / golf course / driving range", "examples": [] },
-            { "name": "Climbing gym", "examples": [] },
-            { "name": "Ice rink / swimming pool", "examples": [] },
-            { "name": "Amusement / theme park", "examples": [] }
+            { "name": "Mini golf / driving range / golf course", "examples": [] },
+            { "name": "Ice rink / roller rink", "examples": [] },
+            { "name": "Swimming pool / aquatic center", "examples": [] },
+            { "name": "Amusement / theme / water park", "examples": [] },
+            { "name": "Indoor play center (kids)", "examples": [] },
+            { "name": "Pickleball / racquet club", "examples": [] }
           ]
         },
         {
           "name": "Outdoor & Sport Operators",
           "types": [
-            { "name": "Tour operator / guide", "examples": ["adventure", "city tours"] },
+            { "name": "Tour operator / guide", "examples": ["adventure", "city tours", "food tours"] },
             { "name": "Fishing / boat charter", "examples": [] },
-            { "name": "Dive / surf school", "examples": [] },
+            { "name": "Dive / surf / sailing school", "examples": [] },
             { "name": "Riding stable / equestrian center", "examples": [] },
             { "name": "Marina / boat rental", "examples": [] },
             { "name": "Ski resort / outdoor center", "examples": [] },
-            { "name": "Sports club / recreation center", "examples": [] }
+            { "name": "Sports club / league operator", "examples": ["rec leagues"] },
+            { "name": "Bike / kayak / gear rental", "examples": [] },
+            { "name": "Hunting / fishing lodge / outfitter", "examples": [] }
           ]
         },
         {
           "name": "Travel Services",
           "types": [
-            { "name": "Travel agency", "examples": [] },
+            { "name": "Travel agency", "examples": ["leisure", "corporate", "luxury"] },
             { "name": "Tour packaging / DMC", "examples": [] },
-            { "name": "Visa / travel document service", "examples": [] }
+            { "name": "Visa / travel document service", "examples": [] },
+            { "name": "Camp / retreat operator", "examples": ["summer camp", "wellness retreat"] }
           ]
         }
       ]
@@ -839,10 +955,10 @@
           "types": [
             { "name": "Pet grooming (incl. mobile)", "examples": [] },
             { "name": "Dog walking", "examples": [] },
-            { "name": "Pet sitting", "examples": [] },
+            { "name": "Pet sitting / house sitting", "examples": [] },
             { "name": "Boarding kennel / cattery", "examples": [] },
             { "name": "Doggy daycare", "examples": [] },
-            { "name": "Dog trainer / behaviorist", "examples": [] }
+            { "name": "Dog trainer / behaviorist", "examples": ["puppy", "reactive", "service dogs"] }
           ]
         },
         {
@@ -851,7 +967,8 @@
             { "name": "Pet bakery / treat maker", "examples": [] },
             { "name": "Breeder", "examples": [] },
             { "name": "Aquarium installation / maintenance", "examples": [] },
-            { "name": "Pet crematorium / memorial", "examples": [] }
+            { "name": "Pet crematorium / memorial service", "examples": [] },
+            { "name": "Mobile / on-farm animal services", "examples": ["farrier", "mobile vet"] }
           ]
         }
       ]
@@ -868,18 +985,21 @@
             { "name": "Scaffolding rental", "examples": [] },
             { "name": "Portable toilet / sanitation rental", "examples": [] },
             { "name": "Dumpster / skip hire", "examples": [] },
-            { "name": "Generator / power rental", "examples": [] }
+            { "name": "Generator / temporary power rental", "examples": [] },
+            { "name": "Heavy plant / earthmoving hire", "examples": [] }
           ]
         },
         {
           "name": "Industrial Support Services",
           "types": [
-            { "name": "Industrial cleaning service", "examples": [] },
-            { "name": "Calibration / testing service", "examples": [] },
+            { "name": "Industrial cleaning service", "examples": ["tank", "facade"] },
+            { "name": "Calibration / testing / inspection service", "examples": [] },
             { "name": "Safety / PPE supplier", "examples": [] },
             { "name": "Uniform rental / laundry service", "examples": [] },
-            { "name": "Waste management / recycling", "examples": ["scrap metal dealer", "e-waste"] },
-            { "name": "Surveying / inspection (drone)", "examples": [] }
+            { "name": "Waste management / recycling", "examples": ["scrap metal dealer", "e-waste", "hazardous"] },
+            { "name": "Industrial / drone surveying & inspection", "examples": [] },
+            { "name": "Welding & fabrication (mobile/on-site)", "examples": [] },
+            { "name": "Industrial machinery maintenance", "examples": [] }
           ]
         }
       ]
@@ -891,9 +1011,9 @@
         {
           "name": "Banking & Money Movement",
           "types": [
-            { "name": "Bank branch / credit union", "examples": [] },
+            { "name": "Bank / credit union branch", "examples": [] },
             { "name": "Money transfer / remittance agent", "examples": [] },
-            { "name": "Currency exchange", "examples": [] },
+            { "name": "Currency exchange / bureau de change", "examples": [] },
             { "name": "Check cashing / payday lender", "examples": [] },
             { "name": "ATM operator", "examples": [] },
             { "name": "Pawnbroker", "examples": [] }
@@ -904,7 +1024,8 @@
           "types": [
             { "name": "Investment / brokerage firm", "examples": [] },
             { "name": "Insurance carrier / agency", "examples": [] },
-            { "name": "Debt collection agency", "examples": [] }
+            { "name": "Debt collection agency", "examples": [] },
+            { "name": "Credit repair service", "examples": [] }
           ]
         }
       ]
@@ -916,13 +1037,14 @@
         {
           "name": "Institutions & Orgs",
           "types": [
-            { "name": "Government office / agency", "examples": [] },
+            { "name": "Government office / agency", "examples": ["local council", "licensing"] },
             { "name": "Post office / postal service", "examples": [] },
             { "name": "Public library", "examples": [] },
             { "name": "Community / recreation center", "examples": [] },
-            { "name": "Nonprofit / charity", "examples": [] },
+            { "name": "Nonprofit / charity", "examples": ["food bank", "shelter"] },
             { "name": "Religious organization / place of worship", "examples": [] },
-            { "name": "Utility company", "examples": ["water", "power", "gas"] }
+            { "name": "Utility company", "examples": ["water", "power", "gas", "broadband"] },
+            { "name": "Trade union / professional association", "examples": [] }
           ]
         }
       ]
@@ -934,11 +1056,12 @@
         {
           "name": "Security Services",
           "types": [
-            { "name": "Private security / guarding firm", "examples": [] },
+            { "name": "Private security / guarding firm", "examples": ["events", "retail", "corporate"] },
             { "name": "Alarm / CCTV installer & monitoring", "examples": [] },
             { "name": "Private investigator", "examples": [] },
             { "name": "Bail bonds agency", "examples": [] },
-            { "name": "Locksmith (security)", "examples": [] }
+            { "name": "Locksmith (security)", "examples": [] },
+            { "name": "Cash-in-transit / armored service", "examples": [] }
           ]
         }
       ]
@@ -952,9 +1075,81 @@
           "types": [
             { "name": "Funeral home / mortuary", "examples": [] },
             { "name": "Crematorium", "examples": [] },
-            { "name": "Cemetery / burial ground", "examples": [] },
+            { "name": "Cemetery / burial ground", "examples": ["green burial"] },
             { "name": "Monument / headstone maker", "examples": [] },
-            { "name": "Estate clearance / probate service", "examples": [] }
+            { "name": "Estate clearance / probate service", "examples": [] },
+            { "name": "Grief / bereavement support service", "examples": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "technology-software-digital",
+      "name": "Technology, Software & Digital Businesses",
+      "groups": [
+        {
+          "name": "Software & Product Companies",
+          "types": [
+            { "name": "SaaS company", "examples": ["vertical SaaS", "horizontal SaaS"] },
+            { "name": "Mobile app studio", "examples": [] },
+            { "name": "Game studio", "examples": ["indie", "mobile"] },
+            { "name": "AI / ML product company", "examples": ["generative AI", "computer vision"] },
+            { "name": "E-commerce / DTC brand", "examples": [] },
+            { "name": "Marketplace platform operator", "examples": ["niche", "local"] },
+            { "name": "Hardware / IoT startup", "examples": [] }
+          ]
+        },
+        {
+          "name": "Digital Services & Infrastructure",
+          "types": [
+            { "name": "Web hosting / cloud provider", "examples": [] },
+            { "name": "Data center operator", "examples": [] },
+            { "name": "Digital agency (full-service)", "examples": [] },
+            { "name": "E-commerce enablement / Shopify agency", "examples": [] },
+            { "name": "Cybersecurity / pen-testing firm", "examples": [] },
+            { "name": "Data / analytics consultancy", "examples": [] },
+            { "name": "No-code / automation studio", "examples": [] }
+          ]
+        },
+        {
+          "name": "Online Content & Creator Businesses",
+          "types": [
+            { "name": "YouTube / video channel business", "examples": ["faceless", "education"] },
+            { "name": "Newsletter / blog / media site", "examples": ["niche B2B"] },
+            { "name": "Online course / info-product business", "examples": [] },
+            { "name": "Membership / community business", "examples": [] },
+            { "name": "Affiliate / niche-site publisher", "examples": [] },
+            { "name": "Print-on-demand / digital products seller", "examples": [] }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "energy-utilities-environmental",
+      "name": "Energy, Utilities & Environmental Services",
+      "groups": [
+        {
+          "name": "Energy & Power Services",
+          "types": [
+            { "name": "Solar installation & maintenance company", "examples": ["residential", "commercial"] },
+            { "name": "EV charging network / installer", "examples": [] },
+            { "name": "Battery / energy storage installer", "examples": [] },
+            { "name": "Wind / hydro O&M service", "examples": [] },
+            { "name": "Fuel / propane / heating oil supplier", "examples": [] },
+            { "name": "Energy broker / efficiency consultant", "examples": ["home energy audits"] },
+            { "name": "Generator sales & service", "examples": [] }
+          ]
+        },
+        {
+          "name": "Water & Environmental Services",
+          "types": [
+            { "name": "Water treatment / filtration provider", "examples": ["residential", "industrial"] },
+            { "name": "Well drilling / pump service", "examples": [] },
+            { "name": "Septic / wastewater service", "examples": [] },
+            { "name": "Environmental remediation contractor", "examples": ["asbestos", "soil"] },
+            { "name": "Recycling / composting service", "examples": ["commercial", "residential pickup"] },
+            { "name": "Hazardous / medical waste handler", "examples": [] },
+            { "name": "Carbon / ESG / sustainability consultant", "examples": [] }
           ]
         }
       ]

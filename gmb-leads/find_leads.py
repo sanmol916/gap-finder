@@ -206,9 +206,10 @@ def resolve_targets(presets: dict, args) -> list[tuple[str, str]]:
         for state, cities in states.items():
             if state.lower() in want:
                 pairs.extend((city, state) for city in cities)
-    else:
+    elif args.all_india:
         for state, cities in states.items():
             pairs.extend((city, state) for city in cities)
+    # else: no selection -> empty; main() warns (prevents accidental full-India runs)
     return pairs
 
 
@@ -246,8 +247,10 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--states", nargs="*", help="limit to these states")
     ap.add_argument("--categories", nargs="*", help="override preset categories")
     ap.add_argument("--max-pages", type=int, default=3, help="pages per query (20 results each, max 3)")
+    ap.add_argument("--all-india", action="store_true",
+                    help="scan EVERY city in presets.json (large run - watch the cost)")
     ap.add_argument("--include-with-website", action="store_true", help="also output businesses that have a website")
-    ap.add_argument("--out", default=os.path.join(OUT_DIR, "ne_india_no_website_leads"),
+    ap.add_argument("--out", default=os.path.join(OUT_DIR, "india_no_website_leads"),
                     help="output path prefix (no extension)")
     ap.add_argument("--api-key", default=os.environ.get("GOOGLE_MAPS_API_KEY"))
     ap.add_argument("--self-test", action="store_true", help="run offline pipeline test (no key needed)")
@@ -266,7 +269,11 @@ def main(argv: list[str]) -> int:
     categories = args.categories or presets["categories"]
     targets = resolve_targets(presets, args)
     if not targets:
-        print("No matching cities/states. Check spelling against presets.json.")
+        print("Nothing to search. Specify one of:\n"
+              "  --cities Guwahati Shillong        (specific cities)\n"
+              "  --states Assam Kerala             (all major cities in those states)\n"
+              "  --all-india                       (EVERY city in presets - large run!)\n"
+              "Check spelling against presets.json.")
         return 2
 
     print(f"Targets: {len(targets)} cities x {len(categories)} categories "

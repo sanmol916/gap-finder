@@ -68,23 +68,37 @@ On the configuration screen:
 2. **Framework Preset:** leave as **Other** (Vercel auto-detects Python from `api/` + `requirements.txt`).
 3. Leave Build/Output settings empty (the included `vercel.json` handles routing).
 
-### 5. (Optional) Set your API key on the server
-On the same screen (or later under **Settings → Environment Variables**) you can add:
-- **Name:** `GOOGLE_MAPS_API_KEY`  **Value:** your key
+### 5. Make your API key PERMANENT (recommended)
+So you never paste the key again, store it on the server:
+1. During import (or later: **Project → Settings → Environment Variables**) add:
+   - **Key/Name:** `GOOGLE_MAPS_API_KEY`
+   - **Value:** your Google key
+   - Apply to **Production** (and Preview if you want).
+2. Save and (if added later) **redeploy**.
+3. Now the app shows "&#10003; A permanent API key is configured on the server" and the form's
+   key box can stay empty forever.
 
-> ⚠️ Only do this if you'll keep the URL **private**. A public Vercel URL with a server-side key
-> means anyone who finds it can spend your Google quota. The safer default is to **leave it
-> blank** and paste your key into the form each time you use it.
+> ⚠️ **Keep the URL private** when you do this. A public URL + a server-side key means anyone who
+> finds it can spend your Google quota. Either keep the link to yourself, or turn on Vercel
+> **Deployment Protection** (Project → Settings → Deployment Protection → *Vercel Authentication*),
+> which requires a Vercel login to open the site. If you'd rather not store the key, just skip
+> this step and paste the key into the form each time.
 
 ### 6. Deploy
 Click **Deploy**, wait ~1 minute. You'll get a URL like `https://gmb-leads-xxxx.vercel.app`.
 
 ### 7. Use it
 1. Open the URL.
-2. Paste your Google API key (if you didn't set it as an env var).
-3. Enter cities (e.g. `Guwahati, Shillong`) and categories (e.g. `beauty salon, dental clinic`).
+2. Paste your Google API key (skip this if you set it as a permanent env var in step 5).
+3. **Pick a State** from the dropdown (it scans that state's major cities) **and/or multi-select
+   specific Cities** from the grouped dropdown (Ctrl/Cmd-click for several). Then choose
+   **Categories** the same way.
 4. Choose "Top 20 (cheapest)" for the first run → **Find no-website leads**.
 5. Review the table → click **Download CSV** → import into Google Sheets if you like.
+
+> Covers **all of India** (36 states/UTs, ~185 major cities). The web app caps how many searches
+> run at once (serverless time limit). For a full-India sweep in one go, use the local CLI:
+> `python find_leads.py --all-india` (see SETUP_GUIDE.md).
 
 ### 8. Updates are automatic
 Any time this repo's `main` branch changes, Vercel redeploys automatically.

@@ -85,3 +85,40 @@ coaching centers, etc.).
 ## Turning leads into clients (the point of this)
 For each no-website business: a quick call/visit — "I saw you're on Google Maps but don't have
 a website; here's a 1-page site I can set up for you." High-intent, low-competition outreach.
+
+
+---
+
+## Coverage
+`presets.json` now spans **all of India** — 36 states & union territories and ~185 major cities.
+The web app turns this into a **State dropdown** + a **City multi-select** (grouped by state), and
+a **Category multi-select**. Edit `presets.json` to add more cities/categories any time.
+
+## FAQ
+
+**Is searching by keyword good?**
+Yes — it's the recommended approach. The Places API (New) **Text Search** is keyword-based by
+design (e.g. `"beauty salon in Jaipur, Rajasthan, India"`). Keywords are flexible and match how
+people label businesses, so they surface more results than rigid category-only filters. Tips:
+- Use the business *type* people would search (e.g. `dental clinic`, `boutique`, `car garage`).
+- Run several related keywords (the multi-select lets you queue many at once) to widen coverage.
+- Each keyword+city search returns up to **60 results** (Google's hard cap), so coverage comes
+  from running **many keyword × city combinations**, not from one big query.
+
+**How do I make the API key permanent (stop pasting it)?**
+Set `GOOGLE_MAPS_API_KEY` as an environment variable on the server (Vercel → Project → Settings →
+Environment Variables). The app detects it and the form's key box becomes optional. See
+[DEPLOY_VERCEL.md](DEPLOY_VERCEL.md) step 5. Keep the URL private if you do this.
+
+**How do I scrape as much as possible?**
+- **Web app:** capped per run (serverless time limit). Run batches: e.g. one state at a time, or
+  a set of cities, repeatedly. Use "Top 60" depth for maximum results per search.
+- **Local CLI (best for bulk):** no time limit. Examples:
+  ```bash
+  python find_leads.py --states Maharashtra Karnataka Tamil Nadu --max-pages 3
+  python find_leads.py --all-india --max-pages 3        # everything (large - mind the cost)
+  ```
+  The CLI writes CSV **and** a real Excel `.xlsx`, and de-dupes across the whole run.
+
+> Reminder: each search consumes Google quota. Big sweeps cost money — keep a budget + daily
+> quota cap set (SETUP_GUIDE.md, Step 6), and start narrow.

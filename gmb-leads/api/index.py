@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """
-Vercel-deployable web app for the gmb-leads scraper.
+Vercel-deployable web app for the gmb-leads scraper (ALL INDIA).
 
 Vercel serves this file as a Python serverless function (it exposes a WSGI
 `app`). The catch-all rewrite in vercel.json sends every path here, and Flask
-routes internally.
+routes internally. It reuses the CLI engine in ../find_leads.py.
 
-It reuses the CLI engine in ../find_leads.py (search_text / extract_rows).
+KEY HANDLING
+  - If GOOGLE_MAPS_API_KEY is set on the server (Vercel env var), it's used
+    automatically and the form key box can stay empty ("permanent" key).
+  - Otherwise paste a key into the form each run.
 
-IMPORTANT - serverless time limits:
-  Vercel functions have a max duration (~60s on Hobby). So the web version is
-  capped to a SMALL number of queries per run. For big bulk scrapes, run the
-  CLI locally (see SETUP_GUIDE.md).
+PLACE SELECTION
+  - Pick a STATE (scans its major cities) and/or multi-select specific CITIES
+    from the dropdown (grouped by state). Covers all India from presets.json.
 
-Run locally for testing:
-  pip install -r requirements.txt
-  python api/index.py            # http://localhost:5000
+SERVERLESS LIMITS
+  Vercel functions have a max duration (~60s). The web version caps how many
+  city x category searches run at once. For full-India / bulk scrapes, run the
+  CLI locally (see SETUP_GUIDE.md) - it has no time limit.
 """
 
 from __future__ import annotations
@@ -23,40 +26,41 @@ from __future__ import annotations
 import os
 import sys
 import csv
-import base64
 import io
+import base64
 
 from flask import Flask, request, render_template_string
 
-# Make the parent folder importable so we can reuse the CLI engine.
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import find_leads as fl  # noqa: E402
 
 app = Flask(__name__)
 
-# Keep runs inside the serverless time budget.
-MAX_QUERIES_1PAGE = 15
-MAX_QUERIES_MULTIPAGE = 6
+# Time budget caps (queries per run) so we stay under the serverless limit.
+CAPS = {1: 40, 2: 16, 3: 10}
 DEFAULT_CATEGORIES = ["beauty salon", "dental clinic", "real estate agent",
                       "gym / fitness center", "clothing boutique"]
 
 PAGE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GMB Leads - businesses with no website (NE India)</title>
+<title>GMB Leads - businesses with no website (India)</title>
 <style>
  :root{--bg:#0f1115;--card:#181b22;--line:#272b35;--text:#e6e8ec;--muted:#9aa3b2;--accent:#5b8cff;--accent2:#1f6feb;--warn:#ffb84d;--good:#3fb950}
  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 -apple-system,Segoe UI,Roboto,sans-serif}
- .wrap{max-width:1000px;margin:0 auto;padding:26px 16px 80px}
+ .wrap{max-width:1040px;margin:0 auto;padding:26px 16px 80px}
  h1{font-size:24px;margin:0 0 4px}h1 .dot{color:var(--accent)}
- .sub{color:var(--muted);margin:0 0 20px}
+ .sub{color:var(--muted);margin:0 0 18px}
  form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:20px}
  label{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:0 0 5px}
- input,select{width:100%;background:#0d0f14;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:11px 12px;font-size:15px}
- .field{margin-top:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+ input,select{width:100%;background:#0d0f14;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px 12px;font-size:15px}
+ select[multiple]{padding:4px}
+ .field{margin-top:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ @media(max-width:640px){.grid{grid-template-columns:1fr}}
  button{margin-top:16px;background:var(--accent2);color:#fff;border:0;border-radius:9px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
  button:hover{background:var(--accent)}
  .note{font-size:12.5px;color:var(--muted);margin-top:8px}
+ .keyok{background:#11281b;border:1px solid #1f5133;color:var(--good);border-radius:9px;padding:8px 12px;font-size:13px;margin-bottom:6px}
  .err{background:#2a1d12;border:1px solid #5a3c1a;color:var(--warn);border-radius:10px;padding:10px 14px;margin:14px 0}
  .ok{background:#11281b;border:1px solid #1f5133;color:var(--good);border-radius:10px;padding:10px 14px;margin:14px 0}
  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13.5px}
@@ -69,41 +73,70 @@ PAGE = """<!doctype html>
  footer{margin-top:34px;color:var(--muted);font-size:12.5px}
 </style></head><body><div class="wrap">
 <h1>GMB Leads<span class="dot">.</span></h1>
-<p class="sub">Find local businesses with <b>no website</b> (North East India) via the official Google Places API.</p>
+<p class="sub">Find local businesses across <b>India</b> that have <b>no website</b> - via the official Google Places API.</p>
 
 <form method="get" action="/">
-  <label for="api_key">Google API key (Places API New)</label>
-  <input type="password" id="api_key" name="api_key" placeholder="paste your key (or set GOOGLE_MAPS_API_KEY on the server)" value="{{ api_key_shown }}">
+  {% if server_key %}
+    <div class="keyok">&#10003; A permanent API key is configured on the server - you can leave the box below empty.</div>
+  {% endif %}
+  <label for="api_key">Google API key (Places API New){{ ' - optional, server key set' if server_key else '' }}</label>
+  <input type="password" id="api_key" name="api_key" placeholder="{{ 'leave blank to use the server key' if server_key else 'paste your key' }}">
+
   <div class="grid field">
-    <div><label for="cities">Cities (comma separated)</label>
-      <input type="text" id="cities" name="cities" value="{{ cities|e }}" placeholder="Guwahati, Shillong"></div>
-    <div><label for="max_pages">Results depth</label>
+    <div>
+      <label for="state">State / UT (scans its major cities)</label>
+      <select id="state" name="state">
+        <option value="">- choose a state (optional) -</option>
+        {% for st in states.keys() %}<option value="{{ st }}" {{ 'selected' if state==st else '' }}>{{ st }}</option>{% endfor %}
+      </select>
+      <div class="note">Pick a state to scan its cities, and/or multi-select exact cities &rarr;</div>
+    </div>
+    <div>
+      <label for="max_pages">Results depth per search</label>
       <select id="max_pages" name="max_pages">
-        <option value="1" {{ 'selected' if pages==1 else '' }}>Top 20 (cheapest)</option>
+        <option value="1" {{ 'selected' if pages==1 else '' }}>Top 20 (cheapest, most queries)</option>
         <option value="2" {{ 'selected' if pages==2 else '' }}>Top 40</option>
-        <option value="3" {{ 'selected' if pages==3 else '' }}>Top 60</option>
-      </select></div>
+        <option value="3" {{ 'selected' if pages==3 else '' }}>Top 60 (deepest)</option>
+      </select>
+    </div>
   </div>
-  <div class="field"><label for="categories">Categories (comma separated)</label>
-    <input type="text" id="categories" name="categories" value="{{ categories|e }}" placeholder="beauty salon, dental clinic, real estate agent"></div>
+
+  <div class="field">
+    <label for="cities">Cities (hold Ctrl / Cmd to pick several)</label>
+    <select id="cities" name="cities" multiple size="12">
+      {% for st, cs in states.items() %}
+      <optgroup label="{{ st }}">
+        {% for c in cs %}<option value="{{ c }}" {{ 'selected' if c in sel_cities else '' }}>{{ c }}</option>{% endfor %}
+      </optgroup>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="categories">Business categories (hold Ctrl / Cmd to pick several)</label>
+    <select id="categories" name="categories" multiple size="8">
+      {% for cat in categories_all %}<option value="{{ cat }}" {{ 'selected' if cat in sel_cats else '' }}>{{ cat }}</option>{% endfor %}
+    </select>
+  </div>
+
   <button type="submit" name="run" value="1">Find no-website leads</button>
-  <div class="note">Serverless runs are capped to keep them fast. For big bulk scrapes, run the CLI locally (see SETUP_GUIDE.md).</div>
+  <div class="note">Capped to {{ cap }} searches per web run to stay fast. For full-India bulk scraping, use the local CLI (SETUP_GUIDE.md).</div>
 </form>
 
 {% if error %}<div class="err">{{ error }}</div>{% endif %}
-{% if trimmed %}<div class="err">Too many city x category combinations for one web run - trimmed to {{ max_q }} queries. Use the local CLI for bigger jobs.</div>{% endif %}
+{% if trimmed %}<div class="err">Selection was large - trimmed to the first {{ cap }} city &times; category searches. Run again with another batch, or use the local CLI for everything at once.</div>{% endif %}
 
 {% if ran %}
   <div class="ok">Scanned {{ total }} businesses across {{ nqueries }} searches - <b>{{ leads|length }}</b> have no website.</div>
   <span class="pill">Businesses <b>{{ total }}</b></span>
   <span class="pill">No-website leads <b>{{ leads|length }}</b></span>
-  {% if csv_data %}<a class="dl" download="ne_india_no_website_leads.csv" href="data:text/csv;base64,{{ csv_data }}">&darr; Download CSV</a>{% endif %}
+  {% if csv_data %}<a class="dl" download="india_no_website_leads.csv" href="data:text/csv;base64,{{ csv_data }}">&darr; Download CSV</a>{% endif %}
   {% if leads %}
   <table>
-    <tr><th>Business</th><th>Category</th><th>City</th><th>Phone</th><th>Address</th><th>Rating</th><th>Maps</th></tr>
+    <tr><th>Business</th><th>Category</th><th>City</th><th>State</th><th>Phone</th><th>Address</th><th>Rating</th><th>Maps</th></tr>
     {% for r in leads %}
     <tr>
-      <td>{{ r.business_name }}</td><td>{{ r.category }}</td><td>{{ r.city }}</td>
+      <td>{{ r.business_name }}</td><td>{{ r.category }}</td><td>{{ r.city }}</td><td>{{ r.state }}</td>
       <td>{{ r.phone }}</td><td>{{ r.address }}</td>
       <td>{{ r.rating }}{% if r.reviews %} ({{ r.reviews }}){% endif %}</td>
       <td>{% if r.maps_url %}<a href="{{ r.maps_url }}" target="_blank" rel="noopener">open</a>{% endif %}</td>
@@ -113,14 +146,17 @@ PAGE = """<!doctype html>
   {% else %}<p class="note">No no-website businesses found for that search. Try other cities/categories.</p>{% endif %}
 {% endif %}
 
-<footer>Uses the official Google Places API (New) - not scraping. Keep this URL private if you set a server-side key, or require visitors to paste their own.</footer>
+<footer>Uses the official Google Places API (New) - not scraping. If you set a server-side key, keep this URL private (anyone with it could spend your quota).</footer>
 </div></body></html>"""
 
 
-def _city_state_map() -> dict:
-    presets = fl.load_presets()
+def _presets():
+    return fl.load_presets()
+
+
+def _city_state_map(states: dict) -> dict:
     m = {}
-    for state, cities in presets["states"].items():
+    for state, cities in states.items():
         for c in cities:
             m[c.lower()] = state
     return m
@@ -137,13 +173,24 @@ def _csv_b64(rows: list) -> str:
 
 @app.route("/", methods=["GET"])
 def index():
+    presets = _presets()
+    states = presets["states"]
+    categories_all = presets["categories"]
+    server_key = bool(os.environ.get("GOOGLE_MAPS_API_KEY"))
+    pages = int(request.args.get("max_pages", 1) or 1)
+    pages = max(1, min(3, pages))
+    cap = CAPS[pages]
+
     ctx = {
-        "api_key_shown": "", "cities": request.args.get("cities", "Guwahati"),
-        "categories": request.args.get("categories", ", ".join(DEFAULT_CATEGORIES)),
-        "pages": int(request.args.get("max_pages", 1) or 1),
-        "ran": False, "error": None, "trimmed": False, "leads": [], "total": 0,
-        "nqueries": 0, "csv_data": "", "max_q": MAX_QUERIES_1PAGE,
+        "states": states, "categories_all": categories_all, "server_key": server_key,
+        "state": request.args.get("state", ""),
+        "sel_cities": request.args.getlist("cities"),
+        "sel_cats": request.args.getlist("categories"),
+        "pages": pages, "cap": cap,
+        "ran": False, "error": None, "trimmed": False,
+        "leads": [], "total": 0, "nqueries": 0, "csv_data": "",
     }
+
     if request.args.get("run") != "1":
         return render_template_string(PAGE, **ctx)
 
@@ -152,37 +199,36 @@ def index():
         ctx["error"] = "No API key. Paste your Google Places API key, or set GOOGLE_MAPS_API_KEY on the server."
         return render_template_string(PAGE, **ctx)
 
-    pages = max(1, min(3, ctx["pages"]))
-    max_q = MAX_QUERIES_1PAGE if pages == 1 else MAX_QUERIES_MULTIPAGE
-    ctx["max_q"] = max_q
-
-    cities = [c.strip() for c in ctx["cities"].replace("\n", ",").split(",") if c.strip()]
-    cats = [c.strip() for c in ctx["categories"].replace("\n", ",").split(",") if c.strip()]
+    # Resolve which cities to search.
+    cities = list(ctx["sel_cities"])
+    if not cities and ctx["state"] and ctx["state"] in states:
+        cities = list(states[ctx["state"]])
     if not cities:
-        cities = ["Guwahati"]
-    if not cats:
-        cats = DEFAULT_CATEGORIES
+        ctx["error"] = "Choose a state (to scan its cities) and/or pick cities from the dropdown."
+        return render_template_string(PAGE, **ctx)
 
-    cs_map = _city_state_map()
+    cats = list(ctx["sel_cats"]) or DEFAULT_CATEGORIES
+    cs_map = _city_state_map(states)
+
     queries = []
     for city in cities:
-        state = cs_map.get(city.lower(), "")
+        st = cs_map.get(city.lower(), ctx["state"] or "")
         for cat in cats:
-            queries.append((city, state, cat))
-    if len(queries) > max_q:
-        queries = queries[:max_q]
+            queries.append((city, st, cat))
+    if len(queries) > cap:
+        queries = queries[:cap]
         ctx["trimmed"] = True
 
     seen, all_rows = set(), []
-    for city, state, cat in queries:
-        loc = f"{city}, {state}, India" if state else f"{city}, India"
+    for city, st, cat in queries:
+        loc = f"{city}, {st}, India" if st else f"{city}, India"
         q = f"{cat} in {loc}"
         try:
             places = fl.search_text(api_key, q, max_pages=pages)
         except Exception as exc:  # noqa: BLE001
             ctx["error"] = f"Search failed: {exc}"
             break
-        for row in fl.extract_rows(places, city, state, cat):
+        for row in fl.extract_rows(places, city, st, cat):
             pid = row["place_id"]
             if pid and pid in seen:
                 continue

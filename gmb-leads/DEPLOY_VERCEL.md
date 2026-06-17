@@ -32,6 +32,18 @@ If it *still* doesn't appear:
   browser/JavaScript calls. This tool calls Google from a server, so use **API restriction**
   (or none).
 
+### On the "Create API key" pop-up specifically
+If you're on the **Create API key** screen and the dropdown says **"No APIs selected"**, that's
+normal (the list only shows APIs you've enabled). Just set it like this and you're good:
+- **Authenticate API calls through a service account** → **leave UNCHECKED** (that's only for
+  Vertex/Gemini, not Places).
+- **Select API restrictions** → pick **Places API (New)** if it's listed; if not, leave it and
+  restrict later.
+- **Application restrictions** → **None** (server-side calls — "Websites"/"IP addresses" would
+  block it).
+- Click **Create**, copy the key. Then make sure **Places API (New)** is enabled in the API
+  Library, or the key returns `403`.
+
 > Also make sure **Billing** is enabled (☰ → Billing). Without billing the key returns
 > `403 / PERMISSION_DENIED` even when everything else is correct.
 

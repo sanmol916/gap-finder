@@ -115,10 +115,26 @@ It made **zero** Google calls, so it's completely free.
    **Places API (New)**. Click the result that says **Places API (New)** → click **Enable**.
    - ⚠️ Make sure it says **(New)**. Don't pick the old "Places API".
 5. **Create the key:** left menu → **APIs & Services → Credentials** → top button
-   **+ Create Credentials → API key**. A box pops up with your key — click **Copy**.
-6. **Lock the key down (safety):** in that same pop-up click **Edit API key** (or open the key
-   from the Credentials list). Under **API restrictions** choose **Restrict key**, tick
-   **Places API (New)**, then **Save**. Now the key can only be used for this one thing.
+   **+ Create Credentials → API key**. The **"Create API key"** screen opens — set it like this:
+   - **Name:** anything (e.g. `gmb-leads`).
+   - **"Authenticate API calls through a service account"** → **leave this UNCHECKED.**
+     (That checkbox is only for Vertex AI / Gemini — not for Places. Ignore the blue info box.)
+   - **"Select API restrictions" (dropdown says "No APIs selected"):** this list shows **only
+     APIs already enabled in your project.** So:
+       - If you did STEP 6.4 (enabled **Places API (New)**), open the dropdown and tick it. If it
+         isn't there yet, wait 1–5 min and reopen this screen.
+       - If you haven't enabled it yet, **just leave it on "No APIs selected" and click Create now.**
+         The key will be *unrestricted* but fully working — you can add the restriction later.
+   - **"Application restrictions"** → choose **None.**
+     ⚠️ Do **not** pick "Websites" or "IP addresses" — this tool calls Google from a server / your
+     computer, not from a browser, so those would **block** it. **None** is the correct choice here.
+   - Click **Create** → a box shows your key → click **Copy** and paste it somewhere safe.
+
+   > Creating a key does **not** enable any API by itself. You must enable **Places API (New)**
+   > in the API Library (STEP 6.4). If you skipped it, do it now or the key returns `403`.
+6. **Lock the key down later (optional safety):** once **Places API (New)** is enabled, open the
+   key from the Credentials list → **API restrictions → Restrict key** → tick **Places API (New)**
+   → **Save**. Now the key can only be used for this one thing.
 
 ### Set a spending cap so you can't be surprised
 1. **Budget alert:** left menu → **Billing → Budgets & alerts → Create budget** → set amount

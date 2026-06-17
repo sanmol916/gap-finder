@@ -41,6 +41,21 @@ CAPS = {1: 40, 2: 16, 3: 10}
 DEFAULT_CATEGORIES = ["beauty salon", "dental clinic", "real estate agent",
                       "gym / fitness center", "clothing boutique"]
 
+
+def _query_cap(pages: int):
+    """Per-run search cap. Returns None (no cap) when running locally/uncapped.
+
+    Set GMB_UNCAPPED=1 (recommended for local runs) to remove the cap entirely,
+    or GMB_MAX_QUERIES=<number> for a custom limit. On Vercel, leave these unset
+    so the serverless time limit isn't exceeded.
+    """
+    if os.environ.get("GMB_UNCAPPED", "").lower() in ("1", "true", "yes"):
+        return None
+    override = os.environ.get("GMB_MAX_QUERIES", "")
+    if override.isdigit():
+        return int(override)
+    return CAPS[pages]
+
 PAGE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -123,7 +138,7 @@ PAGE = """<!doctype html>
   </div>
 
   <button type="submit" name="run" value="1">Find no-website leads</button>
-  <div class="note">Capped to {{ cap }} searches per web run to stay fast. For full-India bulk scraping, use the local CLI (SETUP_GUIDE.md).</div>
+  <div class="note">{% if cap %}Capped to {{ cap }} searches per web run to stay fast (serverless limit). For unlimited runs, run locally with GMB_UNCAPPED=1 - see SETUP_GUIDE.md.{% else %}No per-run cap (local mode) - large runs may take several minutes; that's normal.{% endif %}</div>
 </form>
 
 {% if error %}<div class="err">{{ error }}</div>{% endif %}
@@ -182,7 +197,7 @@ def index():
     server_key = bool(os.environ.get("GOOGLE_MAPS_API_KEY"))
     pages = int(request.args.get("max_pages", 1) or 1)
     pages = max(1, min(3, pages))
-    cap = CAPS[pages]
+    cap = _query_cap(pages)
 
     ctx = {
         "states": states, "categories_all": categories_all, "server_key": server_key,
@@ -218,7 +233,7 @@ def index():
         st = cs_map.get(city.lower(), ctx["state"] or "")
         for cat in cats:
             queries.append((city, st, cat))
-    if len(queries) > cap:
+    if cap is not None and len(queries) > cap:
         queries = queries[:cap]
         ctx["trimmed"] = True
 

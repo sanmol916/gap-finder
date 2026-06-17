@@ -1,7 +1,8 @@
 # gmb-leads — find local businesses with no website
 
-> **Run locally?** Read [SETUP_GUIDE.md](SETUP_GUIDE.md) — full beginner walkthrough
-> (install Python, get a Google key, run it, open the sheet, troubleshooting).
+> **Run locally (no cap, unlimited scraping)?** Read [RUN_LOCALLY.md](RUN_LOCALLY.md) — complete
+> beginner guide for the CLI **and** the uncapped local web form. (Or [SETUP_GUIDE.md](SETUP_GUIDE.md)
+> for the original CLI walkthrough + Google key setup.)
 >
 > **Deploy as a website on Vercel?** Read [DEPLOY_VERCEL.md](DEPLOY_VERCEL.md) — deploys just
 > this scraper as a web form, and fixes the "Places API not in the Restrict-key list" issue.
@@ -114,7 +115,7 @@ Environment Variables). The app detects it and the form's key box becomes option
 **How do I scrape as much as possible?**
 - **Web app:** capped per run (serverless time limit). Run batches: e.g. one state at a time, or
   a set of cities, repeatedly. Use "Top 60" depth for maximum results per search.
-- **Local CLI (best for bulk):** no time limit. Examples:
+- **Local CLI / uncapped local web form (best for bulk):** no time limit — full beginner steps in [RUN_LOCALLY.md](RUN_LOCALLY.md). Examples:
   ```bash
   python find_leads.py --states Maharashtra Karnataka Tamil Nadu --max-pages 3
   python find_leads.py --all-india --max-pages 3        # everything (large - mind the cost)

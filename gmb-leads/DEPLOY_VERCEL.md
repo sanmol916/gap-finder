@@ -4,9 +4,10 @@ This deploys **only** the `gmb-leads` tool as a small website with a form. You t
 categories, it returns businesses with **no website**, and gives you a CSV download.
 
 > Note on size: Vercel runs this as a short-lived "serverless function" with a time limit
-> (~60s). So the web version is capped to a **small number of searches per run** (great for
-> quick, targeted lookups). For big bulk scrapes of many cities at once, run the CLI locally
-> (see SETUP_GUIDE.md) or deploy on Render instead (a always-on server with no short timeout).
+> (~60s). The web version is **uncapped by default**, so for Vercel set an env var
+> **`GMB_MAX_QUERIES`** (e.g. `40`) to cap searches per run and avoid timeouts. For big bulk
+> scrapes of many places at once, run the CLI locally (see RUN_LOCALLY.md) or deploy on Render
+> instead (an always-on server with no short timeout).
 
 ---
 
@@ -90,16 +91,16 @@ Click **Deploy**, wait ~1 minute. You'll get a URL like `https://gmb-leads-xxxx.
 ### 7. Use it
 1. Open the URL.
 2. Paste your Google API key (skip this if you set it as a permanent env var in step 5).
-3. **Pick a State** from the dropdown (it scans that state's major cities) **and/or multi-select
-   specific Cities** from the grouped dropdown (Ctrl/Cmd-click for several). Then **type your search
-   keywords / business types** in the keyword box — anything you want, comma separated (preset
-   suggestions appear as you type).
-4. Choose "Top 20 (cheapest)" for the first run → **Find no-website leads**.
-5. Review the table → click **Download CSV** → import into Google Sheets if you like.
+3. In **Locations**, type any places you want — **one per line**, anywhere in the world
+   (e.g. `Paris, France`, `New York, USA`, `Dubai, UAE`). Optionally pick a **country bias**.
+4. Type your **keywords / business types** (comma separated; click a suggestion chip to add one).
+5. Choose "Top 20 (cheapest)" for the first run → **Find leads**.
+6. Review the two tabs — **No website** and **With website** — then download each **CSV**.
 
-> Covers **all of India** (36 states/UTs, ~185 major cities). The web app caps how many searches
-> run at once (serverless time limit). For a full-India sweep in one go, use the local CLI:
-> `python find_leads.py --all-india` (see SETUP_GUIDE.md).
+> Works **worldwide**. The web app has **no per-run cap by default**, but Vercel serverless
+> functions have a ~60s limit, so large runs can time out. Set an env var
+> **`GMB_MAX_QUERIES`** (e.g. `40`) to cap searches per run, or use the local CLI for big sweeps
+> (see RUN_LOCALLY.md).
 
 ### 8. Updates are automatic
 Any time this repo's `main` branch changes, Vercel redeploys automatically.

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Vercel-deployable web app for the gmb-leads scraper (ALL INDIA).
+Worldwide web app for the gmb-leads scraper.
 
-Vercel serves this file as a Python serverless function (it exposes a WSGI
-`app`). The catch-all rewrite in vercel.json sends every path here, and Flask
-routes internally. It reuses the CLI engine in ../find_leads.py.
+Type ANY places in the world (multiple, no limit) + keywords, and get back two
+lists: businesses WITHOUT a website and businesses WITH a website - each with its
+own CSV download. Reuses the CLI engine in ../find_leads.py.
 
 KEY HANDLING
   - If GOOGLE_MAPS_API_KEY is set on the server (Vercel env var), it's used
@@ -12,13 +12,13 @@ KEY HANDLING
   - Otherwise paste a key into the form each run.
 
 PLACE SELECTION
-  - Pick a STATE (scans its major cities) and/or multi-select specific CITIES
-    from the dropdown (grouped by state). Covers all India from presets.json.
+  - Free-text box: one location per line OR comma-separated, e.g.
+    "Paris, France", "New York, USA", "Dubai, UAE". Works anywhere on Earth.
+  - Optional country selector biases results toward one country (regionCode).
 
-SERVERLESS LIMITS
-  Vercel functions have a max duration (~60s). The web version caps how many
-  city x category searches run at once. For full-India / bulk scrapes, run the
-  CLI locally (see SETUP_GUIDE.md) - it has no time limit.
+LIMITS
+  - No per-run cap by default. Set GMB_MAX_QUERIES=<n> to cap, e.g. on Vercel
+    (serverless functions have a ~60s limit). For huge sweeps, run locally.
 """
 
 from __future__ import annotations
@@ -36,148 +36,68 @@ import find_leads as fl  # noqa: E402
 
 app = Flask(__name__)
 
-# Time budget caps (queries per run) so we stay under the serverless limit.
-CAPS = {1: 40, 2: 16, 3: 10}
-DEFAULT_CATEGORIES = ["beauty salon", "dental clinic", "real estate agent",
-                      "gym / fitness center", "clothing boutique"]
+DEFAULT_CATEGORIES = ["beauty salon", "dental clinic", "real estate agency",
+                      "gym / fitness center", "cafe", "boutique"]
+
+# Optional country bias (ISO 3166-1 alpha-2). "" = worldwide / auto from text.
+COUNTRIES = [
+    ("", "Worldwide (auto-detect from text)"),
+    ("US", "United States"), ("GB", "United Kingdom"), ("CA", "Canada"),
+    ("AU", "Australia"), ("IN", "India"), ("AE", "United Arab Emirates"),
+    ("SA", "Saudi Arabia"), ("SG", "Singapore"), ("MY", "Malaysia"),
+    ("ID", "Indonesia"), ("PH", "Philippines"), ("TH", "Thailand"),
+    ("VN", "Vietnam"), ("JP", "Japan"), ("KR", "South Korea"),
+    ("CN", "China"), ("HK", "Hong Kong"), ("BD", "Bangladesh"),
+    ("PK", "Pakistan"), ("LK", "Sri Lanka"), ("NP", "Nepal"),
+    ("DE", "Germany"), ("FR", "France"), ("ES", "Spain"), ("IT", "Italy"),
+    ("PT", "Portugal"), ("NL", "Netherlands"), ("BE", "Belgium"),
+    ("CH", "Switzerland"), ("AT", "Austria"), ("IE", "Ireland"),
+    ("SE", "Sweden"), ("NO", "Norway"), ("DK", "Denmark"), ("FI", "Finland"),
+    ("PL", "Poland"), ("CZ", "Czechia"), ("RO", "Romania"), ("GR", "Greece"),
+    ("TR", "Turkey"), ("RU", "Russia"), ("UA", "Ukraine"),
+    ("ZA", "South Africa"), ("NG", "Nigeria"), ("KE", "Kenya"),
+    ("EG", "Egypt"), ("MA", "Morocco"), ("GH", "Ghana"), ("TZ", "Tanzania"),
+    ("BR", "Brazil"), ("MX", "Mexico"), ("AR", "Argentina"), ("CL", "Chile"),
+    ("CO", "Colombia"), ("PE", "Peru"), ("NZ", "New Zealand"),
+    ("IL", "Israel"), ("QA", "Qatar"), ("KW", "Kuwait"), ("OM", "Oman"),
+    ("BH", "Bahrain"),
+]
 
 
-def _query_cap(pages: int):
-    """Per-run search cap. Returns None (no cap) when running locally/uncapped.
+def _query_cap():
+    """Per-run search cap. None means no cap (default).
 
-    Set GMB_UNCAPPED=1 (recommended for local runs) to remove the cap entirely,
-    or GMB_MAX_QUERIES=<number> for a custom limit. On Vercel, leave these unset
-    so the serverless time limit isn't exceeded.
+    Set GMB_MAX_QUERIES=<number> to cap (recommended on serverless/Vercel).
     """
-    if os.environ.get("GMB_UNCAPPED", "").lower() in ("1", "true", "yes"):
-        return None
     override = os.environ.get("GMB_MAX_QUERIES", "")
-    if override.isdigit():
+    if override.isdigit() and int(override) > 0:
         return int(override)
-    return CAPS[pages]
-
-PAGE = """<!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GMB Leads - businesses with no website (India)</title>
-<style>
- :root{--bg:#0f1115;--card:#181b22;--line:#272b35;--text:#e6e8ec;--muted:#9aa3b2;--accent:#5b8cff;--accent2:#1f6feb;--warn:#ffb84d;--good:#3fb950}
- *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 -apple-system,Segoe UI,Roboto,sans-serif}
- .wrap{max-width:1040px;margin:0 auto;padding:26px 16px 80px}
- h1{font-size:24px;margin:0 0 4px}h1 .dot{color:var(--accent)}
- .sub{color:var(--muted);margin:0 0 18px}
- form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:20px}
- label{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:0 0 5px}
- input,select{width:100%;background:#0d0f14;border:1px solid var(--line);color:var(--text);border-radius:9px;padding:10px 12px;font-size:15px}
- select[multiple]{padding:4px}
- .field{margin-top:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
- @media(max-width:640px){.grid{grid-template-columns:1fr}}
- button{margin-top:16px;background:var(--accent2);color:#fff;border:0;border-radius:9px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
- button:hover{background:var(--accent)}
- .note{font-size:12.5px;color:var(--muted);margin-top:8px}
- .keyok{background:#11281b;border:1px solid #1f5133;color:var(--good);border-radius:9px;padding:8px 12px;font-size:13px;margin-bottom:6px}
- .err{background:#2a1d12;border:1px solid #5a3c1a;color:var(--warn);border-radius:10px;padding:10px 14px;margin:14px 0}
- .ok{background:#11281b;border:1px solid #1f5133;color:var(--good);border-radius:10px;padding:10px 14px;margin:14px 0}
- table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13.5px}
- th,td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
- th{color:var(--muted);font-weight:600}
- a{color:var(--accent);text-decoration:none}
- .dl{display:inline-block;margin:14px 0;background:#11281b;border:1px solid #1f5133;color:var(--good);padding:9px 16px;border-radius:9px;font-weight:600}
- .pill{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--muted);margin-right:8px}
- .pill b{color:var(--text)}
- footer{margin-top:34px;color:var(--muted);font-size:12.5px}
-</style></head><body><div class="wrap">
-<h1>GMB Leads<span class="dot">.</span></h1>
-<p class="sub">Find local businesses across <b>India</b> that have <b>no website</b> - via the official Google Places API.</p>
-
-<form method="get" action="/">
-  {% if server_key %}
-    <div class="keyok">&#10003; A permanent API key is configured on the server - you can leave the box below empty.</div>
-  {% endif %}
-  <label for="api_key">Google API key (Places API New){{ ' - optional, server key set' if server_key else '' }}</label>
-  <input type="password" id="api_key" name="api_key" placeholder="{{ 'leave blank to use the server key' if server_key else 'paste your key' }}">
-
-  <div class="grid field">
-    <div>
-      <label for="state">State / UT (scans its major cities)</label>
-      <select id="state" name="state">
-        <option value="">- choose a state (optional) -</option>
-        {% for st in states.keys() %}<option value="{{ st }}" {{ 'selected' if state==st else '' }}>{{ st }}</option>{% endfor %}
-      </select>
-      <div class="note">Pick a state to scan its cities, and/or multi-select exact cities &rarr;</div>
-    </div>
-    <div>
-      <label for="max_pages">Results depth per search</label>
-      <select id="max_pages" name="max_pages">
-        <option value="1" {{ 'selected' if pages==1 else '' }}>Top 20 (cheapest, most queries)</option>
-        <option value="2" {{ 'selected' if pages==2 else '' }}>Top 40</option>
-        <option value="3" {{ 'selected' if pages==3 else '' }}>Top 60 (deepest)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="field">
-    <label for="cities">Cities (hold Ctrl / Cmd to pick several)</label>
-    <select id="cities" name="cities" multiple size="12">
-      {% for st, cs in states.items() %}
-      <optgroup label="{{ st }}">
-        {% for c in cs %}<option value="{{ c }}" {{ 'selected' if c in sel_cities else '' }}>{{ c }}</option>{% endfor %}
-      </optgroup>
-      {% endfor %}
-    </select>
-  </div>
-
-  <div class="field">
-    <label for="categories">Search keywords / business types (type ANYTHING, comma separated)</label>
-    <input type="text" id="categories" name="categories" value="{{ cats_text|e }}"
-           list="catlist" placeholder="e.g. beauty salon, web design agency, scrap dealer, gym">
-    <datalist id="catlist">
-      {% for cat in categories_all %}<option value="{{ cat }}">{% endfor %}
-    </datalist>
-    <div class="note">Pick from the suggestions as you type, or enter your own keywords - search whatever you want.</div>
-  </div>
-
-  <button type="submit" name="run" value="1">Find no-website leads</button>
-  <div class="note">{% if cap %}Capped to {{ cap }} searches per web run to stay fast (serverless limit). For unlimited runs, run locally with GMB_UNCAPPED=1 - see SETUP_GUIDE.md.{% else %}No per-run cap (local mode) - large runs may take several minutes; that's normal.{% endif %}</div>
-</form>
-
-{% if error %}<div class="err">{{ error }}</div>{% endif %}
-{% if trimmed %}<div class="err">Selection was large - trimmed to the first {{ cap }} city &times; category searches. Run again with another batch, or use the local CLI for everything at once.</div>{% endif %}
-
-{% if ran %}
-  <div class="ok">Scanned {{ total }} businesses across {{ nqueries }} searches - <b>{{ leads|length }}</b> have no website.</div>
-  <span class="pill">Businesses <b>{{ total }}</b></span>
-  <span class="pill">No-website leads <b>{{ leads|length }}</b></span>
-  {% if csv_data %}<a class="dl" download="india_no_website_leads.csv" href="data:text/csv;base64,{{ csv_data }}">&darr; Download CSV</a>{% endif %}
-  {% if leads %}
-  <table>
-    <tr><th>Business</th><th>Category</th><th>City</th><th>State</th><th>Phone</th><th>Address</th><th>Rating</th><th>Maps</th></tr>
-    {% for r in leads %}
-    <tr>
-      <td>{{ r.business_name }}</td><td>{{ r.category }}</td><td>{{ r.city }}</td><td>{{ r.state }}</td>
-      <td>{{ r.phone }}</td><td>{{ r.address }}</td>
-      <td>{{ r.rating }}{% if r.reviews %} ({{ r.reviews }}){% endif %}</td>
-      <td>{% if r.maps_url %}<a href="{{ r.maps_url }}" target="_blank" rel="noopener">open</a>{% endif %}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% else %}<p class="note">No no-website businesses found for that search. Try other cities/categories.</p>{% endif %}
-{% endif %}
-
-<footer>Uses the official Google Places API (New) - not scraping. If you set a server-side key, keep this URL private (anyone with it could spend your quota).</footer>
-</div></body></html>"""
+    return None
 
 
-def _presets():
-    return fl.load_presets()
-
-
-def _city_state_map(states: dict) -> dict:
-    m = {}
-    for state, cities in states.items():
-        for c in cities:
-            m[c.lower()] = state
-    return m
+def _parse_locations(text: str) -> list[str]:
+    """Accept one location per line and/or comma-separated; return clean list."""
+    if not text:
+        return []
+    # Split on newlines first; treat each line as ONE location (so "City,
+    # Country" stays intact). A line may hold several places separated by ";".
+    locs: list[str] = []
+    for line in text.replace("\r", "").split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+        for piece in line.split(";"):
+            piece = piece.strip().strip(",").strip()
+            if piece:
+                locs.append(piece)
+    # de-dupe, preserve order
+    seen, out = set(), []
+    for l in locs:
+        k = l.lower()
+        if k not in seen:
+            seen.add(k)
+            out.append(l)
+    return out
 
 
 def _csv_b64(rows: list) -> str:
@@ -189,64 +109,294 @@ def _csv_b64(rows: list) -> str:
     return base64.b64encode(buf.getvalue().encode("utf-8")).decode("ascii")
 
 
-@app.route("/", methods=["GET"])
+PAGE = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LeadFinder - businesses with &amp; without a website, worldwide</title>
+<style>
+ :root{
+   --green:#25D366; --green-d:#1da851; --teal:#128C7E; --teal-d:#075E54;
+   --ink:#0b141a; --muted:#667781; --line:#e3e8ea; --bg:#eae6df; --card:#ffffff;
+   --chat:#dcf8c6; --warn:#b35900; --warnbg:#fff4e5; --good:#0a7a3d;
+ }
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--bg);color:var(--ink);
+   font:16px/1.55 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+   background-image:linear-gradient(135deg,#075E54 0,#075E54 220px,var(--bg) 220px);}
+ .wrap{max-width:1080px;margin:0 auto;padding:0 16px 90px}
+ header{padding:26px 0 18px;color:#fff}
+ .brand{display:flex;align-items:center;gap:12px}
+ .logo{width:46px;height:46px;border-radius:14px;background:var(--green);
+   display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25);flex:none}
+ .logo svg{width:26px;height:26px}
+ h1{font-size:26px;font-weight:800;margin:0;letter-spacing:-.5px}
+ .tag{color:#cdeee2;margin:6px 0 0;font-size:14.5px;max-width:640px}
+ .card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+   padding:22px;box-shadow:0 10px 30px rgba(7,94,84,.12)}
+ form .row{margin-top:16px}
+ label{display:block;font-size:12px;font-weight:700;color:var(--teal-d);
+   text-transform:uppercase;letter-spacing:.05em;margin:0 0 7px}
+ input,select,textarea{width:100%;background:#f7faf9;border:1.5px solid var(--line);
+   color:var(--ink);border-radius:12px;padding:12px 14px;font-size:15.5px;font-family:inherit;
+   transition:border-color .15s,box-shadow .15s}
+ textarea{resize:vertical;min-height:96px;line-height:1.5}
+ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--green);
+   box-shadow:0 0 0 3px rgba(37,211,102,.18)}
+ .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ @media(max-width:660px){.grid{grid-template-columns:1fr}
+   body{background-image:linear-gradient(135deg,#075E54 0,#075E54 180px,var(--bg) 180px)}}
+ .hint{font-size:12.5px;color:var(--muted);margin-top:7px}
+ .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+ .chip{background:var(--chat);border:1px solid #bfe6a8;color:#1f5e1f;border-radius:999px;
+   padding:5px 12px;font-size:12.5px;cursor:pointer;user-select:none;font-weight:600}
+ .chip:hover{background:#cdeeb0}
+ .btn{margin-top:20px;width:100%;background:var(--green);color:#06281a;border:0;border-radius:13px;
+   padding:15px 22px;font-size:16.5px;font-weight:800;cursor:pointer;letter-spacing:.2px;
+   box-shadow:0 8px 20px rgba(37,211,102,.35);transition:transform .05s,background .15s}
+ .btn:hover{background:var(--green-d);color:#fff}
+ .btn:active{transform:translateY(1px)}
+ .keyok{background:#e7f8ee;border:1px solid #b7e6c9;color:var(--good);border-radius:12px;
+   padding:10px 14px;font-size:13.5px;margin-bottom:14px;font-weight:600}
+ .alert{border-radius:13px;padding:13px 16px;margin:18px 0;font-size:14.5px}
+ .err{background:var(--warnbg);border:1px solid #f0c992;color:var(--warn)}
+ .ok{background:#e7f8ee;border:1px solid #b7e6c9;color:var(--good);font-weight:600}
+ .stats{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 6px}
+ .stat{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);
+   border-radius:14px;padding:14px 16px;box-shadow:0 6px 16px rgba(7,94,84,.08)}
+ .stat .n{font-size:28px;font-weight:800;line-height:1}
+ .stat .l{font-size:12.5px;color:var(--muted);margin-top:6px;text-transform:uppercase;
+   letter-spacing:.04em;font-weight:700}
+ .stat.no .n{color:var(--teal)} .stat.yes .n{color:var(--teal-d)} .stat.tot .n{color:var(--green-d)}
+ .tabs{display:flex;gap:8px;margin:22px 0 0;border-bottom:2px solid var(--line)}
+ .tab{appearance:none;background:none;border:0;border-bottom:3px solid transparent;
+   padding:11px 16px;font-size:14.5px;font-weight:700;color:var(--muted);cursor:pointer;margin-bottom:-2px}
+ .tab.active{color:var(--teal-d);border-bottom-color:var(--green)}
+ .panel{display:none}.panel.active{display:block}
+ .dlbar{margin:16px 0 4px}
+ .dl{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;
+   padding:11px 18px;border-radius:12px;font-weight:700;text-decoration:none;font-size:14.5px;
+   box-shadow:0 6px 16px rgba(18,140,126,.3)}
+ .dl:hover{background:var(--teal-d)}
+ .dl.alt{background:var(--green);color:#06281a}.dl.alt:hover{background:var(--green-d);color:#fff}
+ .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;margin-top:14px;background:var(--card)}
+ table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:760px}
+ th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+ th{background:#f3f7f6;color:var(--teal-d);font-weight:700;position:sticky;top:0}
+ tr:last-child td{border-bottom:0}
+ tr:hover td{background:#fafdfc}
+ a.maps{color:var(--teal);font-weight:600;text-decoration:none}
+ a.site{color:var(--green-d);font-weight:600;text-decoration:none;word-break:break-all}
+ .empty{padding:26px;text-align:center;color:var(--muted)}
+ footer{margin-top:34px;color:var(--muted);font-size:12.5px;text-align:center}
+ footer a{color:var(--teal)}
+</style></head><body><div class="wrap">
+
+<header>
+  <div class="brand">
+    <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8.1 2 5 5.1 5 9c0 5 7 13 7 13s7-8 7-13c0-3.9-3.1-7-7-7Z" fill="#06281a"/><circle cx="12" cy="9" r="2.6" fill="#25D366"/></svg></span>
+    <div>
+      <h1>LeadFinder</h1>
+      <p class="tag">Find local businesses <b>anywhere in the world</b> - split into those <b>with</b> and <b>without</b> a website. Powered by the official Google Places API (New).</p>
+    </div>
+  </div>
+</header>
+
+<div class="card">
+<form method="post" action="/">
+  {% if server_key %}
+    <div class="keyok">&#10003; A permanent API key is configured on the server - leave the key box empty.</div>
+  {% endif %}
+
+  <div class="row">
+    <label for="api_key">Google API key (Places API New){{ ' - optional, server key set' if server_key else '' }}</label>
+    <input type="password" id="api_key" name="api_key" autocomplete="off"
+           placeholder="{{ 'leave blank to use the server key' if server_key else 'paste your key' }}">
+  </div>
+
+  <div class="row">
+    <label for="locations">Locations - anywhere in the world (one per line; no limit)</label>
+    <textarea id="locations" name="locations" placeholder="Paris, France&#10;New York, USA&#10;Dubai, UAE&#10;Tokyo, Japan&#10;Lagos, Nigeria">{{ locations_text|e }}</textarea>
+    <div class="hint">Type as many places as you like - cities, neighbourhoods, regions. Each line is searched against every keyword below.</div>
+  </div>
+
+  <div class="grid row">
+    <div>
+      <label for="country">Country bias (optional)</label>
+      <select id="country" name="country">
+        {% for code,name in countries %}<option value="{{ code }}" {{ 'selected' if country==code else '' }}>{{ name }}</option>{% endfor %}
+      </select>
+      <div class="hint">Leave on "Worldwide" if your lines already include the country.</div>
+    </div>
+    <div>
+      <label for="max_pages">Results depth per search</label>
+      <select id="max_pages" name="max_pages">
+        <option value="1" {{ 'selected' if pages==1 else '' }}>Top 20 (cheapest, fastest)</option>
+        <option value="2" {{ 'selected' if pages==2 else '' }}>Top 40</option>
+        <option value="3" {{ 'selected' if pages==3 else '' }}>Top 60 (deepest)</option>
+      </select>
+      <div class="hint">Google caps each search at ~60 results.</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <label for="categories">Keywords / business types (comma separated)</label>
+    <input type="text" id="categories" name="categories" value="{{ cats_text|e }}"
+           placeholder="beauty salon, dental clinic, web design agency, cafe, gym">
+    <div class="chips">
+      {% for c in chip_cats %}<span class="chip" data-cat="{{ c|e }}">{{ c }}</span>{% endfor %}
+    </div>
+    <div class="hint">Click a suggestion to add it, or type your own. Search whatever you want.</div>
+  </div>
+
+  <button class="btn" type="submit" name="run" value="1">Find leads &rarr;</button>
+  <div class="hint">{% if cap %}Capped to {{ cap }} searches per run (GMB_MAX_QUERIES). {% else %}No per-run limit. {% endif %}Each location &times; keyword is one search and uses Google quota. On serverless (Vercel ~60s) keep runs small or set GMB_MAX_QUERIES; for huge sweeps run locally.</div>
+</form>
+</div>
+
+{% if error %}<div class="alert err">{{ error }}</div>{% endif %}
+{% if trimmed %}<div class="alert err">Selection was large - trimmed to the first {{ cap }} searches. Run again with another batch, or remove the GMB_MAX_QUERIES cap / run locally.</div>{% endif %}
+
+{% if ran %}
+  <div class="alert ok">Scanned {{ total }} businesses across {{ nqueries }} searches - {{ no_website|length }} have no website, {{ with_website|length }} have a website.</div>
+  <div class="stats">
+    <div class="stat tot"><div class="n">{{ total }}</div><div class="l">Businesses found</div></div>
+    <div class="stat no"><div class="n">{{ no_website|length }}</div><div class="l">No website (prospects)</div></div>
+    <div class="stat yes"><div class="n">{{ with_website|length }}</div><div class="l">With a website</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" type="button" data-panel="no">No website ({{ no_website|length }})</button>
+    <button class="tab" type="button" data-panel="yes">With website ({{ with_website|length }})</button>
+  </div>
+
+  <div class="panel active" id="panel-no">
+    <div class="dlbar">
+      {% if csv_no %}<a class="dl alt" download="leads_NO_website.csv" href="data:text/csv;base64,{{ csv_no }}">&darr; Download CSV (no website)</a>{% endif %}
+    </div>
+    {% if no_website %}
+    <div class="tablewrap"><table>
+      <tr><th>Business</th><th>Keyword</th><th>Location</th><th>Phone</th><th>Address</th><th>Rating</th><th>Maps</th></tr>
+      {% for r in no_website %}
+      <tr><td>{{ r.business_name }}</td><td>{{ r.category }}</td><td>{{ r.location }}</td>
+        <td>{{ r.phone }}</td><td>{{ r.address }}</td>
+        <td>{{ r.rating }}{% if r.reviews %} ({{ r.reviews }}){% endif %}</td>
+        <td>{% if r.maps_url %}<a class="maps" href="{{ r.maps_url }}" target="_blank" rel="noopener">open</a>{% endif %}</td></tr>
+      {% endfor %}
+    </table></div>
+    {% else %}<div class="empty">No no-website businesses found for that search. Try other places/keywords.</div>{% endif %}
+  </div>
+
+  <div class="panel" id="panel-yes">
+    <div class="dlbar">
+      {% if csv_yes %}<a class="dl" download="leads_WITH_website.csv" href="data:text/csv;base64,{{ csv_yes }}">&darr; Download CSV (with website)</a>{% endif %}
+    </div>
+    {% if with_website %}
+    <div class="tablewrap"><table>
+      <tr><th>Business</th><th>Keyword</th><th>Location</th><th>Phone</th><th>Website</th><th>Rating</th><th>Maps</th></tr>
+      {% for r in with_website %}
+      <tr><td>{{ r.business_name }}</td><td>{{ r.category }}</td><td>{{ r.location }}</td>
+        <td>{{ r.phone }}</td>
+        <td>{% if r.website %}<a class="site" href="{{ r.website }}" target="_blank" rel="noopener">{{ r.website }}</a>{% endif %}</td>
+        <td>{{ r.rating }}{% if r.reviews %} ({{ r.reviews }}){% endif %}</td>
+        <td>{% if r.maps_url %}<a class="maps" href="{{ r.maps_url }}" target="_blank" rel="noopener">open</a>{% endif %}</td></tr>
+      {% endfor %}
+    </table></div>
+    {% else %}<div class="empty">No businesses with a website found for that search.</div>{% endif %}
+  </div>
+{% endif %}
+
+<footer>Uses the official Google Places API (New) - not scraping. If you set a server-side key, keep this URL private (anyone with it could spend your quota).</footer>
+</div>
+
+<script>
+ // keyword suggestion chips
+ document.querySelectorAll('.chip').forEach(function(ch){
+   ch.addEventListener('click',function(){
+     var inp=document.getElementById('categories');
+     var cur=inp.value.split(',').map(function(s){return s.trim()}).filter(Boolean);
+     var v=ch.getAttribute('data-cat');
+     if(cur.indexOf(v)===-1){cur.push(v);inp.value=cur.join(', ');}
+   });
+ });
+ // result tabs
+ document.querySelectorAll('.tab').forEach(function(t){
+   t.addEventListener('click',function(){
+     document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+     document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active')});
+     t.classList.add('active');
+     document.getElementById('panel-'+t.getAttribute('data-panel')).classList.add('active');
+   });
+ });
+</script>
+</body></html>"""
+
+
+def _chip_categories():
+    """A handful of suggestion chips (from presets if available)."""
+    try:
+        cats = fl.load_presets().get("categories", [])
+    except Exception:  # noqa: BLE001
+        cats = []
+    base = ["beauty salon", "dental clinic", "web design agency", "cafe",
+            "restaurant", "gym / fitness center", "real estate agency",
+            "car repair", "boutique", "law firm", "plumber", "electrician"]
+    seen, out = set(), []
+    for c in base + cats:
+        if c.lower() not in seen:
+            seen.add(c.lower())
+            out.append(c)
+    return out[:14]
+
+
+@app.route("/", methods=["GET", "POST"])
 def index():
-    presets = _presets()
-    states = presets["states"]
-    categories_all = presets["categories"]
     server_key = bool(os.environ.get("GOOGLE_MAPS_API_KEY"))
-    pages = int(request.args.get("max_pages", 1) or 1)
+    src = request.form if request.method == "POST" else request.args
+    pages = int(src.get("max_pages", 1) or 1)
     pages = max(1, min(3, pages))
-    cap = _query_cap(pages)
+    cap = _query_cap()
 
     ctx = {
-        "states": states, "categories_all": categories_all, "server_key": server_key,
-        "state": request.args.get("state", ""),
-        "sel_cities": request.args.getlist("cities"),
-        "cats_text": request.args.get("categories", ", ".join(DEFAULT_CATEGORIES)),
+        "countries": COUNTRIES, "chip_cats": _chip_categories(), "server_key": server_key,
+        "country": src.get("country", ""),
+        "locations_text": src.get("locations", ""),
+        "cats_text": src.get("categories", ", ".join(DEFAULT_CATEGORIES)),
         "pages": pages, "cap": cap,
         "ran": False, "error": None, "trimmed": False,
-        "leads": [], "total": 0, "nqueries": 0, "csv_data": "",
+        "no_website": [], "with_website": [], "total": 0, "nqueries": 0,
+        "csv_no": "", "csv_yes": "",
     }
 
-    if request.args.get("run") != "1":
+    if src.get("run") != "1":
         return render_template_string(PAGE, **ctx)
 
-    api_key = (request.args.get("api_key") or "").strip() or os.environ.get("GOOGLE_MAPS_API_KEY")
+    api_key = (src.get("api_key") or "").strip() or os.environ.get("GOOGLE_MAPS_API_KEY")
     if not api_key:
         ctx["error"] = "No API key. Paste your Google Places API key, or set GOOGLE_MAPS_API_KEY on the server."
         return render_template_string(PAGE, **ctx)
 
-    # Resolve which cities to search.
-    cities = list(ctx["sel_cities"])
-    if not cities and ctx["state"] and ctx["state"] in states:
-        cities = list(states[ctx["state"]])
-    if not cities:
-        ctx["error"] = "Choose a state (to scan its cities) and/or pick cities from the dropdown."
+    locations = _parse_locations(ctx["locations_text"])
+    if not locations:
+        ctx["error"] = "Add at least one location (one per line), e.g. 'Paris, France'."
         return render_template_string(PAGE, **ctx)
 
     cats = [c.strip() for c in ctx["cats_text"].replace("\n", ",").split(",") if c.strip()] or DEFAULT_CATEGORIES
-    cs_map = _city_state_map(states)
+    region = ctx["country"] or None
 
-    queries = []
-    for city in cities:
-        st = cs_map.get(city.lower(), ctx["state"] or "")
-        for cat in cats:
-            queries.append((city, st, cat))
+    queries = [(loc, cat) for loc in locations for cat in cats]
     if cap is not None and len(queries) > cap:
         queries = queries[:cap]
         ctx["trimmed"] = True
 
     seen, all_rows = set(), []
-    for city, st, cat in queries:
-        loc = f"{city}, {st}, India" if st else f"{city}, India"
+    for loc, cat in queries:
         q = f"{cat} in {loc}"
         try:
-            places = fl.search_text(api_key, q, max_pages=pages)
+            places = fl.search_text(api_key, q, region_code=region, max_pages=pages)
         except Exception as exc:  # noqa: BLE001
             ctx["error"] = f"Search failed: {exc}"
             break
-        for row in fl.extract_rows(places, city, st, cat):
+        for row in fl.extract_rows(places, location=loc, category=cat):
             pid = row["place_id"]
             if pid and pid in seen:
                 continue
@@ -254,9 +404,11 @@ def index():
                 seen.add(pid)
             all_rows.append(row)
 
-    leads = [r for r in all_rows if not r.get("_website")]
-    ctx.update(ran=True, leads=leads, total=len(all_rows),
-               nqueries=len(queries), csv_data=_csv_b64(leads) if leads else "")
+    no_website, with_website = fl.split_leads(all_rows)
+    ctx.update(ran=True, no_website=no_website, with_website=with_website,
+               total=len(all_rows), nqueries=len(queries),
+               csv_no=_csv_b64(no_website) if no_website else "",
+               csv_yes=_csv_b64(with_website) if with_website else "")
     return render_template_string(PAGE, **ctx)
 
 

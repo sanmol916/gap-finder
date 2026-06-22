@@ -1,17 +1,17 @@
 # gmb-leads — Beginner Setup Guide (step by step)
 
 This guide assumes you've **never used Python, the terminal, or Google Cloud before**.
-Follow it top to bottom. By the end you'll have a spreadsheet of North East India businesses
-that have **no website** (your sales leads).
+Follow it top to bottom. By the end you'll have spreadsheets of local businesses (anywhere in the
+world) split into those **with** and **without** a website (your sales leads).
 
 > Time needed: ~25–30 minutes the first time. After that, getting fresh leads takes ~2 minutes.
 
 ---
 
 ## What you'll end up with
-A file like `ne_india_no_website_leads.xlsx` with columns:
-business name, category, city, state, phone, address, Google Maps link, rating, reviews, status.
-Every row is a business with **no website** — someone you can call/visit to sell a website to.
+Two files, e.g. `worldwide_leads_no_website.xlsx` and `worldwide_leads_with_website.xlsx`, with columns:
+business name, category, location, city, state, phone, address, website, Google Maps link, rating,
+reviews, status. The **no_website** sheet is your call list — businesses you can sell a website to.
 
 ---
 
@@ -148,60 +148,63 @@ It made **zero** Google calls, so it's completely free.
 ## STEP 7 — Run a small real search
 
 Now use your key. The **simplest** way for a beginner is to paste the key right into the command
-with `--api-key`. Replace `PASTE_YOUR_KEY_HERE` with the key you copied:
+with `--api-key`. Replace `PASTE_YOUR_KEY_HERE` with the key you copied. Use `--locations` to search
+**any places in the world** (quote anything with spaces/commas):
 
 - **Windows:**
   ```
-  python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --cities Guwahati Shillong --categories "beauty salon" "dental clinic"
+  python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --locations "Paris, France" "Dubai, UAE" --categories "beauty salon" "dental clinic"
   ```
 - **Mac:**
   ```
-  python3 find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --cities Guwahati Shillong --categories "beauty salon" "dental clinic"
+  python3 find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --locations "Paris, France" "Dubai, UAE" --categories "beauty salon" "dental clinic"
   ```
 
 You'll see it print each search, then a summary like
-`Collected 80 unique businesses; 47 have NO website.`
+`Collected 80 unique businesses; 47 have NO website, 33 have a website.`
 
 ---
 
-## STEP 8 — Open your leads sheet
+## STEP 8 — Open your leads sheets
 
-In the `gmb-leads` folder you'll now find a new folder **`output`** containing:
+In the `gmb-leads` folder you'll now find a new folder **`output`** containing **two** sheets each
+as `.xlsx` and `.csv`:
 ```
-ne_india_no_website_leads.xlsx
-ne_india_no_website_leads.csv
+worldwide_leads_no_website.xlsx     worldwide_leads_no_website.csv
+worldwide_leads_with_website.xlsx   worldwide_leads_with_website.csv
 ```
-- Double-click the **.xlsx** to open it in Excel, OR
-- Import the **.csv** into Google Sheets: in Google Sheets → **File → Import → Upload** → pick the file.
+- Double-click an **.xlsx** to open it in Excel, OR
+- Import a **.csv** into Google Sheets: in Google Sheets → **File → Import → Upload** → pick the file.
 
-That's your call list.
+The **no_website** file is your call list.
 
 ---
 
 ## STEP 9 — Scale up when you're ready
 
 ```
-# one whole state
-python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --states Assam
+# many places at once (no limit) - add as many --locations as you like
+python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --locations "London, UK" "Manchester, UK" "Dublin, Ireland" --categories "cafe" "gym"
 
-# the full North East India preset (bigger run - costs more, see below)
-python find_leads.py --api-key "PASTE_YOUR_KEY_HERE"
+# bias toward one country with an ISO code (optional)
+python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --locations "Berlin" "Munich" --region DE
+
+# India presets still work (cities / states / everything)
+python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --states Assam
+python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --all-india
 
 # cheaper mode: only top 20 results per search (about 3x fewer API calls)
-python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --cities Guwahati --max-pages 1
+python find_leads.py --api-key "PASTE_YOUR_KEY_HERE" --locations "Paris, France" --max-pages 1
 ```
-
-To change which cities/categories are searched, open **`presets.json`** in any text editor
-(Notepad works) and add or remove lines.
 
 ---
 
 ## STEP 10 — Costs in plain words
-- **Tiny/targeted run** (a few cities + categories) = usually **free** (inside the monthly allowance).
-- **Full 22-city run** = roughly **$50–65** at most before the free allowance, often less.
+- **Tiny/targeted run** (a few locations + keywords) = usually **free** (inside the monthly allowance).
+- A big sweep of many places = a few dollars; it scales with `locations × keywords × pages`.
 - The price per request and free amount change over time — check
   https://mapsplatform.google.com/pricing/ before a big run.
-- Use `--max-pages 1`, fewer cities, and the quota cap to keep it near zero.
+- Use `--max-pages 1`, fewer locations, and the quota cap to keep it near zero.
 
 ---
 

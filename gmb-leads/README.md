@@ -1,35 +1,38 @@
-# gmb-leads — find local businesses with no website
+# gmb-leads — find local businesses worldwide (with & without a website)
 
-> **Run locally (no cap, unlimited scraping)?** Read [RUN_LOCALLY.md](RUN_LOCALLY.md) — complete
-> beginner guide for the CLI **and** the uncapped local web form. (Or [SETUP_GUIDE.md](SETUP_GUIDE.md)
-> for the original CLI walkthrough + Google key setup.)
->
-> **Deploy as a website on Vercel?** Read [DEPLOY_VERCEL.md](DEPLOY_VERCEL.md) — deploys just
-> this scraper as a web form, and fixes the "Places API not in the Restrict-key list" issue.
+Build clean lead lists of local businesses **anywhere in the world** and split them into:
+
+- **No website** — your best prospects for selling a website / digital services.
+- **With a website** — for comparison, or to pitch other services.
+
+Every run produces **two CSV files** (and Excel `.xlsx` from the CLI): one for each bucket.
+
+> **Run locally (no cap, unlimited scraping)?** Read [RUN_LOCALLY.md](RUN_LOCALLY.md).
+> **Deploy as a website on Vercel?** Read [DEPLOY_VERCEL.md](DEPLOY_VERCEL.md).
+> **First time / Google key setup?** Read [SETUP_GUIDE.md](SETUP_GUIDE.md).
 
 This folder works two ways:
 - **CLI** (`find_leads.py`) — best for big bulk runs; outputs CSV + Excel.
-- **Web app** (`api/index.py`) — a small browser form for quick, targeted lookups; deployable
-  free on Vercel. Capped per run to fit serverless time limits.
-
-Build a clean lead list of local businesses that **don't have a website** — ideal prospects
-for selling website / digital services. Presets target **North East India** (all 8 states),
-but you can point it anywhere.
+- **Web app** (`api/index.py`) — a clean browser form (WhatsApp-style UI); deployable free on Vercel.
 
 ## How it works (and why it's done this way)
 It uses the **official Google Places API (New)** — not scraping.
 
 > **Scraping Google Maps / Business Profiles violates Google's Terms of Service**, breaks
 > constantly, and risks bans. The Places API legally returns each business's `websiteUri`,
-> so we simply keep the ones where that field is empty. This is the sustainable, allowed path.
+> so we simply split businesses by whether that field is empty. This is the sustainable, allowed path.
 
-For each `city × category` it runs a Text Search, collects businesses, de-duplicates them,
-and filters to those with **no website**. Output is a CSV and a real Excel `.xlsx`.
+For each `location × keyword` it runs a Text Search, collects businesses, de-duplicates them,
+and splits them into **no website** vs **with website**.
 
-## What it can and cannot do
-- It **can** target business-dense NE India cities + categories and find no-website businesses.
-- It **cannot** tell you "where people search for website services" — no business API exposes
-  search volume per area. Targeting by city + category is the practical equivalent.
+## Worldwide
+There are no built-in city presets anymore — you **type any places you want**, e.g.
+`Paris, France`, `New York, USA`, `Dubai, UAE`, `Lagos, Nigeria`. Add as many as you like
+(one per line in the web app, or space-separated on the CLI). The old India presets still work
+on the CLI via `--cities` / `--states` / `--all-india`, but the default mode is free-form worldwide.
+
+An optional **country bias** (ISO 3166-1 code, e.g. `GB`, `US`, `AE`) nudges results toward one
+country — handy when your location text is just a city name.
 
 ## Setup
 1. Create a project: https://console.cloud.google.com/
@@ -42,44 +45,50 @@ and filters to those with **no website**. Output is a CSV and a real Excel `.xls
    export GOOGLE_MAPS_API_KEY="your_key"
    ```
 
-## Usage
+## Usage (CLI)
 ```bash
 # verify the tool works WITHOUT a key (uses a built-in mock)
 python find_leads.py --self-test
 
-# all NE India presets (every city x every category) - large run
-python find_leads.py
+# WORLDWIDE: type any places (multiple, no limit) + your keywords
+python find_leads.py \
+    --locations "Paris, France" "New York, USA" "Dubai, UAE" \
+    --categories "beauty salon" "dental clinic" "real estate agency"
 
-# a few cities + categories
-python find_leads.py --cities Guwahati Shillong Imphal \
-    --categories "beauty salon" "dental clinic" "real estate agent"
+# bias results toward one country (optional ISO code)
+python find_leads.py --locations "London" --region GB --categories "cafe"
 
-# one whole state
+# India presets still work
 python find_leads.py --states Assam
-
-# also keep businesses that already have a website (comparison)
-python find_leads.py --include-with-website
+python find_leads.py --cities Guwahati Shillong --categories "gym"
+python find_leads.py --all-india
 ```
 
-Output goes to `gmb-leads/output/ne_india_no_website_leads.csv` (+ `.xlsx`).
+Output goes to `gmb-leads/output/`:
+```
+worldwide_leads_no_website.csv    (+ .xlsx)
+worldwide_leads_with_website.csv  (+ .xlsx)
+```
+
+## Web app
+Run it locally or deploy on Vercel (see the guides). The form lets you:
+- paste any number of **locations** (one per line),
+- optionally pick a **country bias**,
+- type **keywords** (with one-click suggestion chips),
+- choose **results depth** (Top 20 / 40 / 60),
+- and download **two CSVs** — *no website* and *with website* — from tabbed result tables.
+
+By default the web app has **no per-run cap**. On serverless (Vercel ~60s limit) keep runs small,
+or set `GMB_MAX_QUERIES=<n>` to cap searches per run. For huge sweeps, run locally.
 
 ## Output columns
-`business_name, category, city, state, phone, address, maps_url, rating, reviews,
-business_status, place_id`
-
-## Sample sheet (no key needed)
-`SAMPLE_leads_template.csv` / `SAMPLE_leads_template.xlsx` show the exact output format with
-**fictional** NE India rows (names prefixed `[SAMPLE]`). Use them to preview the structure
-and import into Google Sheets before you run the real thing.
-
-## Presets
-Edit `presets.json` to change cities (grouped by state) and categories. Categories are chosen
-to favor business types that often **lack** a website (salons, clinics, boutiques, garages,
-coaching centers, etc.).
+`business_name, category, location, city, state, phone, address, website, maps_url, rating,
+reviews, business_status, place_id`
 
 ## Cost & etiquette notes
-- Each query that returns results bills against your Places API usage; pagination (up to 3
-  pages = 60 results) multiplies that. Start with a few cities/categories to gauge cost.
+- Each `location × keyword` that returns results bills against your Places API usage; pagination
+  (up to 3 pages = 60 results) multiplies that. Start with a few locations/keywords to gauge cost.
+- Set a **budget alert** and a **daily quota cap** in Google Cloud (SETUP_GUIDE.md, Step 6).
 - Respect the API quota and Google's Terms. Don't resell raw Google data; use it to contact
   businesses directly.
 
@@ -87,40 +96,19 @@ coaching centers, etc.).
 For each no-website business: a quick call/visit — "I saw you're on Google Maps but don't have
 a website; here's a 1-page site I can set up for you." High-intent, low-competition outreach.
 
-
----
-
-## Coverage
-`presets.json` now spans **all of India** — 36 states & union territories and ~185 major cities.
-The web app turns this into a **State dropdown** + a **City multi-select** (grouped by state), plus a
-**free-text keyword box** (with preset suggestions as you type) — so you can search **any** business
-type or keyword, not just the presets. Edit `presets.json` to add more cities/suggestions any time.
-
 ## FAQ
 
 **Is searching by keyword good?**
 Yes — it's the recommended approach. The Places API (New) **Text Search** is keyword-based by
-design (e.g. `"beauty salon in Jaipur, Rajasthan, India"`). Keywords are flexible and match how
-people label businesses, so they surface more results than rigid category-only filters. Tips:
-- Use the business *type* people would search (e.g. `dental clinic`, `boutique`, `car garage`).
-- Run several related keywords (comma-separate them in the keyword box) to widen coverage.
-- Each keyword+city search returns up to **60 results** (Google's hard cap), so coverage comes
-  from running **many keyword × city combinations**, not from one big query.
+design (e.g. `"beauty salon in Paris, France"`). Run several related keywords (comma/space
+separated) to widen coverage. Each keyword+location search returns up to **60 results** (Google's
+hard cap), so coverage comes from running **many keyword × location combinations**.
 
 **How do I make the API key permanent (stop pasting it)?**
 Set `GOOGLE_MAPS_API_KEY` as an environment variable on the server (Vercel → Project → Settings →
-Environment Variables). The app detects it and the form's key box becomes optional. See
-[DEPLOY_VERCEL.md](DEPLOY_VERCEL.md) step 5. Keep the URL private if you do this.
+Environment Variables). The app detects it and the form's key box becomes optional. Keep the URL
+private if you do this.
 
 **How do I scrape as much as possible?**
-- **Web app:** capped per run (serverless time limit). Run batches: e.g. one state at a time, or
-  a set of cities, repeatedly. Use "Top 60" depth for maximum results per search.
-- **Local CLI / uncapped local web form (best for bulk):** no time limit — full beginner steps in [RUN_LOCALLY.md](RUN_LOCALLY.md). Examples:
-  ```bash
-  python find_leads.py --states Maharashtra Karnataka Tamil Nadu --max-pages 3
-  python find_leads.py --all-india --max-pages 3        # everything (large - mind the cost)
-  ```
-  The CLI writes CSV **and** a real Excel `.xlsx`, and de-dupes across the whole run.
-
-> Reminder: each search consumes Google quota. Big sweeps cost money — keep a budget + daily
-> quota cap set (SETUP_GUIDE.md, Step 6), and start narrow.
+The web app is uncapped by default; on Vercel set `GMB_MAX_QUERIES` to avoid the ~60s timeout, or
+use the local CLI / local web form for unlimited runs ([RUN_LOCALLY.md](RUN_LOCALLY.md)).

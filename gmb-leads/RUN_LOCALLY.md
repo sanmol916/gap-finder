@@ -71,40 +71,39 @@ Keep the key handy — you'll paste it into the commands below where it says `PA
 
 # OPTION A — The CLI (unlimited, best for big runs)
 
-The CLI has **no cap at all**. It saves results to `gmb-leads/output/` as **CSV and Excel**.
+The CLI has **no cap at all**. It saves results to `gmb-leads/output/` as **CSV and Excel**, and
+always writes **two sheets**: businesses *without* a website and businesses *with* a website.
 
 > Below, use `python` on Windows and `python3` on Mac.
 
-**A few cities + your own keywords:**
+**WORLDWIDE — type any places you want (multiple, no limit):**
 ```
-python find_leads.py --api-key "PASTE_YOUR_KEY" --cities Mumbai Pune --categories "beauty salon" "web design agency"
+python find_leads.py --api-key "PASTE_YOUR_KEY" --locations "Paris, France" "New York, USA" "Dubai, UAE" --categories "beauty salon" "web design agency"
 ```
 
-**A whole state (all its major cities):**
+**Bias results toward one country (optional ISO code, e.g. GB, US, AE):**
 ```
+python find_leads.py --api-key "PASTE_YOUR_KEY" --locations "London" "Manchester" --region GB --categories "cafe" "gym"
+```
+
+**India presets (still supported):**
+```
+python find_leads.py --api-key "PASTE_YOUR_KEY" --cities Mumbai Pune --categories "beauty salon"
 python find_leads.py --api-key "PASTE_YOUR_KEY" --states "Uttar Pradesh" --max-pages 3
-```
-
-**Several states:**
-```
-python find_leads.py --api-key "PASTE_YOUR_KEY" --states Maharashtra Karnataka "Tamil Nadu" --max-pages 3
-```
-
-**EVERYTHING — all of India (large; mind the cost):**
-```
 python find_leads.py --api-key "PASTE_YOUR_KEY" --all-india --max-pages 3
 ```
 
 What the options mean:
-- `--cities` exact cities (space separated; quote names with spaces).
-- `--states` scans every preset city in those states.
-- `--all-india` scans every city in `presets.json`.
+- `--locations` any places on Earth (space separated; quote anything with spaces / commas).
+- `--region` optional ISO 3166-1 country code to bias results (e.g. `GB`, `US`, `IN`).
+- `--cities` / `--states` / `--all-india` use the built-in India presets instead.
 - `--categories` your keywords (space separated, quote multi-word ones). Omit to use the presets.
 - `--max-pages 3` pulls up to 60 results per search (the max). Use `1` for cheaper/faster.
 
 **Your results:** open the `output` folder inside `gmb-leads`:
 ```
-gmb-leads/output/india_no_website_leads.xlsx   (also .csv)
+gmb-leads/output/worldwide_leads_no_website.xlsx     (also .csv)
+gmb-leads/output/worldwide_leads_with_website.xlsx   (also .csv)
 ```
 Double-click the `.xlsx`, or import the `.csv` into Google Sheets.
 
@@ -112,38 +111,35 @@ Double-click the `.xlsx`, or import the `.csv` into Google Sheets.
 
 # OPTION B — The web form, locally (no cap)
 
-Same dropdown UI you used on Vercel, but with the limit removed. The magic switch is the
-environment variable **`GMB_UNCAPPED=1`**.
+The same browser UI, running on your computer. Locally it's **uncapped by default** — no
+environment switch needed. (On Vercel you'd set `GMB_MAX_QUERIES` to cap; locally, leave it unset.)
 
 ### Windows — Command Prompt (cmd)
-Run these three lines in the terminal from STEP 3:
+Run these lines in the terminal from STEP 3:
 ```
 set GOOGLE_MAPS_API_KEY=PASTE_YOUR_KEY
-set GMB_UNCAPPED=1
 python api/index.py
 ```
 
 ### Windows — PowerShell
 ```
 $env:GOOGLE_MAPS_API_KEY="PASTE_YOUR_KEY"
-$env:GMB_UNCAPPED="1"
 python api/index.py
 ```
 
 ### Mac / Linux
 ```
 export GOOGLE_MAPS_API_KEY="PASTE_YOUR_KEY"
-export GMB_UNCAPPED=1
 python3 api/index.py
 ```
 
 Then:
 1. You'll see a line like `Running on http://127.0.0.1:5000`.
 2. Open a browser and go to **http://localhost:5000**
-3. The key box can stay empty (it's read from the env var). The form will say
-   **"No per-run cap (local mode)"**.
-4. Pick a State and/or cities, type your keywords, choose depth, click **Find no-website leads**,
-   then **Download CSV**.
+3. The key box can stay empty (it's read from the env var). The form shows **"No per-run limit"**.
+4. Paste your **locations** (one per line — any places worldwide), optionally pick a **country
+   bias**, type your **keywords**, choose depth, click **Find leads**, then download the
+   **two CSVs**: *no website* and *with website*.
 5. To stop the local server later, go back to the terminal and press **Ctrl + C**.
 
 > Big runs may make the browser "spin" for a few minutes — that's normal locally (no timeout).
